@@ -1,0 +1,8 @@
+\[
+\mathcal C_{\mathrm{work}}
+=\bigcup_{s\in\mathcal S_{\mathrm{work}}}\mathcal C_s,
+\qquad
+\mathcal C_{\mathrm{traj}}
+=\bigcup_{s\in\mathcal S_{\mathrm{all}}}\mathcal C_s.
+\qquad(22)
+\]

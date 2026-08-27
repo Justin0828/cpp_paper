@@ -1,0 +1,63 @@
+% !TeX program = xelatex
+\documentclass[UTF8,a4paper,11pt,fontset=none]{ctexart}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,longtable,array,ragged2e}
+\usepackage{float}
+\usepackage[most]{tcolorbox}
+\usepackage{hyperref}
+\usepackage[pipeTables,texMathDollars,rawAttribute]{markdown}
+\hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=blue}
+\setCJKmainfont[
+  Path=/System/Library/Fonts/Supplemental/,
+  FontIndex=4,
+  BoldFont=Songti.ttc,
+  BoldFeatures={FontIndex=1}
+]{Songti.ttc}
+\setCJKsansfont[Path=/System/Library/Fonts/]{STHeiti Medium.ttc}
+\setCJKmonofont[Path=/System/Library/Fonts/Supplemental/]{Songti.ttc}
+% Manual numeric citations in the Markdown source link to BibTeX's anchors.
+\newcommand{\refjump}[2]{\hyperlink{cite.#1}{[#2]}}
+\graphicspath{{figures/}}
+\setlength{\parskip}{0.35em}
+\setlength{\parindent}{2em}
+\setcounter{secnumdepth}{0} % 正文源稿已保留章节编号
+\newtcolorbox{algorithmblock}{
+  colback=black!2,
+  colframe=black!45,
+  boxrule=0.55pt,
+  arc=1mm,
+  left=3mm,right=3mm,top=2.5mm,bottom=2.5mm
+}
+\renewcommand{\markdownRendererImagePrototype}[4]{%
+  \begin{center}%
+    \includegraphics[width=0.92\linewidth,height=0.78\textheight,keepaspectratio]{#3}%
+  \end{center}%
+}
+
+\title{面向有障碍环境的摆臂式抹平机器人覆盖路径规划—v2}
+\author{ 潘宇治}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+本文提出一套面向有障碍施工环境中摆臂式混凝土抹平机器人的分层覆盖路径规划草稿。该方法显式保留车体、摆臂和圆形抹盘的协同扫掠关系，并结合矩形分区、连通性修复、全局访问和速度耦合评价生成连续作业轨迹。
+\end{abstract}
+
+\noindent\textbf{关键词：} 覆盖路径规划；建筑机器人；混凝土抹平；摆臂机器人；区域分解
+
+% Each section is maintained independently. The markdown package parses these
+% files, allowing the existing Chinese text, tables, figures, and equations to
+% remain editable while main.tex owns the document-level configuration.
+\markdownInput{sections/intro.tex}
+\markdownInput{sections/method.tex}
+\markdownInput{sections/experiments.tex}
+\markdownInput{sections/conclusion.tex}
+
+\nocite{*}
+\bibliographystyle{unsrturl}
+\bibliography{refs}
+
+\end{document}

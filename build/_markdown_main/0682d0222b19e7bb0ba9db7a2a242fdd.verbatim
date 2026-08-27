@@ -1,0 +1,7 @@
+\[
+\mathcal C_s
+=\bigcup_{\tau\in[0,T_s]}
+\left\{\mathbf z:
+\|\mathbf z-\mathbf p_d^s(\tau)\|_2\le r_d\right\}.
+\qquad(21)
+\]

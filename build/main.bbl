@@ -1,0 +1,130 @@
+\begin{thebibliography}{10}
+
+\bibitem{bls2024}
+{U.S. Bureau of Labor Statistics}.
+\newblock Census of fatal occupational injuries summary, 2024, 2026.
+\newblock URL: \url{https://www.bls.gov/news.release/cfoi.nr0.htm}.
+
+\bibitem{niosh2024}
+{National Institute for Occupational Safety and Health}.
+\newblock Silica and worker health, 2024.
+\newblock URL: \url{https://www.cdc.gov/niosh/silica/about/index.html}.
+
+\bibitem{albers2004}
+J.~Albers, S.~Russell, and K.~Stewart.
+\newblock Concrete leveling techniques---a comparative ergonomic assessment.
+\newblock In {\em Proceedings of the Human Factors and Ergonomics Society
+  Annual Meeting}, volume~48, pages 1357--1361, 2004.
+\newblock \href {https://doi.org/10.1177/154193120404801217}
+  {\path{doi:10.1177/154193120404801217}}.
+
+\bibitem{kobayashi1996}
+M.~Kobayashi, M.~Soma, and T.~Shigihara.
+\newblock Development and implementation of troweling robot for concrete floor
+  finishing.
+\newblock In {\em Proceedings of the 13th International Symposium on Automation
+  and Robotics in Construction}, pages 973--980, 1996.
+\newblock \href {https://doi.org/10.22260/ISARC1996/0113}
+  {\path{doi:10.22260/ISARC1996/0113}}.
+
+\bibitem{hwangbo1999}
+M.~Hwangbo, B.-J. You, S.-R. Oh, K.~Y. Yi, S.~H. Kim, S.~Y. Chung, S.~S. Han,
+  I.~H. Suh, and W.-K. Chung.
+\newblock Development of an unmanned autonomous concrete floor robotic
+  troweling system.
+\newblock In {\em Proceedings of the 16th International Symposium on Automation
+  and Robotics in Construction}, pages 79--84, 1999.
+\newblock \href {https://doi.org/10.22260/ISARC1999/0012}
+  {\path{doi:10.22260/ISARC1999/0012}}.
+
+\bibitem{lin2025}
+J.-R. Lin, S.~Zhou, P.~Pan, R.~Cai, and G.~Chen.
+\newblock Sataoi: Delimitating area of interest for swing-arm troweling robot
+  for construction.
+\newblock In {\em Proceedings of the 42nd International Symposium on Automation
+  and Robotics in Construction}, pages 389--396, 2025.
+\newblock URL:
+  \url{https://www.iaarc.org/publications/2025_proceedings_of_the_42nd_isarc_montreal_canada/sataoi_delimitating_area_of_interest_for_swing-arm_troweling_robot_for_construction.html},
+  \href {https://doi.org/10.22260/ISARC2025/0052}
+  {\path{doi:10.22260/ISARC2025/0052}}.
+
+\bibitem{ocs2024}
+{Ontario Construction Secretariat}.
+\newblock 2024 contractor survey, 2024.
+\newblock URL:
+  \url{https://iciconstruction.com/wp-content/uploads/2024/03/OCS_C-SURVEY_RPT2024-FINAL-E-Version.pdf}.
+
+\bibitem{galceran2013}
+E.~Galceran and M.~Carreras.
+\newblock A survey on coverage path planning for robotics.
+\newblock {\em Robotics and Autonomous Systems}, 61(12):1258--1276, 2013.
+\newblock \href {https://doi.org/10.1016/j.robot.2013.09.004}
+  {\path{doi:10.1016/j.robot.2013.09.004}}.
+
+\bibitem{choset1998}
+H.~Choset and P.~Pignon.
+\newblock Coverage path planning: The boustrophedon cellular decomposition.
+\newblock In {\em Proceedings of the 1st International Conference on Field and
+  Service Robotics}, pages 203--209, 1998.
+
+\bibitem{gabriely2001}
+Y.~Gabriely and E.~Rimon.
+\newblock Spanning-tree based coverage of continuous areas by a mobile robot.
+\newblock {\em Annals of Mathematics and Artificial Intelligence}, 31:77--98,
+  2001.
+\newblock \href {https://doi.org/10.1023/A:1016610507833}
+  {\path{doi:10.1023/A:1016610507833}}.
+
+\bibitem{bahnemann2021}
+R.~Bähnemann, N.~Lawrance, J.~J. Chung, M.~Pantic, R.~Siegwart, and J.~Nieto.
+\newblock Revisiting boustrophedon coverage path planning as a generalized
+  traveling salesman problem.
+\newblock In {\em Field and Service Robotics}, pages 277--290, 2021.
+\newblock \href {https://doi.org/10.1007/978-981-15-9460-1_20}
+  {\path{doi:10.1007/978-981-15-9460-1_20}}.
+
+\bibitem{polygoncoverage}
+{Autonomous Systems Lab, ETH Zurich}.
+\newblock polygon\_coverage\_planning: Coverage planning in general polygons
+  with holes, 2026.
+\newblock Accessed 2026-06-28.
+\newblock URL: \url{https://github.com/ethz-asl/polygon_coverage_planning}.
+
+\bibitem{mier2023}
+G.~Mier, J.~Valente, and S.~de~Bruin.
+\newblock Fields2cover: An open-source coverage path planning library for
+  unmanned agricultural vehicles.
+\newblock {\em IEEE Robotics and Automation Letters}, 8(4):2166--2172, 2023.
+\newblock \href {https://doi.org/10.1109/LRA.2023.3248439}
+  {\path{doi:10.1109/LRA.2023.3248439}}.
+
+\bibitem{fields2cover}
+{Fields2Cover contributors}.
+\newblock Fields2cover: Robust and efficient coverage paths for autonomous
+  agricultural vehicles, 2026.
+\newblock Accessed 2026-06-28.
+\newblock URL: \url{https://github.com/Fields2Cover/Fields2Cover}.
+
+\bibitem{nobleo}
+{Nobleo Technology}.
+\newblock Full coverage path planner, 2026.
+\newblock Accessed 2026-06-28.
+\newblock URL: \url{https://github.com/nobleo/full_coverage_path_planner}.
+
+\bibitem{shin2003}
+D.~H. Shin and D.~H. Han.
+\newblock Open-loop velocity control of concrete floor finishing robots.
+\newblock {\em Journal of Intelligent \& Robotic Systems}, 36(3):285--300,
+  2003.
+\newblock \href {https://doi.org/10.1023/A:1023037004444}
+  {\path{doi:10.1023/A:1023037004444}}.
+
+\bibitem{thakar2022}
+S.~Thakar, R.~K. Malhan, P.~M. Bhatt, and S.~K. Gupta.
+\newblock Area-coverage planning for spray-based surface disinfection with a
+  mobile manipulator.
+\newblock {\em Robotics and Autonomous Systems}, 147:103920, 2022.
+\newblock \href {https://doi.org/10.1016/j.robot.2021.103920}
+  {\path{doi:10.1016/j.robot.2021.103920}}.
+
+\end{thebibliography}

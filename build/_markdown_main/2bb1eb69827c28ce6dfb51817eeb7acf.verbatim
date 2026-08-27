@@ -1,0 +1,9 @@
+\[
+\begin{aligned}
+T_{\mathrm{transit}}(R)
+&=\sum_k\frac{d_k}{v_{\max}}
++\sum_m\frac{|\Delta\theta_m|}{\omega_{\max}} \\
+&\quad+\sum_m\frac{|\Delta\phi_m|}{\omega_{a,\max}}.
+\end{aligned}
+\qquad(19)
+\]

@@ -1,0 +1,35 @@
+\begin{table}[H]
+\centering
+\caption{三种候选扫描策略在五张地图上的结果}
+\label{tab:scan-strategy}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrr}
+\toprule
+地图 & 策略 & 贪婪覆盖率 & 最终分区覆盖率 & 分区重叠率 & 全轨迹覆盖率 & 总时长 (s) \\
+\midrule
+\texttt{map\_test1} & row-only & 72.01\% & 100.00\% & 34.21\% & 93.04\% & \textbf{696.89} \\
+& col-only & 72.01\% & 100.00\% & 34.21\% & 93.04\% & \textbf{696.89} \\
+& row-then-col & \textbf{100.00\%} & 100.00\% & \textbf{0.00\%} & \textbf{94.11\%} & 854.73 \\
+\texttt{parkingGraph} & row-only & \textbf{87.32\%} & 100.00\% & \textbf{75.34\%} & 95.73\% & \textbf{5844.73} \\
+& col-only & \textbf{87.32\%} & 100.00\% & \textbf{75.34\%} & \textbf{95.90\%} & 5896.03 \\
+& row-then-col & \textbf{87.32\%} & 100.00\% & \textbf{75.34\%} & 95.73\% & \textbf{5844.73} \\
+\texttt{scan\_comb\_corridors} & row-only & 87.18\% & 100.00\% & 34.46\% & 93.82\% & 2065.09 \\
+& col-only & 86.53\% & 100.00\% & 31.46\% & 93.94\% & 2032.55 \\
+& row-then-col & \textbf{96.22\%} & 100.00\% & \textbf{27.13\%} & \textbf{94.01\%} & \textbf{1986.42} \\
+\texttt{scan\_mixed\_weave} & row-only & 84.23\% & 100.00\% & 47.89\% & 95.26\% & 1532.65 \\
+& col-only & 83.17\% & 100.00\% & 52.59\% & 95.49\% & 1575.63 \\
+& row-then-col & \textbf{96.76\%} & 100.00\% & \textbf{40.74\%} & \textbf{95.70\%} & \textbf{1522.77} \\
+\texttt{scan\_offset\_rooms} & row-only & 82.95\% & 100.00\% & 38.78\% & 91.97\% & 1496.73 \\
+& col-only & 81.81\% & 100.00\% & 36.74\% & 91.51\% & 1443.31 \\
+& row-then-col & \textbf{99.14\%} & 100.00\% & \textbf{24.46\%} & \textbf{92.06\%} & \textbf{1374.38} \\
+\midrule
+五图平均 & row-only & -- & -- & -- & 93.96\% & 2327.22 \\
+& col-only & -- & -- & -- & 93.98\% & 2328.88 \\
+& row-then-col & -- & -- & -- & \textbf{94.32\%} & \textbf{2316.60} \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}

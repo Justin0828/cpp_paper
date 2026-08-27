@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="140mm" height="76mm" viewBox="0 0 1400 760" role="img" aria-labelledby="title description">
+  <title id="title">Coverage path planning overall pipeline</title>
+  <desc id="description">Planning inputs feed four parallel coverage path planning modules, followed by continuous disk-sweep coverage evaluation.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,4.5 L0,9 z" fill="#415A77"/>
+    </marker>
+    <style>
+      .frame { stroke: #B7C4D1; stroke-width: 2; }
+      .header { fill: #173B5E; }
+      .title { fill: #FFFFFF; font-family: Arial, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif; font-size: 26px; font-weight: 700; text-anchor: middle; }
+      .title-small { fill: #FFFFFF; font-family: Arial, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif; font-size: 22px; font-weight: 700; text-anchor: middle; }
+      .body { fill: #1D2939; font-family: Arial, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif; font-size: 21px; font-weight: 400; text-anchor: middle; }
+      .body-small { fill: #1D2939; font-family: Arial, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif; font-size: 19px; font-weight: 400; text-anchor: middle; }
+      .output { fill: #173B5E; font-family: Arial, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif; font-size: 20px; font-weight: 600; text-anchor: middle; }
+      .output-small { fill: #173B5E; font-family: Arial, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif; font-size: 17px; font-weight: 600; text-anchor: middle; }
+      .formula { fill: #173B5E; font-family: 'Cambria Math', Cambria, serif; font-size: 15px; font-style: italic; text-anchor: middle; }
+      .math { font-family: 'Cambria Math', Cambria, serif; font-style: italic; }
+      .separator { stroke: #CBD5E1; stroke-width: 1.5; }
+      .flow { fill: none; stroke: #415A77; stroke-width: 4; stroke-linecap: round; marker-end: url(#arrow); }
+      .group-label { fill: #415A77; font-family: Arial, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif; font-size: 20px; font-weight: 700; }
+      .metric-label { fill: #475467; font-family: Arial, 'Noto Sans CJK SC', 'Microsoft YaHei', sans-serif; font-size: 20px; font-weight: 600; }
+      .metric { fill: #173B5E; font-family: 'Cambria Math', Cambria, serif; font-size: 21px; font-style: italic; }
+    </style>
+  </defs>
+
+  <rect width="1400" height="760" fill="#FFFFFF"/>
+
+  <!-- Main information flow: inputs -> parallel planning modules -> evaluation. -->
+  <path class="flow" d="M275 380 H303"/>
+  <path class="flow" d="M1045 380 H1068"/>
+
+  <!-- Input card -->
+  <g id="planning-inputs">
+    <rect class="frame" x="25" y="120" width="250" height="520" rx="18" fill="#F4F6F8"/>
+    <path class="header" d="M43 120 H257 A18 18 0 0 1 275 138 V190 H25 V138 A18 18 0 0 1 43 120 Z"/>
+    <text class="title" x="150" y="163">规划输入</text>
+    <circle cx="55" cy="241" r="4" fill="#667085"/><text class="body" x="160" y="248">作业地图</text>
+    <circle cx="55" cy="299" r="4" fill="#667085"/><text class="body" x="160" y="306">边界、障碍与</text>
+    <text class="body" x="160" y="334">坐标标定</text>
+    <circle cx="55" cy="390" r="4" fill="#667085"/><text class="body" x="160" y="397">机器人模型</text>
+    <circle cx="55" cy="448" r="4" fill="#667085"/><text class="body" x="160" y="455">初始状态、几何与</text>
+    <text class="body" x="160" y="483">运动约束</text>
+    <circle cx="55" cy="539" r="4" fill="#667085"/><text class="body" x="160" y="546">规划配置参数</text>
+  </g>
+
+  <!-- Parallel planning-module container -->
+  <g id="parallel-planning-modules">
+    <rect x="310" y="25" width="735" height="710" rx="22" fill="#FAFCFE" stroke="#B7C4D1" stroke-width="2" stroke-dasharray="8 7"/>
+    <rect x="329" y="39" width="186" height="32" rx="16" fill="#E7EFF8"/>
+    <text class="group-label" x="347" y="61">覆盖路径规划模块</text>
+
+    <!-- 1. Rectangular decomposition -->
+    <g id="stage-1-rectangular-decomposition">
+      <rect class="frame" x="340" y="85" width="325" height="280" rx="16" fill="#EEF5FC"/>
+      <path class="header" d="M356 85 H649 A16 16 0 0 1 665 101 V147 H340 V101 A16 16 0 0 1 356 85 Z"/>
+      <text class="title" x="502.5" y="124">1. 矩形分解</text>
+      <text class="body" x="502.5" y="184">将复杂自由空间表示为</text>
+      <text class="body" x="502.5" y="211">若干矩形作业单元</text>
+      <line class="separator" x1="365" y1="231" x2="640" y2="231"/>
+      <text class="body" x="502.5" y="267">保守栅格化、候选选择</text>
+      <rect x="356" y="296" width="293" height="49" rx="11" fill="#DCEBFA"/>
+      <text class="output" x="502.5" y="327">矩形集合 <tspan class="math">R₁</tspan></text>
+    </g>
+
+    <!-- 2. Connectivity completion -->
+    <g id="stage-2-connectivity-completion">
+      <rect class="frame" x="695" y="85" width="325" height="280" rx="16" fill="#ECF9F8"/>
+      <path class="header" d="M711 85 H1004 A16 16 0 0 1 1020 101 V147 H695 V101 A16 16 0 0 1 711 85 Z"/>
+      <text class="title" x="857.5" y="124">2. 连通性补全</text>
+      <text class="body" x="857.5" y="184">建立矩形之间的</text>
+      <text class="body" x="857.5" y="211">可转移关系</text>
+      <line class="separator" x1="720" y1="231" x2="995" y2="231"/>
+      <text class="body" x="857.5" y="267">修复不连通分量</text>
+      <rect x="711" y="296" width="293" height="49" rx="11" fill="#D9F0F0"/>
+      <text class="output" x="857.5" y="327">矩形集 <tspan class="math">R</tspan> 与图 <tspan class="math">G</tspan></text>
+    </g>
+
+    <!-- 3. Single-rectangle coverage and transition modeling -->
+    <g id="stage-3-local-coverage-transition-modeling">
+      <rect class="frame" x="340" y="420" width="325" height="280" rx="16" fill="#FFF6ED"/>
+      <path class="header" d="M356 420 H649 A16 16 0 0 1 665 436 V492 H340 V436 A16 16 0 0 1 356 420 Z"/>
+      <text class="title-small" x="502.5" y="452">3. 单矩形覆盖与</text>
+      <text class="title-small" x="502.5" y="477">转场建模</text>
+      <text class="body-small" x="502.5" y="527">定义矩形内部覆盖运动</text>
+      <text class="body-small" x="502.5" y="551">以及矩形间转场方式</text>
+      <line class="separator" x1="365" y1="569" x2="640" y2="569"/>
+      <text class="body-small" x="502.5" y="596">建立首次覆盖与重复借道的</text>
+      <text class="body-small" x="502.5" y="618">局部运动原语和运动模型</text>
+      <rect x="356" y="631" width="293" height="50" rx="11" fill="#FCE6D2"/>
+      <text class="output-small" x="502.5" y="651">路线搜索所需代价</text>
+      <text class="formula" x="502.5" y="671">T<tspan baseline-shift="sub" font-size="11">cover</tspan>(R), T<tspan baseline-shift="sub" font-size="11">transit</tspan>(Rᵢ,Rⱼ)</text>
+    </g>
+
+    <!-- 4. Global routing and rectangular coverage -->
+    <g id="stage-4-global-routing-coverage">
+      <rect class="frame" x="695" y="420" width="325" height="280" rx="16" fill="#F0F9F1"/>
+      <path class="header" d="M711 420 H1004 A16 16 0 0 1 1020 436 V492 H695 V436 A16 16 0 0 1 711 420 Z"/>
+      <text class="title-small" x="857.5" y="452">4. 全局路线与</text>
+      <text class="title-small" x="857.5" y="477">矩形覆盖</text>
+      <text class="body-small" x="857.5" y="527">依据邻接矩阵与局部时间</text>
+      <text class="body-small" x="857.5" y="551">代价确定矩形访问顺序</text>
+      <line class="separator" x1="720" y1="569" x2="995" y2="569"/>
+      <text class="body-small" x="857.5" y="596">实例化局部运动原语并组装</text>
+      <text class="body-small" x="857.5" y="618">连续车体—摆臂轨迹</text>
+      <rect x="711" y="631" width="293" height="50" rx="11" fill="#DCEFDf"/>
+      <text class="output-small" x="857.5" y="651">访问序列 <tspan class="math">Π</tspan></text>
+      <text class="output-small" x="857.5" y="671">完整轨迹 <tspan class="math">Q(t)</tspan></text>
+    </g>
+  </g>
+
+  <!-- Evaluation card -->
+  <g id="continuous-disk-sweep-evaluation">
+    <rect class="frame" x="1080" y="120" width="295" height="520" rx="18" fill="#F5F1FA"/>
+    <path class="header" d="M1098 120 H1357 A18 18 0 0 1 1375 138 V200 H1080 V138 A18 18 0 0 1 1098 120 Z"/>
+    <text class="title-small" x="1227.5" y="155">连续抹盘扫掠与</text>
+    <text class="title-small" x="1227.5" y="180">覆盖评价</text>
+    <text class="body" x="1227.5" y="250">由完整运动轨迹直接计算</text>
+    <text class="body" x="1227.5" y="278">连续圆盘扫掠区域</text>
+    <line class="separator" x1="1105" y1="302" x2="1350" y2="302"/>
+    <rect x="1105" y="328" width="245" height="58" rx="10" fill="#ECE5F5"/>
+    <text class="metric-label" x="1121" y="364">全轨迹覆盖率</text>
+    <text class="metric" x="1280" y="364">ρ<tspan baseline-shift="sub" font-size="14">traj</tspan></text>
+    <rect x="1105" y="401" width="245" height="58" rx="10" fill="#ECE5F5"/>
+    <text class="metric-label" x="1121" y="437">覆盖执行时长</text>
+    <text class="metric" x="1280" y="437">T<tspan baseline-shift="sub" font-size="14">exec</tspan></text>
+    <rect x="1105" y="474" width="245" height="58" rx="10" fill="#ECE5F5"/>
+    <text class="metric-label" x="1121" y="510">算法运行时长</text>
+    <text class="metric" x="1280" y="510">T<tspan baseline-shift="sub" font-size="14">plan</tspan></text>
+  </g>
+</svg>

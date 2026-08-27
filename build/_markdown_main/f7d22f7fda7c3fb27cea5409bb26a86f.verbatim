@@ -1,0 +1,11 @@
+\[
+\begin{aligned}
+\rho_{\mathrm{work}}
+&=\frac{|\Pi_p(\mathcal C_{\mathrm{work}})\cap\mathcal P_F|}
+{|\mathcal P_F|}, \\
+\rho_{\mathrm{traj}}
+&=\frac{|\Pi_p(\mathcal C_{\mathrm{traj}})\cap\mathcal P_F|}
+{|\mathcal P_F|}.
+\end{aligned}
+\qquad(23)
+\]

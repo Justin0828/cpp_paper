@@ -1,0 +1,20 @@
+\begin{table}[H]
+\centering
+\caption{本文方法与 Fields2Cover 的对比结果}
+\label{tab:fields2cover-comparison}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{llrrrrrl}
+\toprule
+地图 & 方法 & 评价面积 (m$^2$) & 覆盖面积 (m$^2$) & 覆盖率 & 总时长 (s) & 规划运行时 (s) & 路径检查 \\
+\midrule
+\texttt{map\_test1} & 本文方法 & 611.00 & \textbf{575.00} & \textbf{94.11\%} & 854.73 & 1.298 & 通过 \\
+& Fields2Cover & 533.17 & 418.00 & 78.40\% & \textbf{295.50} & \textbf{0.075} & 生成结果（无效路径），越界 4.51 m$^2$ \\
+\texttt{parkingGraph} & 本文方法 & 4294.00 & \textbf{4110.50} & \textbf{95.73\%} & 5844.73 & 17.981 & 通过 \\
+& Fields2Cover & 4046.79 & 3756.85 & 92.84\% & \textbf{2883.81} & \textbf{6.339} & 生成结果（无效路径），越界 20.00 m$^2$ \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}

@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99e (TeX Live 2026)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: unsrturl.bst
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: refs.bib
+Warning--can't use both volume and number fields in albers2004
+You've used 17 entries,
+            2616 wiz_defined-function locations,
+            693 strings with 8222 characters,
+and the built_in function-call counts, 6898 in all, are:
+= -- 721
+> -- 191
+< -- 7
++ -- 64
+- -- 47
+* -- 342
+:= -- 848
+add.period$ -- 64
+call.type$ -- 17
+change.case$ -- 17
+chr.to.int$ -- 0
+cite$ -- 18
+duplicate$ -- 215
+empty$ -- 775
+format.name$ -- 47
+if$ -- 1947
+int.to.chr$ -- 0
+int.to.str$ -- 17
+missing$ -- 11
+newline$ -- 101
+num.names$ -- 17
+pop$ -- 167
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 527
+stack$ -- 0
+substring$ -- 336
+swap$ -- 99
+text.length$ -- 27
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 44
+width$ -- 19
+write$ -- 211
+(There was 1 warning)
