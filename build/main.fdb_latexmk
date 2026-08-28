@@ -1,18 +1,18 @@
 # Fdb version 4
-["bibtex build/main"] 1785745487.79745 "build/main.aux" "build/main.bbl" "build/main" 1787817267.08358 0
-  "./refs.bib" 1787816462.44504 5334 0f0d8e752bc3c4ac87bde35ff6b43f04 ""
+["bibtex build/main"] 1787902356.96429 "build/main.aux" "build/main.bbl" "build/main" 1787902361.92792 0
+  "./refs.bib" 1787901626.80128 7021 7f39bf050fd4b24a25413a064c9fa580 ""
   "/usr/local/texlive/2026/texmf-dist/bibtex/bst/urlbst/unsrturl.bst" 1675116457 30912 2cfc330ae0a68bbf7dc64e1666bbb15c ""
-  "build/main.aux" 1787817263.90015 6515 74d8a1ea5c31c086cf577cc52c2d5248 "xelatex"
+  "build/main.aux" 1787902359.01389 6598 00ee5533eb34a95304ad827ece0d0ec1 "xelatex"
   (generated)
   "build/main.bbl"
   "build/main.blg"
   (rewritten before read)
-["xdvipdfmx"] 1787817264.11087 "build/main.xdv" "build/main.pdf" "build/main" 1787817267.0851 0
-  "build/main.xdv" 1787817263.90084 502604 e6aab6c43fffec72b5bc1ea72618de87 "xelatex"
+["xdvipdfmx"] 1787902359.22369 "build/main.xdv" "build/main.pdf" "build/main" 1787902361.92947 0
+  "build/main.xdv" 1787902359.01477 567688 a9c6344b7517bbded9ff2238b63e7326 "xelatex"
   (generated)
   "build/main.pdf"
   (rewritten before read)
-["xelatex"] 1787817261.7635 "main.tex" "build/main.xdv" "main" 1787817267.08363 0
+["xelatex"] 1787902357.06311 "main.tex" "build/main.xdv" "main" 1787902361.92799 0
   "/usr/local/texlive/2026/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
   "/usr/local/texlive/2026/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -226,19 +226,15 @@
   "build/_markdown_main/0682d0222b19e7bb0ba9db7a2a242fdd.verbatim" 1787816462.43508 125 0682d0222b19e7bb0ba9db7a2a242fdd ""
   "build/_markdown_main/172fae217bde2a419f4b11f8083e2e5d.md.tex" 1787816462.43518 22228 7e2f9d76cec1123995f3560fc1dfc27d ""
   "build/_markdown_main/2193d3fbe9c6db531b4e3fc026cf71d0.verbatim" 1787816462.43525 936 2193d3fbe9c6db531b4e3fc026cf71d0 ""
-  "build/_markdown_main/23475ec1e95b64de72d125bed1aea043.md.tex" 1787816462.43534 20674 da7c50b76b2fdd87184c875eac420a27 ""
   "build/_markdown_main/2bb1eb69827c28ce6dfb51817eeb7acf.verbatim" 1787816462.4354 201 2bb1eb69827c28ce6dfb51817eeb7acf ""
-  "build/_markdown_main/40549c0b74e0122b2bda234219b70abf.verbatim" 1787816462.43545 22 40549c0b74e0122b2bda234219b70abf ""
   "build/_markdown_main/43cf3e74af908c2621c3f5860e2e69d9.verbatim" 1787816462.43551 911 43cf3e74af908c2621c3f5860e2e69d9 ""
   "build/_markdown_main/47a7a52248e53b5e8cdd17d2ee7f8d86.verbatim" 1787816462.43557 1965 47a7a52248e53b5e8cdd17d2ee7f8d86 ""
+  "build/_markdown_main/4bae00a2f96e203aca8ad2d2cf02dcbe.verbatim" 1787902017.68533 2492 4bae00a2f96e203aca8ad2d2cf02dcbe ""
   "build/_markdown_main/4d913455b6c49ff12d449f1119ea7540.md.tex" 1787816462.43563 2274 29a629a767d0d2d439857c0f7565f417 ""
-  "build/_markdown_main/4f43a6e60f776c228c6712b2f3ffa182.verbatim" 1787816462.43567 23 4f43a6e60f776c228c6712b2f3ffa182 ""
-  "build/_markdown_main/632ceed430141d655b4e65d23cd46ccd.verbatim" 1787816462.43573 3369 632ceed430141d655b4e65d23cd46ccd ""
   "build/_markdown_main/6c6079a9dcda9ac8543c9572fcfd55ca.verbatim" 1787816462.43578 645 6c6079a9dcda9ac8543c9572fcfd55ca ""
+  "build/_markdown_main/721b3360b68f59854b2a0b95041e643f.verbatim" 1787902017.68505 303 721b3360b68f59854b2a0b95041e643f ""
   "build/_markdown_main/8dab449790458bfe9ffbb99890b5c386.verbatim" 1787816462.43584 186 8dab449790458bfe9ffbb99890b5c386 ""
-  "build/_markdown_main/a4ea539437f5fc29b19ecec7ab3998ca.verbatim" 1787816462.43589 351 a4ea539437f5fc29b19ecec7ab3998ca ""
-  "build/_markdown_main/aa222881b57da49801246debef1b7579.verbatim" 1787816462.43594 20 aa222881b57da49801246debef1b7579 ""
-  "build/_markdown_main/b2c8e400542b4d6efac7fad1d02e1efc.verbatim" 1787816462.43599 26 b2c8e400542b4d6efac7fad1d02e1efc ""
+  "build/_markdown_main/99ea571f06d438dbdde920fecd242b0f.md.tex" 1787902017.69218 29410 65317fa5d914311ce87b7fb662089115 ""
   "build/_markdown_main/b3d475c3348c235be51f48eee38d05e3.verbatim" 1787816462.43605 249 b3d475c3348c235be51f48eee38d05e3 ""
   "build/_markdown_main/ba0746a4cd9d5032452cb172ca11f200.verbatim" 1787816462.4361 111 ba0746a4cd9d5032452cb172ca11f200 ""
   "build/_markdown_main/c7ec353083f0b250c969c65ab1cd0e36.verbatim" 1787816462.43615 1097 c7ec353083f0b250c969c65ab1cd0e36 ""
@@ -246,12 +242,12 @@
   "build/_markdown_main/f4ebbadf97a3cc3d56f69718c081f67e.md.tex" 1787816462.43632 36154 dcb5115d5b916cb7ddbdfd197d9ea412 ""
   "build/_markdown_main/f7d22f7fda7c3fb27cea5409bb26a86f.verbatim" 1787816462.4364 249 f7d22f7fda7c3fb27cea5409bb26a86f ""
   "build/_markdown_main/fc89e8bea393669a682ab6e01f560db6.verbatim" 1787816462.43645 59 fc89e8bea393669a682ab6e01f560db6 ""
-  "build/main.aux" 1787817263.90015 6515 74d8a1ea5c31c086cf577cc52c2d5248 "xelatex"
-  "build/main.bbl" 1787816462.43658 5395 962ef2d338e892d22f050c59fca35130 "bibtex build/main"
-  "build/main.out" 1787817263.90069 5503 5a2a4f7e0f05c294ac51222f4c817832 "xelatex"
+  "build/main.aux" 1787902359.01389 6598 00ee5533eb34a95304ad827ece0d0ec1 "xelatex"
+  "build/main.bbl" 1787902357.05572 7103 6201944dadbc650a2964300e15cc2511 "bibtex build/main"
+  "build/main.out" 1787902359.0146 5503 5a2a4f7e0f05c294ac51222f4c817832 "xelatex"
   "figures/figure_1_swing_arm_troweling_robot_photo.jpg" 1787816462.43902 162189 a65974f3f0559a7580c1c84669b1a4b8 ""
   "figures/figure_2_coverage_comparison_cn.png" 1787816462.43971 300374 f815d40916f67d3c85251a1e8d44d769 ""
-  "figures/figure_2_disc_vehicle_relationships.png" 1787816462.44009 153401 e4f6096d0412dd5a7d3eade4a1a82ff8 ""
+  "figures/figure_2_disc_vehicle_relationships.png" 1787896697.75421 252488 4d7b5873aea12a0b98ac1ec67edbf5f7 ""
   "figures/figure_3_geometric_to_binary_raster.png" 1787816462.44051 170106 d3e372464f28ecd78c5f69370865b7ba ""
   "figures/figure_3_segmentation_order_cn.png" 1787816462.44074 76699 d5da128de3f0bc5e4ea6ffd4bc39ae99 ""
   "figures/figure_4_body_arm_disc_model.png" 1787816462.44131 234808 b76fb1e8b402d293c25c93544a94a1fd ""
@@ -259,10 +255,10 @@
   "figures/figure_4_speed_ratio_parkingGraph.png" 1787816462.4431 407997 e8f2bc4af581c891e73ac0668a5b84e9 ""
   "figures/figure_5_coverage_planning_pipeline.png" 1787816462.44398 377187 560974a70db55ae890d61fff4e8b59fb ""
   "figures/figure_6_single_rectangle_coverage.png" 1787816462.4449 433642 8dd5ef7fd13ad943d4416f72a8dda0b7 ""
-  "main.tex" 1787816462.44498 2320 9bd48fa815765b824fce4c4e2ea2bf33 ""
+  "main.tex" 1787902342.98111 2335 3513b153ac6dc766afb8f67b289d90c2 ""
   "sections/conclusion.tex" 1787816462.44514 2010 787325aea81af5eceedf62d9f46e1bcd ""
   "sections/experiments.tex" 1787816462.4452 20024 151fdd237a16dde54ad823b512a1b209 ""
-  "sections/intro.tex" 1787816462.44528 22359 e57e647343d2b520bca192690c4590c5 ""
+  "sections/intro.tex" 1787901924.74705 30184 59df2a0f25da513e1673a515456371e4 ""
   "sections/method.tex" 1787816462.44535 28720 600bd6814acf7dd12ffff6446e546423 ""
   (generated)
   "build/main.aux"

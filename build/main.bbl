@@ -127,4 +127,45 @@ S.~Thakar, R.~K. Malhan, P.~M. Bhatt, and S.~K. Gupta.
 \newblock \href {https://doi.org/10.1016/j.robot.2021.103920}
   {\path{doi:10.1016/j.robot.2021.103920}}.
 
+\bibitem{methvin2026}
+{Methvin}.
+\newblock Concrete finishing: Estimating man-hour norms and planning production
+  rates, 2026.
+\newblock Accessed 2026-08-27.
+\newblock URL:
+  \url{https://methvin.co/production-rates/concrete-work/concrete-finishes/}.
+
+\bibitem{abdelhamid1999}
+T.~S. Abdelhamid and J.~G. Everett.
+\newblock Physiological demands of concrete slab placing and finishing work.
+\newblock {\em Journal of Construction Engineering and Management},
+  125(1):47--52, 1999.
+\newblock \href {https://doi.org/10.1061/(ASCE)0733-9364(1999)125:1(47)}
+  {\path{doi:10.1061/(ASCE)0733-9364(1999)125:1(47)}}.
+
+\bibitem{lee2011}
+T.-K. Lee, S.-H. Baek, Y.-H. Choi, and S.-Y. Oh.
+\newblock Smooth coverage path planning and control of mobile robots based on
+  high-resolution grid map representation.
+\newblock {\em Robotics and Autonomous Systems}, 59(10):801--812, 2011.
+\newblock \href {https://doi.org/10.1016/j.robot.2011.06.002}
+  {\path{doi:10.1016/j.robot.2011.06.002}}.
+
+\bibitem{storms2016}
+J.~Storms, K.~Chen, and D.~Tilbury.
+\newblock Modeling teleoperated robot driving performance as a function of
+  environment difficulty.
+\newblock {\em IFAC-PapersOnLine}, 49(32):216--221, 2016.
+\newblock \href {https://doi.org/10.1016/j.ifacol.2016.12.217}
+  {\path{doi:10.1016/j.ifacol.2016.12.217}}.
+
+\bibitem{delgado2019}
+J.~M. Davila~Delgado, L.~Oyedele, A.~Ajayi, L.~Akanbi, O.~Akinade, M.~Bilal,
+  and H.~Owolabi.
+\newblock Robotics and automated systems in construction: Understanding
+  industry-specific challenges for adoption.
+\newblock {\em Journal of Building Engineering}, 26:100868, 2019.
+\newblock \href {https://doi.org/10.1016/j.jobe.2019.100868}
+  {\path{doi:10.1016/j.jobe.2019.100868}}.
+
 \end{thebibliography}
