@@ -106,7 +106,7 @@
       <text class="body-small" x="857.5" y="618">连续车体—摆臂轨迹</text>
       <rect x="711" y="631" width="293" height="50" rx="11" fill="#DCEFDf"/>
       <text class="output-small" x="857.5" y="651">访问序列 <tspan class="math">Π</tspan></text>
-      <text class="output-small" x="857.5" y="671">完整轨迹 <tspan class="math">Q(t)</tspan></text>
+      <text class="output-small" x="857.5" y="671">完整轨迹 <tspan class="math">q(t)</tspan></text>
     </g>
   </g>
 
