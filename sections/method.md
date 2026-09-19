@@ -1,0 +1,727 @@
+# 3. Algorithms
+
+  
+
+本文研究已知且静态的二维障碍环境中，摆臂式抹平机器人从作业地图到完整覆盖轨迹的规划问题。该问题的关键在于，施工地面会被墙体、立柱和孔洞等结构分割成形状与连接关系复杂的自由空间，而抹盘的位置及其覆盖足迹又由车体位姿与摆臂角度共同决定。因此，规划器不仅需要组织复杂自由空间的全局访问，还需要将每个区域的覆盖任务转化为车体与摆臂可协同执行的连续运动。本文的目标是在满足避障、机器人几何及运动约束的前提下，提高目标地面的有效覆盖率，并降低轨迹执行时长与规划运行时长。矩形数量、重复面积和矩形间转场次数因而仅作为服务于这些最终目标的中间指标，并进一步转化为各层多项式时间启发式中的代理代价。
+
+## 3.1 Overall Planning Pipeline
+
+本文采用“区域表达—图上访问—局部执行—覆盖评价”的分层规划流程。图 3 给出主要数据流：输入包括经坐标标定的二值作业地图 $M$ 及其像素物理尺寸 $s_p$、机器人初始状态 $q_0$、车体—摆臂—抹盘的几何与运动参数 $\Theta_R$，以及规划配置 $\Psi_P$。这些量在第 3.2 节正式定义；本节先说明它们如何逐层转化为可执行轨迹及覆盖评价结果。
+
+![覆盖路径规划总体流程图](figures/pipeline_overall_improved_en.png)
+
+**图 3. 覆盖路径规划框架及其主要数据流。** 左侧为作业地图、坐标标定、机器人模型、初始状态和规划参数；中部四个模块依次产生初始矩形集合 $\mathcal R_1$、最终矩形集合 $\mathcal R$ 与邻接图 $G$、带入口和出口约束的局部运动原语及其时间代价，以及访问序列 $\Pi$ 和完整轨迹 $q(t)$；右侧由连续抹盘扫掠计算覆盖率、执行时长和规划运行时长。
+
+矩形分解模块首先在保守规划栅格上生成候选矩形，并以新增覆盖、矩形数量和重复面积为依据选择适合作业的单元，得到初始集合 $\mathcal R_1$。连通性补全模块据此生成几何邻接候选，通过车体—摆臂转场检查筛除不可执行的关系，并在必要时插入桥接矩形，最终得到矩形集合 $\mathcal R$ 和可行邻接图 $G$。因此，图中的边不仅表示两个矩形在几何上接触，还表示二者之间至少存在一条满足第 3.2 节式 (3a) 和式 (3b) 的局部转场。
+
+  
+
+单矩形建模模块为每个矩形建立两类原语：首次访问采用覆盖原语，重复访问采用借道原语。原语的具体时间取决于入口和出口位姿，分别记为 $T_{\mathrm{cover}}(R;q^{\mathrm{in}},q^{\mathrm{out}})$ 和 $T_{\mathrm{transit}}(R;q^{\mathrm{in}},q^{\mathrm{out}})$。这些代价连同图边上的转场代价共同参与全局路线搜索；访问序列 $\Pi$ 确定后，同一组原语又按首次访问或重复访问状态被实例化并连接为完整轨迹。由此，局部运动模型既服务于访问排序，也服务于最终轨迹生成。
+
+全局模块从初始状态 $q_0$ 出发，在 $G$ 上生成允许重复借道的访问序列，并把相邻原语的端点连接起来，得到带时间和作业状态标记的连续轨迹 $q(t)$。评价模块随后由 $q(t)$ 恢复抹盘中心轨迹，计算有效作业扫掠 $\rho_{\mathrm{work}}$、全轨迹扫掠 $\rho_{\mathrm{traj}}$ 和执行时长 $T_{\mathrm{exec}}$；从规划栅格生成到评价完成的算法用时记为 $T_{\mathrm{plan}}$。第 3.2 节定义输入、状态和指标，第 3.3 至 3.7 节依次说明各模块与连续扫掠评价。
+
+## 3.2 Problem Formulation and Notation
+
+为明确图 3 中各模块的输入与约束，先说明施工场景如何转化为规划地图及机器人状态，再给出运动可行性和评价指标。
+
+### 3.2.1 从真实施工场景到规划输入
+
+  
+
+首先，我们需要针对实际场景，从 CAD/BIM 模型、现场测量数据或定位建图结果中提取规划所需的信息。对于一个待抹平楼层，首先选定与作业地面重合的世界坐标平面 $\mathcal F_W$，并在该平面上确定本次任务的作业边界。随后，将墙体、立柱、设备基础、预埋件、预留孔洞以及作业边界之外的区域统一标记为不可用区域，将边界内允许抹盘作业的剩余地面定义为目标作业区域。若需考虑定位误差、地图误差或额外安全距离，则在栅格化前将不可用区域的轮廓按裕量 $\delta_{\mathrm{map}}$ 向外膨胀。最后，将分类后的平面区域栅格化并进行坐标标定，得到与当前施工场景对应、具有明确物理尺度的二值作业地图；该地图才是后续覆盖路径规划的直接地图输入。
+
+  
+
+在离散化时，需要把 CAD/BIM、现场测量和定位建图等来源不同的几何信息统一为固定分辨率的空间单元，从而为后续的矩形生成、邻接判定、碰撞检查和覆盖率计算提供一致的计算基准。本文以 $s_p$ m/pixel 的分辨率将平面区域转换为二值作业地图 $M$：白色像素表示无障碍且需要纳入本次覆盖任务的目标作业区域，黑色像素表示墙体、立柱、孔洞等障碍物、作业边界之外的区域以及因安全裕量而排除的区域。在规划结果和覆盖评价图中，蓝色像素表示目标作业区域中已被抹盘扫掠覆盖的部分；蓝色是叠加在 $M$ 上的覆盖状态，而不是输入二值地图中的第三类像素。图像坐标与世界坐标之间通过刚体变换 $T_{WM}$ 进行标定，使每个像素单元都能对应到以米为单位的实际地面位置。
+
+  
+
+从平面几何模型到二值地图的转换遵循统一标记和保守离散的原则：不论原始边界的形状如何，所有可作业地面和不可用区域都先投影到同一平面，再按统一分辨率分类为自由栅格与占据栅格；对位于障碍边界或存在归属不确定性的栅格，则优先按不可用区域处理，以避免将障碍空间误判为可作业地面。例如，直线墙体和矩形设备基础可直接按几何边界映射为连续的黑色栅格；圆形立柱、弧形边界和预留孔洞则以当前分辨率下的阶梯状栅格边界近似，并可结合安全裕量扩大其占据范围；对于边界不规则或障碍物密集的区域，则保留其在占据图上的整体形状和连接关系，由后续算法统一完成矩形候选生成、补洞和连通性修复。因此，该转换的核心不是为每种几何形状设计独立的分解规则，而是将不同施工场景统一为同一种可计算的地图表达，其几何近似精度由地图分辨率和安全裕量共同控制。
+
+![精确几何分解到本文二值栅格输入的多场景转换示意图](figures/figure_3_geometric_to_binary_raster.png)
+
+**图 4. 精确几何分解到本文二值栅格输入的多场景转换示意图。** 左列表示从 CAD/BIM、测绘或建图结果中抽象得到的精确二维作业区域及其矩形子区域；右列表示进入本文算法前的二值栅格地图 $M$。白色为自由/待覆盖区域，黑色为障碍、孔洞或作业边界外区域，虚线矩形表示可作为后续矩形候选分区基础的近似单元。该图展示了矩形房间、圆形或弧形边界、L 型区域、T 型或走廊连接、带柱/孔洞区域以及不规则密集障碍区域等常见转换情形。
+
+  
+
+完成地图抽象后，还需从设备图纸、标定实验和控制器限幅中给出机器人模型与初始状态。本文将一次规划任务的场景输入拆分为地图输入和机器人输入：
+
+  
+
+$$
+\mathcal I=
+\left\langle
+\mathcal I_{\mathrm{map}},\mathcal I_{\mathrm{robot}}
+\right\rangle ,
+$$
+
+  
+
+其中
+
+  
+
+$$
+\mathcal I_{\mathrm{map}}
+=\left\langle M,s_p,T_{WM}\right\rangle
+$$
+
+  
+
+是地图部分。$M$ 为由 CAD/BIM、测绘或建图结果生成的 $H_p\times W_p$ 二值作业图；$s_p$ 为像素物理尺寸，用于将像素距离和面积转换为米和平方米；$T_{WM}$ 为地图坐标系到世界坐标系的平面刚体变换，用于把地图中的规划结果转换为机器人可执行的现场坐标。
+
+  
+
+机器人部分写为
+
+  
+
+$$
+\mathcal I_{\mathrm{robot}}
+=\left\langle q_0,\Theta_R\right\rangle .
+$$
+
+  
+
+$q_0$ 是由现场定位系统和摆臂编码器获得的初始车体位置、航向和摆臂角。$\Theta_R$ 汇集机器人的几何与运动参数，包括车体长度 $l_c$、车体宽度 $w_c$、摆臂连杆的碰撞半径 $r_a$、抹盘半径 $r_d$（直径为 $2r_d$）、摆臂长度 $L$、摆臂枢轴到车体中心的距离 $d_p$、摆臂角度范围，以及车体最大线速度、车体最大角速度和摆臂最大角速度。这些参数共同决定机器人占用空间、抹盘覆盖足迹和轨迹的运动可执行性。
+
+![车体—摆臂—抹盘的几何关系与运动参数示意图](figures/figure_4_body_arm_disc_model.png)
+
+**图 5. 车体—摆臂—抹盘的几何关系与运动参数示意图。** 图中给出车体中心、航向角 $\theta$、摆臂相对角 $\phi$、抹盘半径 $r_d$、摆臂长度 $L$、车体中心至摆臂枢轴的距离 $d_p$ 以及车体长度和宽度 $l_c,w_c$。这些量共同确定机器人的占用几何以及后文式 (1) 中的抹盘中心位置。
+
+  
+
+除上述两部分场景输入外，算法还使用规划配置 $\Psi_P$，包括规划栅格大小 $g$、最小矩形边长、候选选择参数 $\alpha$ 和 $\beta$、候选截断数、扫描与连通策略以及随机种子。$\Psi_P$ 用于控制分区与搜索行为，但不属于由真实场景抽象得到的地图或机器人模型。
+
+  
+
+### 3.2.2 规划模型与符号
+
+  
+
+设输入地图为
+
+  
+
+$$
+M\in\{0,255\}^{H_p\times W_p},
+$$
+
+  
+
+其中 $M_{uv}=0$ 表示障碍物像素，$M_{uv}=255$ 表示自由像素。像素物理尺寸为 $s_p$，自由像素集合记为
+
+  
+
+$$
+\mathcal P_F=\{(u,v)\mid M_{uv}=255\}.
+$$
+
+  
+
+下文中的位置与距离均通过 $T_{WM}$ 转换到以米为单位的世界坐标系；为简化符号，后续公式不再显式写出该变换。
+
+
+  
+
+机器人状态定义为
+
+  
+
+$$
+q(t)=\bigl(x_c(t),y_c(t),\theta(t),\phi(t)\bigr),
+$$
+
+并令状态空间为 $\mathcal Q=\mathbb R^2\times S^1\times[\phi_{\min},\phi_{\max}]$。
+
+  
+
+其中 $(x_c,y_c)$ 为车体中心，$\theta$ 为车体航向角，$\phi$ 为摆臂相对车体的角度。令 $\mathbf p_c=(x_c,y_c)$，$\mathbf e(\gamma)=(\cos\gamma,\sin\gamma)$，摆臂长度为 $L$，车体中心到摆臂枢轴的距离为 $d_p$，则圆形抹盘中心可写为
+
+  
+
+$$
+\mathbf p_d(q)
+=\mathbf p_c-d_p\mathbf e(\theta)
++L\mathbf e(\theta+\pi+\phi).
+\qquad(1)
+$$
+
+式 (1) 可以理解为从车体中心出发，经过摆臂枢轴，再到达抹盘中心的两次向量平移。如图 5 所示，$\mathbf e(\theta)$ 是沿车体航向的单位向量，而枢轴位于车体中心后方 $d_p$ 处，因此枢轴位置为
+
+$$
+\mathbf p_p=\mathbf p_c-d_p\mathbf e(\theta).
+$$
+
+本文将 $\phi$ 定义为摆臂相对车体后向轴的有符号转角，逆时针方向为正。车体后向轴相对航向轴旋转了 $\pi$，所以摆臂从枢轴指向抹盘中心的方向角为 $\theta+\pi+\phi$，相应的长度为 $L$ 的位移向量为 $L\mathbf e(\theta+\pi+\phi)$。将该向量加到 $\mathbf p_p$ 上，即得式 (1)。例如，当 $\theta=0$ 且 $\phi=0$ 时，车体朝世界坐标系 $x$ 轴正向，枢轴坐标为 $(x_c-d_p,y_c)$，抹盘中心则为 $(x_c-d_p-L,y_c)$，即摆臂沿车体正后方伸出。改变 $\theta$ 会使枢轴和摆臂随车体整体旋转，而在 $\theta$ 固定时改变 $\phi$ 只会使抹盘中心绕枢轴沿半径 $L$ 的圆弧运动。
+
+  
+
+若抹盘半径为 $r_d$，则单个位姿下的瞬时作业区域为
+
+  
+
+$$
+\mathcal D(q)=
+\{\mathbf z\in\mathbb R^2\mid
+\|\mathbf z-\mathbf p_d(q)\|_2\le r_d\}.
+\qquad(2)
+$$
+
+  
+
+一条连续轨迹 $q:[0,T]\rightarrow\mathcal Q$ 的扫掠区域为
+
+  
+
+$$
+\mathcal C(q)=\bigcup_{t\in[0,T]}\mathcal D(q(t)).
+\qquad(3)
+$$
+
+为区分“抹盘可达”与“整体机器人可行”，令 $\mathcal O_M$ 表示黑色像素在世界坐标中对应的不可用区域，$\mathcal B(q)$ 表示按 $l_c\times w_c$ 构造的车体旋转矩形，$\mathcal A(q)$ 表示以 $r_a$ 为半径的摆臂连杆胶囊体。状态 $q$ 只有在
+
+$$
+\bigl(\mathcal B(q)\cup\mathcal A(q)\cup\mathcal D(q)\bigr)
+\cap\mathcal O_M=\varnothing
+\qquad(3a)
+$$
+
+时才记为几何可行，所有可行状态构成 $\mathcal Q_F\subseteq\mathcal Q$。对一条运动段 $q_s:[0,T_s]\rightarrow\mathcal Q$，本文要求 $q_s(t)\in\mathcal Q_F$ 对所有 $t\in[0,T_s]$ 成立，并满足
+
+$$
+|v(t)|\le v_{\max},\qquad
+|\dot\theta(t)|\le\omega_{\max},\qquad
+|\dot\phi(t)|\le\omega_{a,\max}.
+\qquad(3b)
+$$
+
+实现中对直线、原地转向和摆臂调整等运动原语进行自适应细分，并在每个细分区间上检查式 (3a)。因此，后续的矩形邻接和入口位姿都只是候选，只有对应转场运动通过该检查后才被纳入最终规划图。
+
+  
+
+在式 (3a) 和式 (3b) 所定义的可行性约束下，本文从作业质量、轨迹执行效率和规划计算效率三个层面考察算法，对应指标为
+
+  
+
+$$
+\max \rho_{\mathrm{work}}(q),\qquad
+\min T_{\mathrm{exec}}(q),\qquad
+\min T_{\mathrm{plan}}.
+\qquad(4)
+$$
+
+  
+
+其中，$\rho_{\mathrm{work}}(q)$ 是有效作业段中抹盘扫掠到的目标作业面积占目标总面积的比例，用于衡量实际作业轨迹的覆盖完整性；$T_{\mathrm{exec}}(q)$ 是从初始状态到完成全部覆盖的名义轨迹时长，包括起始连接、有效作业、转向、摆臂调整和区域间转场所需的时间；$T_{\mathrm{plan}}$ 是算法从生成保守规划栅格到完成轨迹组装与覆盖评价的墙钟运行时间，反映方法本身的计算代价。
+
+式 (4) 列出的三项指标中，$\rho_{\mathrm{work}}$ 是任务层的最终作业质量指标；算法通过自由区域矩形表达、新增覆盖奖励和重叠惩罚间接促进该指标，并在完整轨迹生成后根据式 (1)–(3) 的连续抹盘扫掠计算其实际值。$T_{\mathrm{exec}}$ 是路线层的优化指标；局部原语和全局访问候选均被赋予时间代价，算法直接比较并选择时间代理代价较小的可行轨迹，但不声称获得全局最小的 $T_{\mathrm{exec}}$。$T_{\mathrm{plan}}$ 则不是轨迹 $q$ 的决策变量，而是算法设计阶段考虑的效率指标；采用分层分解、多项式时间启发式和候选截断，正是为了在保留几何与运动约束的同时控制该计算成本。这种区分构成了本文选择分层启发式框架的指标依据。
+
+## 3.3 Conservative Rasterization and Rectangular Decomposition
+
+  
+
+矩形分解模块首先把像素地图转换为较粗的规划栅格。设规划栅格边长为 $g$ 个像素。第 $(i,j)$ 个规划栅格对应的像素块记为 $\Omega_{ij}$。本文采用保守栅格化规则：
+
+  
+
+$$
+B_{ij}=
+\begin{cases}
+1, & \text{if } M_{uv}=255,\ \forall (u,v)\in\Omega_{ij},\cr
+0, & \text{otherwise}.
+\end{cases}
+\qquad(5)
+$$
+
+  
+
+其中 $B_{ij}=1$ 表示该规划栅格可用于生成矩形，$B_{ij}=0$ 表示该栅格包含或接触障碍。该规则会牺牲一部分靠近障碍物的自由面积，但可以保证后续矩形候选不会穿过已知障碍。
+
+  
+
+在规划栅格 $B$ 上，算法分别沿行和列扫描自由栅格的最大连续区间，并在保持内部栅格全部可用的条件下向相邻扫描线扩展，形成轴对齐矩形候选。一个候选矩形 $R$ 表示为
+
+  
+
+$$
+R=[x_1,x_2]\times[y_1,y_2],
+\qquad(6)
+$$
+
+  
+
+并满足 $R$ 内所有规划栅格均为自由栅格。宽或高小于给定最小边长的候选被删除；其余候选首先按面积降序排列，面积相同时依次按左上角行、列坐标和右下角行、列坐标升序排列，并在每个扫描方向仅保留前 $C_{\max}$ 个候选。该确定性截断抑制候选数量随地图尺寸快速增长，同时使相同输入和参数得到相同候选集合。
+
+  
+
+候选选择被视为一个带惩罚的最大覆盖问题。令 $\mathcal U(R)$ 表示矩形 $R$ 覆盖的规划栅格集合，$\mathcal A$ 表示当前已经由所选矩形覆盖的栅格集合。选择候选 $R$ 的边际收益定义为
+
+  
+
+$$
+\Delta(R\mid\mathcal A)
+=|\mathcal U(R)\setminus\mathcal A|
+-\alpha
+-\beta|\mathcal U(R)\cap\mathcal A|.
+\qquad(7)
+$$
+
+  
+
+式中各集合的基数均按规划栅格数计，因此 $\alpha$ 的单位为栅格，$\beta$ 为无量纲权重。第一项奖励新增覆盖，后两项分别惩罚矩形数量和重复区域。算法先在行向候选池中反复选择正边际收益最大的候选；若收益相同，沿用上述确定性排序。随后以当前覆盖集合 $\mathcal A$ 为基准处理列向候选，使列向矩形主要补充行扫描难以表达的纵向结构。两阶段贪婪选择完成后得到初始选择集合。
+
+候选截断或惩罚项可能留下少量未覆盖自由栅格，因此算法再执行确定性补洞。每轮按行优先顺序选择第一个未覆盖自由栅格作为种子，枚举包含该种子且不含障碍的轴对齐最大扩展矩形，选择面积最大的矩形；若仍有并列，则按宽度、左上角坐标的顺序确定。所选矩形加入集合并更新 $\mathcal A$，直至所有可用规划栅格都被至少一个矩形覆盖。补洞完成、尚未执行连通修复的矩形集合记为 $\mathcal R_1$。最小边长、$C_{\max}$、$\alpha$、$\beta$ 和扫描方向均包含在规划参数 $\Psi_P$ 中。
+
+  
+
+## 3.4 Connectivity Completion and Final Segmentation Algorithm
+
+  
+
+仅保证矩形覆盖自由栅格并不能保证机器人能够在矩形之间连续移动。为此，本文在 $\mathcal R_1$ 上构建无向图
+
+  
+
+$$
+G=(V,E),
+\qquad(8)
+$$
+
+  
+
+其中节点 $v_i\in V$ 对应矩形 $R_i$。共享边界、接触或重叠只用于产生几何邻接候选。对每个候选对 $(R_i,R_j)$，算法在相交区域或最近边界上生成有限组交接位姿，并尝试由第一个矩形的出口状态连接到第二个矩形的入口状态；只有至少一条转场原语满足式 (3a) 和式 (3b) 时，才将边 $(v_i,v_j)$ 加入 $E$。边同时保存所有可行交接方案中的最小时间代理 $c_{ij}$。因此，$G$ 描述的是机器人可执行的转移关系，而不是单纯的矩形接触关系。
+
+若 $G$ 含多个连通分量，算法从未选中的候选中寻找桥接矩形。候选 $R_b$ 加入后，若它能分别与至少两个原属不同分量的矩形形成可行边，则记为桥接候选。算法优先选择新增面积与可行转场代价较小的矩形：
+
+  
+
+$$
+R_b^\star
+=\arg\min_{R_b\in\mathcal B}
+\left(|\mathcal U(R_b)\setminus\mathcal A|
++\lambda_b\sum c_{ib}\right),
+\qquad(9)
+$$
+
+  
+
+其中 $\mathcal B$ 为当前桥接候选集合，求和项仅包含用于连接分量的可行边，$\lambda_b$ 为时间代价权重。每次加入 $R_b^\star$ 后重新计算相关边与连通分量，直至 $G$ 连通。若 $\mathcal B$ 为空而 $G$ 仍不连通，则当前地图与参数下不存在由该候选集支持的单条连续覆盖轨迹，算法明确返回连通性失败，不再进入全局路线规划。
+
+  
+
+```{=latex}
+\begin{algorithm}[H]
+\caption{Rectangle segmentation and connectivity completion}
+\label{alg:segmentation}
+\small
+\begin{algorithmic}[1]
+\Require Conservative free-cell grid $B$, planning parameters $\Psi_P$, robot model $\Theta_R$
+\Ensure Rectangle set $\mathcal R$ and feasible graph $G$, or connectivity failure
+\State $F\gets\{u:B(u)=1\}$; $\mathcal R\gets\varnothing$; $\mathcal A\gets\varnothing$
+\State $(C_r,C_c)\gets\mathrm{ScanAndTruncate}(B,\Psi_P)$
+\State $C_{\mathrm{all}}\gets C_r\cup C_c$
+\For{$C\in(C_r,C_c)$, in this order}
+  \While{$\exists R\in C:\Delta(R\mid\mathcal A)>0$}
+    \State $R^\star\gets\arg\max_{R\in C}\Delta(R\mid\mathcal A)$ \Comment{Eq. (7); deterministic ties}
+    \State $\mathcal R\gets\mathcal R\cup\{R^\star\}$; $\mathcal A\gets\mathcal A\cup\mathcal U(R^\star)$
+    \State $C\gets C\setminus\{R^\star\}$
+  \EndWhile
+\EndFor
+\While{$\mathcal A\neq F$}
+  \State $u\gets\mathrm{FirstUncovered}(F\setminus\mathcal A)$
+  \State $R^\star\gets\mathrm{LargestMaximalRectangle}(B,u)$ \Comment{deterministic ties}
+  \State $\mathcal R\gets\mathcal R\cup\{R^\star\}$; $\mathcal A\gets\mathcal A\cup\mathcal U(R^\star)$
+\EndWhile
+\State $\mathcal R_1\gets\mathcal R$; $G\gets\mathrm{FeasibleGraph}(\mathcal R_1,\Theta_R)$
+\While{$G$ is disconnected}
+  \State $\mathcal B\gets\mathrm{FeasibleBridges}(C_{\mathrm{all}}\setminus\mathcal R,G,\Theta_R)$
+  \If{$\mathcal B=\varnothing$}
+    \State \Return connectivity failure
+  \EndIf
+  \State $R_b^\star\gets\mathrm{MinBridgeCost}(\mathcal B)$ \Comment{Eq. (9)}
+  \State $\mathcal R\gets\mathcal R\cup\{R_b^\star\}$; $G\gets\mathrm{UpdateFeasibleGraph}(G,R_b^\star)$
+\EndWhile
+\State \Return $(\mathcal R,G)$
+\end{algorithmic}
+\end{algorithm}
+```
+
+  
+
+算法 1 汇总了从保守栅格到最终图结构的完整过程。式 (7) 中的重叠惩罚抑制同一候选池内的冗余矩形，补洞保证自由规划栅格得到表达，桥接步骤则只在现有集合无法形成连通可行图时增加矩形。这里的“连通”始终指通过完整机器人转场检查后的图连通，而非自由栅格或矩形几何并集在拓扑上的连通。
+
+  
+
+设规划栅格大小为 $H\times W$，截断后的候选数为 $C$，最终矩形数为 $n$。候选生成的最坏复杂度为 $O(HW(H+W))$；贪婪选择在朴素集合实现下约为 $O(CnA)$，其中 $A$ 为候选平均栅格面积。邻接候选枚举为 $O(n^2)$，每条边还需有限次局部运动检查。最小边长、候选截断和确定性排序共同限制实际规模；由于后续图搜索和局部原语实例化均随 $n$ 增长，分解阶段控制矩形数量会直接影响 $T_{\mathrm{plan}}$。
+  
+
+## 3.5 Single-Rectangle Coverage Primitive
+
+  
+
+矩形覆盖模块是本文方法的局部运动原语。给定矩形 $R$、可行入口位姿 $q^{\mathrm{in}}$、可行出口位姿 $q^{\mathrm{out}}$ 及机器人参数，该模块生成一段连续运动。若 $R$ 在全局序列中首次出现，则执行图 6 所示的往复覆盖；若 $R$ 已被覆盖，则只生成入口至出口的借道运动。两类原语均保留完整状态、持续时间和作业标记。
+
+![单矩形覆盖运动示意图](figures/figure_6_single_rectangle_coverage.png)
+
+**图 6. 单矩形覆盖原语。** 抹盘入口和出口由相邻矩形或初始状态确定；局部规划器在两个扫掠方向及可行起始角点之间比较时间代理，并以车体前进和摆臂往复运动完成矩形内部覆盖。
+
+  
+
+### 3.5.1 Entry and Exit Points
+
+  
+
+入口和出口候选由矩形在访问序列中的前驱和后继共同确定。若 $R_i$ 后续转移到 $R_j$，算法在二者的共享区域或相向边界上均匀生成有限组抹盘交接点；首个矩形的入口还需由初始状态 $q_0$ 可达，末个矩形的出口则从其剩余可行边界候选中选择。每个候选都同时包含抹盘中心、车体航向和摆臂参考角，而不是仅包含一个边界点。
+
+  
+
+对位于矩形左、右、下、上边界的抹盘候选点，名义航向分别取 $\pi,0,3\pi/2,\pi/2$，使收回姿态下的车体位于相应边界外侧。该规则只产生名义候选；在障碍密集或边界狭窄处，外置车体仍可能越出可用区域，因此不能直接视为有效入口。
+
+  
+
+给定边界位姿 $(\mathbf p_d,\theta)$ 作为抹盘中心的入口或出口状态，机器人车体中心由抹盘中心反推。若摆臂处于收回参考角，则车体中心满足
+
+  
+
+$$
+\mathbf p_c
+=\mathbf p_d+(d_p+L)\mathbf e(\theta).
+\qquad(10)
+$$
+
+  
+
+式 (10) 给出收回参考角下的名义车体中心。算法随后检查该状态及其与前一原语之间的连接是否满足式 (3a) 和式 (3b)。若检查失败，则沿同一边界依次移动交接点，并尝试相邻边界与另一航向；只有完整连接可行的候选才进入局部代价比较。若某次访问不存在可行入口—出口组合，相应的全局访问序列被判为不可实例化。
+
+
+  
+
+### 3.5.2 Starting Corner, Strip Width, and Swing Amplitude
+
+  
+
+令 $\ell_R$ 和 $h_R$ 分别表示沿作业带方向和垂直作业带方向的矩形尺寸。局部规划器默认沿矩形较长轴布置作业带，以减少换道次数；同时也生成沿另一轴扫掠的方案，并在两种方向及其可行起始角点之间比较入口连接、覆盖、换道和出口连接的总时间代理。这样，$h_R$ 始终明确表示需要由多条作业带共同跨越的横向尺寸，而 $\ell_R$ 表示单条作业带的行进长度。
+
+对每个扫掠方向，算法从四个角点中筛选能够由入口姿态到达且可连接出口的起点，并根据作业带奇偶性确定覆盖终点。最终选择非作业移动与局部覆盖时间之和最小的可行组合。因此，入口、扫掠方向、起始角点、作业带奇偶性和出口共同决定单矩形原语，而非仅按欧氏距离选择最近角点。
+
+  
+
+矩形内部采用 Boustrophedon-style 的往复覆盖，但作业宽度不是固定常数，而由摆臂最大可用摆角和抹盘半径共同决定。设摆角范围为 $[\phi_{\min},\phi_{\max}]$，为保证左右摆动对称，定义可用对称摆角
+
+  
+
+$$
+\phi_s=\min\{|\phi_{\min}|,|\phi_{\max}|,\pi/2\}.
+\qquad(11)
+$$
+
+  
+
+在一次完整左右摆动中，抹盘中心相对车体轨迹可覆盖的横向宽度近似为
+
+  
+
+$$
+w_{\max}=2(L\sin\phi_s+r_d).
+\qquad(12)
+$$
+
+  
+
+若矩形高度为 $h_R$，则所需作业带数量为
+
+  
+
+$$
+N_s=\left\lceil\frac{h_R}{w_{\max}}\right\rceil,
+\qquad
+w_s=\frac{h_R}{N_s}.
+\qquad(13)
+$$
+
+  
+
+其中 $w_s$ 为实际作业带宽度。为覆盖宽度为 $w_s$ 的作业带，摆臂半幅角可取为
+
+  
+
+$$
+\phi_w=
+\begin{cases}
+0, & w_s\le 2r_d,\cr
+\arcsin\left(\dfrac{w_s/2-r_d}{L}\right), & w_s>2r_d,
+\end{cases}
+\qquad(14)
+$$
+
+  
+
+并限制在 $[0,\phi_s]$ 内。这样，相邻作业带之间不会因为摆臂摆幅不足而产生系统性漏覆盖。
+
+  
+
+### 3.5.3 Coupling Between Base Speed and Arm Speed
+
+  
+
+矩形内每条作业带由车体直线前进和摆臂周期摆动共同完成。设摆臂最大角速度为 $\omega_{a,\max}$，车体最大线速度为 $v_{\max}$。摆臂从 $-\phi_w$ 摆到 $+\phi_w$ 的半周期时间为
+
+  
+
+$$
+T_{\mathrm{half}}
+=\frac{2\phi_w}{\omega_{a,\max}}.
+\qquad(15)
+$$
+
+  
+
+为了使相邻半次摆扫在车体前进方向上保持足够重叠，车体工作速度不应只取机械最大速度。本文采用如下启发式速度上界：
+
+  
+
+当 $\phi_w=0$ 时，令 $v_{\mathrm{safe}}=+\infty$；当 $\phi_w>0$ 时，取
+
+$$
+v_{\mathrm{safe}}=\dfrac{2r_d}{T_{\mathrm{half}}}.
+\qquad(16)
+$$
+
+  
+
+并令实际作业速度为
+
+  
+
+$$
+v_{\mathrm{work}}=\min(v_{\max},v_{\mathrm{safe}}).
+\qquad(17)
+$$
+
+  
+
+当摆臂速度较慢或摆幅较大时，式 (17) 会主动降低车体速度，使相邻半次摆扫对应的前进距离不超过抹盘直径。该关系是基于局部轨迹间距的保守经验规则，并非对任意连续摆臂轨迹的完备覆盖证明；局部运动生成后仍通过第 3.7 节的连续扫掠计算检查实际覆盖。该速度耦合也是后续实验分析摆臂角速度与车体速度比值的基础。
+
+  
+
+### 3.5.4 Time Model for First Visits and Repeated Visits
+
+  
+
+矩形第一次被访问时，总时间由进入起始角点、覆盖所有作业带、换道、转向、摆臂展开/回收以及离开矩形组成。若第 $k$ 条作业带长度为 $\ell_k$，换道段长度为 $d_k$，车体转角为 $\Delta\theta_m$，摆臂角度调整量为 $\Delta\phi_m$，则一次完整覆盖时间可概括为
+
+  
+
+$$
+\begin{aligned}
+T_{\mathrm{cover}}(R;q^{\mathrm{in}},q^{\mathrm{out}})
+&=\sum_{k=1}^{N_s}\frac{\ell_k}{v_{\mathrm{work}}}
++\sum_k\frac{d_k}{v_{\max}}\\
+&\quad+\sum_m\frac{|\Delta\theta_m|}{\omega_{\max}}
++\sum_m\frac{|\Delta\phi_m|}{\omega_{a,\max}}.
+\end{aligned}
+\qquad(18)
+$$
+
+  
+
+其中 $\omega_{\max}$ 为车体最大角速度。该时间模型假设各运动原语采用分段常速，平移、原地转向和摆臂调整在代理计算中串行累计；忽略加减速过程，并允许车体在满足碰撞约束的位置原地转向。因此，式 (18) 是用于方案排序和名义执行时长估计的运动学时间代理，而不是包含驱动器动力学的最短时间解。入口、出口及起始角点会改变各项长度和角度，故将其显式写入函数参数。
+
+  
+
+若矩形在访问序列中第二次或更多次出现，该矩形已经完成作业覆盖。此时算法只生成从入口姿态到出口姿态的转场运动，记为
+
+  
+
+$$
+\begin{aligned}
+T_{\mathrm{transit}}(R;q^{\mathrm{in}},q^{\mathrm{out}})
+&=\sum_k\frac{d_k}{v_{\max}}
++\sum_m\frac{|\Delta\theta_m|}{\omega_{\max}}\\
+&\quad+\sum_m\frac{|\Delta\phi_m|}{\omega_{a,\max}}.
+\end{aligned}
+\qquad(19)
+$$
+
+  
+
+因此，重复访问的新增作业覆盖为零，但执行时间不为零。所有直线、原地转向和摆臂调整段在计时代价之外还需通过式 (3a) 的自适应碰撞检查；失败的入口—出口组合不参与后续搜索。允许借道已覆盖矩形保证连通图可被连续遍历，而式 (19) 使过多借道在全局路线代价中受到惩罚。
+
+  
+
+## 3.6 Global Route Planning and Full-Trajectory Assembly
+
+连通矩形图 $G$ 给出了矩形间的可行转移关系，但尚未决定从机器人初始状态出发的访问顺序。令
+
+$$
+\Pi=(R_{\pi_1},R_{\pi_2},\ldots,R_{\pi_K})
+\qquad(20)
+$$
+
+表示矩形访问序列。序列必须满足三个条件：每个 $R\in\mathcal R$ 至少首次出现一次；相邻访问对应 $G$ 中的一条边；首个矩形的某个入口位姿可由 $q_0$ 通过无碰撞起始连接到达。同一矩形允许在 $\Pi$ 中重复出现，以便经过已覆盖矩形到达尚未访问的分支。搜索前，算法对各矩形的入口候选尝试从 $q_0$ 建立连接，并将最小可行起始代价记为 $T_{\mathrm{start}}(q_0,R_i)$；不存在可行起始连接的矩形不能作为序列起点。
+
+对第 $k$ 次访问，令 $q_k^{\mathrm{in}}$ 和 $q_k^{\mathrm{out}}$ 为选定的入口、出口状态，$I_k=1$ 表示 $R_{\pi_k}$ 在序列中首次出现，否则 $I_k=0$。候选序列的时间代理定义为
+
+$$
+\begin{aligned}
+J(\Pi)&=T_{\mathrm{start}}(q_0,R_{\pi_1})
++\sum_{k=1}^{K}\bigl[
+I_kT_{\mathrm{cover}}(R_{\pi_k};q_k^{\mathrm{in}},q_k^{\mathrm{out}})\\
+&\qquad +(1-I_k)T_{\mathrm{transit}}(R_{\pi_k};q_k^{\mathrm{in}},q_k^{\mathrm{out}})
+\bigr]
++\sum_{k=1}^{K-1}c_{\pi_k\pi_{k+1}}.
+\end{aligned}
+\qquad(21)
+$$
+
+其中 $c_{ij}$ 是第 3.4 节保存的矩形间交接代价。式 (21) 只在第一次访问矩形时计入覆盖代价，重复访问只计入借道运动；入口—出口组合与相邻边的交接状态需要一致。该目标是用于比较候选路线的时间代理，而非完整旅行商问题的精确目标。
+
+本文并行使用两类互补的图启发式生成候选序列。第一类为多次随机化近邻搜索：从一个具有可行起始连接的矩形出发，每一步收集当前节点的未访问邻居，按 $c_{ij}$ 与邻居剩余未访问度数的加权和升序排列，再从前 $k_{\mathrm{rcl}}$ 个受限候选中随机选择下一个节点。若在覆盖全部矩形前进入没有未访问邻居的节点，则放弃该次尝试。搜索次数、$k_{\mathrm{rcl}}$ 和随机种子属于 $\Psi_P$；固定这些参数即可复现实验中的候选集合。
+
+第二类为加权最小生成树上的开放式深度优先游走。算法以 $c_{ij}$ 为边权构造最小生成树，并对每个可行起点计算根到各节点的树上距离。根到最远节点的路径被指定为最终不回溯分支：其余侧枝按边权升序访问并返回父节点，最后沿该分支走到末端后结束。该游走允许父节点和已覆盖矩形重复出现，因而能为连通图提供确定性的可行候选；它只作为可行性保底，不代表原图上的全局最优访问序列。
+
+所有候选均先按式 (21) 比较，再调用第 3.5 节原语进行实例化。算法从 $q_0$ 的起始连接开始，为首次访问生成覆盖原语，为重复访问生成借道原语，并插入相邻矩形间的交接运动。只有各段端点一致且全部通过式 (3a) 和式 (3b) 检查的候选才保留。最终选择 $J$ 最小的有效候选，并按时间平移、首尾拼接得到
+
+$$
+q:[0,T_{\mathrm{exec}}]\rightarrow\mathcal Q_F.
+\qquad(22)
+$$
+
+若所有候选均无法从 $q_0$ 实例化为完整轨迹，则算法返回路线规划失败。全局搜索与轨迹组装过程汇总如下。
+
+```{=latex}
+\begin{algorithm}[H]
+\caption{Global route planning and trajectory assembly}
+\label{alg:global-route}
+\small
+\begin{algorithmic}[1]
+\Require Rectangles $\mathcal R$, connected feasible graph $G$, initial state $q_0$, local primitives $\mathcal L$, parameters $\Psi_P$
+\Ensure Visit sequence $\Pi$ and continuous trajectory $q(t)$, or route failure
+\State $S\gets\mathrm{FeasibleStarts}(q_0,\mathcal R,G)$
+\If{$S=\varnothing$}
+  \State \Return route failure
+\EndIf
+\State $\mathcal C\gets\varnothing$
+\For{each feasible start $s\in S$}
+  \State $\mathcal P\gets\mathrm{RandomizedNearestNeighbor}(G,s,\Psi_P)$
+  \State $\mathcal P\gets\mathcal P\cup\{\mathrm{OpenMstDfs}(G,s,c)\}$ \Comment{farthest branch last}
+  \For{each visit sequence $\Pi\in\mathcal P$}
+    \If{$\Pi$ does not visit every rectangle in $\mathcal R$}
+      \State \textbf{continue}
+    \EndIf
+    \State $a\gets\mathrm{CompatibleEntryExitStates}(\Pi,G)$
+    \If{$a\neq\mathrm{failure}$}
+      \State $\mathcal C\gets\mathcal C\cup\{(\Pi,a,J(\Pi,a))\}$ \Comment{Eq. (21)}
+    \EndIf
+  \EndFor
+\EndFor
+\For{each $(\Pi,a,J)$ in $\mathcal C$, sorted by increasing $J$}
+  \State $q\gets\mathrm{AssembleTrajectory}(q_0,\Pi,a,\mathcal L)$
+  \Statex \hspace{\algorithmicindent}\textit{Add start and inter-rectangle connectors; cover first visits, transit repeats.}
+  \If{$q$ is continuous and satisfies Eqs. (3a) and (3b)}
+    \State \Return $(\Pi,q)$
+  \EndIf
+\EndFor
+\State \Return route failure
+\end{algorithmic}
+\end{algorithm}
+```
+
+
+## 3.7 Work Coverage and Full-Trajectory Coverage
+
+  
+
+覆盖评价直接基于第 3.6 节得到的连续轨迹，而不依赖视频帧率。轨迹被划分为局部覆盖、转向、换道、摆臂调整、借道和矩形间交接等带持续时间的运动段。本文仅把抹盘处于作业状态且车体沿矩形作业带前进、摆臂执行规定摆扫的运动段标记为有效作业；入口连接、换道、原地转向、摆臂展开或回收、重复借道以及矩形间交接均标记为非作业。对任意运动段 $s$，抹盘中心轨迹写为
+
+  
+
+$$
+\mathbf p_d^s(\tau),\qquad \tau\in[0,T_s].
+\qquad(23)
+$$
+
+  
+
+该段的圆盘扫掠区域为
+
+  
+
+$$
+\mathcal C_s
+=\bigcup_{\tau\in[0,T_s]}
+\left\{\mathbf z:
+\|\mathbf z-\mathbf p_d^s(\tau)\|_2\le r_d\right\}.
+\qquad(24)
+$$
+
+  
+
+设 $\mathcal S_{\mathrm{work}}$ 为有效作业运动段集合，$\mathcal S_{\mathrm{all}}$ 为全部运动段集合，则本文区分两类覆盖区域：
+
+  
+
+$$
+\mathcal C_{\mathrm{work}}
+=\bigcup_{s\in\mathcal S_{\mathrm{work}}}\mathcal C_s,
+\qquad
+\mathcal C_{\mathrm{traj}}
+=\bigcup_{s\in\mathcal S_{\mathrm{all}}}\mathcal C_s.
+\qquad(25)
+$$
+
+  
+
+前者只计算具有有效作业标记的抹盘扫掠，后者还包括转场、换道和姿态调整期间抹盘经过的区域。相应地，两个覆盖率定义为
+
+  
+
+$$
+\begin{aligned}
+\rho_{\mathrm{work}}
+&=\frac{|\Pi_p(\mathcal C_{\mathrm{work}})\cap\mathcal P_F|}
+{|\mathcal P_F|},\\
+\rho_{\mathrm{traj}}
+&=\frac{|\Pi_p(\mathcal C_{\mathrm{traj}})\cap\mathcal P_F|}
+{|\mathcal P_F|},
+\end{aligned}
+\qquad(26)
+$$
+
+  
+
+其中 $\Pi_p(\cdot)$ 表示从连续世界坐标到像素集合的栅格化映射。$\rho_{\mathrm{work}}$ 是本文主要覆盖指标，因为它对应明确的有效作业运动；$\rho_{\mathrm{traj}}$ 用于分析机器人完整运动轨迹对自由区域的扫过程度。当抹盘在非作业转场中仍与地面接触时，$\rho_{\mathrm{traj}}$ 可反映额外物理扫掠；若非作业阶段抹盘被抬起，则该指标应作为轨迹可达性或潜在扫掠的辅助量，而不应与有效作业覆盖混淆。
+
+  
+
+为避免覆盖率随任意采样帧率变化，算法对 $\mathbf p_d^s(\tau)$ 递归细分。对时间区间 $[\tau_a,\tau_b]$，仅当端点弦长不超过 $\eta_\ell$，且中点轨迹相对端点线段的偏差不超过 $\eta_c$ 时停止细分；本文取 $\eta_\ell$ 和 $\eta_c$ 不大于 $s_p/2$，使离散误差受地图分辨率约束。设最终细分点为 $\mathbf c_0,\ldots,\mathbf c_m$，相邻点间的圆盘扫掠以胶囊体栅格化，则运动段 $s$ 对应的覆盖像素集合近似为
+
+  
+
+$$
+\widehat{\mathcal C}_s
+=\Pi_p\!\left(
+\bigcup_{j=0}^{m-1}
+\mathrm{Capsule}(\mathbf c_j,\mathbf c_{j+1},r_d)
+\right).
+\qquad(27)
+$$
+
+  
+
+式 (27) 先在世界坐标中构造胶囊体并集，再通过 $\Pi_p$ 转换为像素集合，因而避免了连续区域与像素集合在类型上的混用。该方法比仅在固定帧率位姿点上绘制圆盘更稳定，尤其适用于摆臂快速摆动的运动段。
+
+完整轨迹的名义执行时长和算法规划运行时长分别定义为
+
+$$
+T_{\mathrm{exec}}=\sum_{s\in\mathcal S_{\mathrm{all}}}T_s,
+\qquad
+T_{\mathrm{plan}}=t_{\mathrm{eval,end}}-t_{\mathrm{raster,start}}.
+\qquad(28)
+$$
+
+$T_{\mathrm{exec}}$ 沿用第 3.5 节的分段常速及串行计时假设；$T_{\mathrm{plan}}$ 采用同一进程的墙钟时间，从保守规划栅格生成开始，到连续扫掠评价结束，包含矩形分解、连通修复、路线搜索、轨迹组装和覆盖计算，但不包含地图文件读取、结果写盘与可视化渲染。由此，$\rho_{\mathrm{work}}$、$\rho_{\mathrm{traj}}$、$T_{\mathrm{exec}}$ 和 $T_{\mathrm{plan}}$ 与图 3 中的输出定义保持一致。
+
+  
+

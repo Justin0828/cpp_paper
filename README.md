@@ -10,7 +10,7 @@
 latexmk -xelatex -shell-escape -outdir=build main.tex
 ```
 
-输出文件为 `build/main.pdf`。正文已按逻辑拆分为 `sections/intro.tex`、`method.tex`、`experiments.tex` 和 `conclusion.tex`，由 `main.tex` 统一组装；图片位于 `figures/`，参考文献位于 `refs.bib`。这些章节文件继续使用 Markdown 语法，以保留原稿的中文、公式、图表和表格；LaTeX 的 `markdown` 宏包负责排版。`-shell-escape` 仅用于调用 TeX Live 自带的 Markdown 转换器。
+输出文件为 `build/main.pdf`。正文已按逻辑拆分为 `sections/intro.tex`、`method.tex`、`experiments.tex` 和 `conclusion.tex`，由 `main.tex` 统一组装；图片位于 `figures/`，参考文献位于 `refs.bib`。`sections/*.md` 和 `sections/abstract.md` 是修订用 Markdown 稿；核对后将章节内容同步到同名 `.tex` 文件，并将摘要同步到 `main.tex`。章节 `.tex` 文件继续使用 Markdown 语法，以保留原稿的中文、公式、图表和表格；LaTeX 的 `markdown` 宏包负责排版。`-shell-escape` 仅用于调用 TeX Live 自带的 Markdown 转换器。
 
 ## 目录说明
 

@@ -4,17 +4,27 @@
 
 本文研究已知且静态的二维障碍环境中，摆臂式抹平机器人从作业地图到完整覆盖轨迹的规划问题。该问题的关键在于，施工地面会被墙体、立柱和孔洞等结构分割成形状与连接关系复杂的自由空间，而抹盘的位置及其覆盖足迹又由车体位姿与摆臂角度共同决定。因此，规划器不仅需要组织复杂自由空间的全局访问，还需要将每个区域的覆盖任务转化为车体与摆臂可协同执行的连续运动。本文的目标是在满足避障、机器人几何及运动约束的前提下，提高目标地面的有效覆盖率，并降低轨迹执行时长与规划运行时长。矩形数量、重复面积和矩形间转场次数因而仅作为服务于这些最终目标的中间指标，并进一步转化为各层多项式时间启发式中的代理代价。
 
+## 3.1 Overall Planning Pipeline
+
+本文采用“区域表达—图上访问—局部执行—覆盖评价”的分层规划流程。图 3 给出主要数据流：输入包括经坐标标定的二值作业地图 $M$ 及其像素物理尺寸 $s_p$、机器人初始状态 $q_0$、车体—摆臂—抹盘的几何与运动参数 $\Theta_R$，以及规划配置 $\Psi_P$。这些量在第 3.2 节正式定义；本节先说明它们如何逐层转化为可执行轨迹及覆盖评价结果。
+
+![覆盖路径规划总体流程图](figures/pipeline_overall_improved_en.png)
+
+**图 3. 覆盖路径规划框架及其主要数据流。** 左侧为作业地图、坐标标定、机器人模型、初始状态和规划参数；中部四个模块依次产生初始矩形集合 $\mathcal R_1$、最终矩形集合 $\mathcal R$ 与邻接图 $G$、带入口和出口约束的局部运动原语及其时间代价，以及访问序列 $\Pi$ 和完整轨迹 $q(t)$；右侧由连续抹盘扫掠计算覆盖率、执行时长和规划运行时长。
+
+矩形分解模块首先在保守规划栅格上生成候选矩形，并以新增覆盖、矩形数量和重复面积为依据选择适合作业的单元，得到初始集合 $\mathcal R_1$。连通性补全模块据此生成几何邻接候选，通过车体—摆臂转场检查筛除不可执行的关系，并在必要时插入桥接矩形，最终得到矩形集合 $\mathcal R$ 和可行邻接图 $G$。因此，图中的边不仅表示两个矩形在几何上接触，还表示二者之间至少存在一条满足第 3.2 节式 (3a) 和式 (3b) 的局部转场。
+
   
 
-为此，本文构建一个“区域表达—图上访问—局部执行—覆盖评价”的分层覆盖路径规划框架。给定经坐标标定的二值作业地图及其分辨率、机器人初始状态、车体—摆臂—抹盘的几何与运动参数，以及规划参数，算法首先对地图进行保守栅格化，并用一组适合局部往复作业的矩形单元表示自由空间；随后构建矩形邻接图，通过插入桥接矩形补全其连通性，并在连通图上生成兼顾覆盖与转场代价的矩形访问序列；然后将矩形的首次访问展开为车体前进与摆臂往复摆扫协同的局部覆盖运动，将重复访问展开为借道转场运动。最终，各段局部运动被连接为一条带作业状态和时间信息的车体—摆臂轨迹，并根据圆形抹盘沿连续运动段形成的实际扫掠区域计算覆盖结果。
+单矩形建模模块为每个矩形建立两类原语：首次访问采用覆盖原语，重复访问采用借道原语。原语的具体时间取决于入口和出口位姿，分别记为 $T_{\mathrm{cover}}(R;q^{\mathrm{in}},q^{\mathrm{out}})$ 和 $T_{\mathrm{transit}}(R;q^{\mathrm{in}},q^{\mathrm{out}})$。这些代价连同图边上的转场代价共同参与全局路线搜索；访问序列 $\Pi$ 确定后，同一组原语又按首次访问或重复访问状态被实例化并连接为完整轨迹。由此，局部运动模型既服务于访问排序，也服务于最终轨迹生成。
 
-  
+全局模块从初始状态 $q_0$ 出发，在 $G$ 上生成允许重复借道的访问序列，并把相邻原语的端点连接起来，得到带时间和作业状态标记的连续轨迹 $q(t)$。评价模块随后由 $q(t)$ 恢复抹盘中心轨迹，计算有效作业扫掠 $\rho_{\mathrm{work}}$、全轨迹扫掠 $\rho_{\mathrm{traj}}$ 和执行时长 $T_{\mathrm{exec}}$；从规划栅格生成到评价完成的算法用时记为 $T_{\mathrm{plan}}$。第 3.2 节定义输入、状态和指标，第 3.3 至 3.7 节依次说明各模块与连续扫掠评价。
 
-## 3.1 Problem Formulation and Notation
+## 3.2 Problem Formulation and Notation
 
-  
+为明确图 3 中各模块的输入与约束，先说明施工场景如何转化为规划地图及机器人状态，再给出运动可行性和评价指标。
 
-### 3.1.1 从真实施工场景到规划输入
+### 3.2.1 从真实施工场景到规划输入
 
   
 
@@ -22,7 +32,7 @@
 
   
 
-下一步，对得到的地图进行栅格化，这一步的是为了把 CAD/BIM、现场测量和定位建图等来源不同的几何信息统一为固定分辨率的空间单元，从而为后续的矩形生成、邻接判定、碰撞检查和覆盖率计算提供一致的计算基准。本文以 $s_p$ m/pixel 的分辨率将平面区域转换为二值作业地图 $M$：白色像素表示无障碍且需要纳入本次覆盖任务的目标作业区域，黑色像素表示墙体、立柱、孔洞等障碍物、作业边界之外的区域以及因安全裕量而排除的区域。在规划结果和覆盖评价图中，蓝色像素表示目标作业区域中已被抹盘扫掠覆盖的部分；蓝色是叠加在 $M$ 上的覆盖状态，而不是输入二值地图中的第三类像素。图像坐标与世界坐标之间通过刚体变换 $T_{WM}$ 进行标定，使每个像素单元都能对应到以米为单位的实际地面位置。
+在离散化时，需要把 CAD/BIM、现场测量和定位建图等来源不同的几何信息统一为固定分辨率的空间单元，从而为后续的矩形生成、邻接判定、碰撞检查和覆盖率计算提供一致的计算基准。本文以 $s_p$ m/pixel 的分辨率将平面区域转换为二值作业地图 $M$：白色像素表示无障碍且需要纳入本次覆盖任务的目标作业区域，黑色像素表示墙体、立柱、孔洞等障碍物、作业边界之外的区域以及因安全裕量而排除的区域。在规划结果和覆盖评价图中，蓝色像素表示目标作业区域中已被抹盘扫掠覆盖的部分；蓝色是叠加在 $M$ 上的覆盖状态，而不是输入二值地图中的第三类像素。图像坐标与世界坐标之间通过刚体变换 $T_{WM}$ 进行标定，使每个像素单元都能对应到以米为单位的实际地面位置。
 
   
 
@@ -30,7 +40,7 @@
 
 ![精确几何分解到本文二值栅格输入的多场景转换示意图](figures/figure_3_geometric_to_binary_raster.png)
 
-**图 3. 精确几何分解到本文二值栅格输入的多场景转换示意图。** 左列表示从 CAD/BIM、测绘或建图结果中抽象得到的精确二维作业区域及其矩形子区域；右列表示进入本文算法前的二值栅格地图 $M$。白色为自由/待覆盖区域，黑色为障碍、孔洞或作业边界外区域，虚线矩形表示可作为后续矩形候选分区基础的近似单元。该图展示了矩形房间、圆形或弧形边界、L 型区域、T 型或走廊连接、带柱/孔洞区域以及不规则密集障碍区域等常见转换情形。
+**图 4. 精确几何分解到本文二值栅格输入的多场景转换示意图。** 左列表示从 CAD/BIM、测绘或建图结果中抽象得到的精确二维作业区域及其矩形子区域；右列表示进入本文算法前的二值栅格地图 $M$。白色为自由/待覆盖区域，黑色为障碍、孔洞或作业边界外区域，虚线矩形表示可作为后续矩形候选分区基础的近似单元。该图展示了矩形房间、圆形或弧形边界、L 型区域、T 型或走廊连接、带柱/孔洞区域以及不规则密集障碍区域等常见转换情形。
 
   
 
@@ -77,7 +87,7 @@ $q_0$ 是由现场定位系统和摆臂编码器获得的初始车体位置、�
 
 ![车体—摆臂—抹盘的几何关系与运动参数示意图](figures/figure_4_body_arm_disc_model.png)
 
-**图 4. 车体—摆臂—抹盘的几何关系与运动参数示意图。** 图中给出车体中心、航向角 $\theta$、摆臂相对角 $\phi$、抹盘半径 $r_d$、摆臂长度 $L$、车体中心至摆臂枢轴的距离 $d_p$ 以及车体长度和宽度 $l_c,w_c$。这些量共同确定机器人的占用几何以及后文式 (1) 中的抹盘中心位置。
+**图 5. 车体—摆臂—抹盘的几何关系与运动参数示意图。** 图中给出车体中心、航向角 $\theta$、摆臂相对角 $\phi$、抹盘半径 $r_d$、摆臂长度 $L$、车体中心至摆臂枢轴的距离 $d_p$ 以及车体长度和宽度 $l_c,w_c$。这些量共同确定机器人的占用几何以及后文式 (1) 中的抹盘中心位置。
 
   
 
@@ -85,7 +95,7 @@ $q_0$ 是由现场定位系统和摆臂编码器获得的初始车体位置、�
 
   
 
-### 3.1.2 规划模型与符号
+### 3.2.2 规划模型与符号
 
   
 
@@ -137,7 +147,7 @@ $$
 \qquad(1)
 $$
 
-式 (1) 可以理解为从车体中心出发，经过摆臂枢轴，再到达抹盘中心的两次向量平移。如图 4 所示，$\mathbf e(\theta)$ 是沿车体航向的单位向量，而枢轴位于车体中心后方 $d_p$ 处，因此枢轴位置为
+式 (1) 可以理解为从车体中心出发，经过摆臂枢轴，再到达抹盘中心的两次向量平移。如图 5 所示，$\mathbf e(\theta)$ 是沿车体航向的单位向量，而枢轴位于车体中心后方 $d_p$ 处，因此枢轴位置为
 
 $$
 \mathbf p_p=\mathbf p_c-d_p\mathbf e(\theta).
@@ -206,24 +216,6 @@ $$
 其中，$\rho_{\mathrm{work}}(q)$ 是有效作业段中抹盘扫掠到的目标作业面积占目标总面积的比例，用于衡量实际作业轨迹的覆盖完整性；$T_{\mathrm{exec}}(q)$ 是从初始状态到完成全部覆盖的名义轨迹时长，包括起始连接、有效作业、转向、摆臂调整和区域间转场所需的时间；$T_{\mathrm{plan}}$ 是算法从生成保守规划栅格到完成轨迹组装与覆盖评价的墙钟运行时间，反映方法本身的计算代价。
 
 式 (4) 列出的三项指标中，$\rho_{\mathrm{work}}$ 是任务层的最终作业质量指标；算法通过自由区域矩形表达、新增覆盖奖励和重叠惩罚间接促进该指标，并在完整轨迹生成后根据式 (1)–(3) 的连续抹盘扫掠计算其实际值。$T_{\mathrm{exec}}$ 是路线层的优化指标；局部原语和全局访问候选均被赋予时间代价，算法直接比较并选择时间代理代价较小的可行轨迹，但不声称获得全局最小的 $T_{\mathrm{exec}}$。$T_{\mathrm{plan}}$ 则不是轨迹 $q$ 的决策变量，而是算法设计阶段考虑的效率指标；采用分层分解、多项式时间启发式和候选截断，正是为了在保留几何与运动约束的同时控制该计算成本。这种区分构成了本文选择分层启发式框架的指标依据。
-
-## 3.2 Overall Planning Pipeline
-
-上一节定义了规划输入、机器人状态和评价目标，本节进一步说明各模块之间的数据依赖。如图 5 所示，算法主体由四个相互衔接的模块组成：前两个模块把像素层的自由区域转换为矩形及其可转移关系，后两个模块把矩形层的访问决策展开为运动层的车体—摆臂轨迹。图中编号主要表示中间结果的传递关系，而不是把各模块割裂为彼此独立的串行步骤。
-
-![覆盖路径规划总体流程图](figures/pipeline_overall_improved_en.png)
-
-**图 5. 覆盖路径规划框架及其主要数据流。** 左侧为作业地图、坐标标定、机器人模型、初始状态和规划参数；中部四个模块依次产生初始矩形集合 $\mathcal R_1$、最终矩形集合 $\mathcal R$ 与邻接图 $G$、带入口和出口约束的局部运动原语及其时间代价，以及访问序列 $\Pi$ 和完整轨迹 $q(t)$；右侧由连续抹盘扫掠计算覆盖率、执行时长和规划运行时长。
-
-矩形分解模块首先在保守规划栅格上生成候选矩形，并以新增覆盖、矩形数量和重复面积为依据选择适合作业的单元，得到初始集合 $\mathcal R_1$。连通性补全模块据此生成几何邻接候选，通过车体—摆臂转场检查筛除不可执行的关系，并在必要时插入桥接矩形，最终得到矩形集合 $\mathcal R$ 和可行邻接图 $G$。因此，图中的边不仅表示两个矩形在几何上接触，还表示二者之间至少存在一条满足式 (3a) 和式 (3b) 的局部转场。
-
-  
-
-单矩形建模模块为每个矩形建立两类原语：首次访问采用覆盖原语，重复访问采用借道原语。原语的具体时间取决于入口和出口位姿，分别记为 $T_{\mathrm{cover}}(R;q^{\mathrm{in}},q^{\mathrm{out}})$ 和 $T_{\mathrm{transit}}(R;q^{\mathrm{in}},q^{\mathrm{out}})$。这些代价连同图边上的转场代价共同参与全局路线搜索；访问序列 $\Pi$ 确定后，同一组原语又按首次访问或重复访问状态被实例化并连接为完整轨迹。由此，局部运动模型既服务于访问排序，也服务于最终轨迹生成。
-
-全局模块从初始状态 $q_0$ 出发，在 $G$ 上生成允许重复借道的访问序列，并把相邻原语的端点连接起来，得到带时间和作业状态标记的连续轨迹 $q(t)$。评价模块随后由 $q(t)$ 恢复抹盘中心轨迹，计算有效作业扫掠 $\rho_{\mathrm{work}}$、全轨迹扫掠 $\rho_{\mathrm{traj}}$ 和执行时长 $T_{\mathrm{exec}}$；从输入处理到评价完成的算法用时记为 $T_{\mathrm{plan}}$。后续各节依次说明图 5 中四个模块以及最终连续扫掠评价的实现。
-
-  
 
 ## 3.3 Conservative Rasterization and Rectangular Decomposition
 
@@ -318,34 +310,41 @@ $$
 
   
 
-矩形分解和连通性补全的完整过程如下。
-
-  
-
-```text
-
-Algorithm 1: Rectangle segmentation with connectivity completion
-
-Input : conservative grid B, planning parameters ΨP, robot model ΘR
-
-Output: rectangle set R, feasible adjacency graph G, status connected
-
-  
-
-1 Generate and deterministically truncate row-wise and column-wise candidates
-
-2 Select positive-gain row candidates using Eq. (7), then process column candidates
-
-3 Fill residual free cells by seeded maximal-rectangle expansion; obtain R1
-
-4 Generate geometric neighbor pairs and retain only collision-free transition edges
-
-5 While G is disconnected and a feasible bridge exists:
-
-6     select the bridge using Eq. (9), add it, and update G
-
-7 If G is disconnected, return failure; otherwise return R, G, connected=true
-
+```{=latex}
+\begin{algorithm}[H]
+\caption{Rectangle segmentation and connectivity completion}
+\label{alg:segmentation}
+\small
+\begin{algorithmic}[1]
+\Require Conservative free-cell grid $B$, planning parameters $\Psi_P$, robot model $\Theta_R$
+\Ensure Rectangle set $\mathcal R$ and feasible graph $G$, or connectivity failure
+\State $F\gets\{u:B(u)=1\}$; $\mathcal R\gets\varnothing$; $\mathcal A\gets\varnothing$
+\State $(C_r,C_c)\gets\mathrm{ScanAndTruncate}(B,\Psi_P)$
+\State $C_{\mathrm{all}}\gets C_r\cup C_c$
+\For{$C\in(C_r,C_c)$, in this order}
+  \While{$\exists R\in C:\Delta(R\mid\mathcal A)>0$}
+    \State $R^\star\gets\arg\max_{R\in C}\Delta(R\mid\mathcal A)$ \Comment{Eq. (7); deterministic ties}
+    \State $\mathcal R\gets\mathcal R\cup\{R^\star\}$; $\mathcal A\gets\mathcal A\cup\mathcal U(R^\star)$
+    \State $C\gets C\setminus\{R^\star\}$
+  \EndWhile
+\EndFor
+\While{$\mathcal A\neq F$}
+  \State $u\gets\mathrm{FirstUncovered}(F\setminus\mathcal A)$
+  \State $R^\star\gets\mathrm{LargestMaximalRectangle}(B,u)$ \Comment{deterministic ties}
+  \State $\mathcal R\gets\mathcal R\cup\{R^\star\}$; $\mathcal A\gets\mathcal A\cup\mathcal U(R^\star)$
+\EndWhile
+\State $\mathcal R_1\gets\mathcal R$; $G\gets\mathrm{FeasibleGraph}(\mathcal R_1,\Theta_R)$
+\While{$G$ is disconnected}
+  \State $\mathcal B\gets\mathrm{FeasibleBridges}(C_{\mathrm{all}}\setminus\mathcal R,G,\Theta_R)$
+  \If{$\mathcal B=\varnothing$}
+    \State \Return connectivity failure
+  \EndIf
+  \State $R_b^\star\gets\mathrm{MinBridgeCost}(\mathcal B)$ \Comment{Eq. (9)}
+  \State $\mathcal R\gets\mathcal R\cup\{R_b^\star\}$; $G\gets\mathrm{UpdateFeasibleGraph}(G,R_b^\star)$
+\EndWhile
+\State \Return $(\mathcal R,G)$
+\end{algorithmic}
+\end{algorithm}
 ```
 
   
@@ -591,29 +590,44 @@ $$
 
 若所有候选均无法从 $q_0$ 实例化为完整轨迹，则算法返回路线规划失败。全局搜索与轨迹组装过程汇总如下。
 
-```text
-
-Algorithm 2: Global route planning and trajectory assembly
-
-Input : rectangles R, feasible graph G, initial state q0, local primitives, ΨP
-
-Output: visit sequence Π, complete trajectory q(t), or failure
-
-1 Build feasible start connectors from q0 and reject unreachable start nodes
-
-2 Generate randomized nearest-neighbor candidates from feasible start nodes
-
-3 Build weighted MST candidates using open depth-first walks
-
-4 For each candidate Π, select compatible entry/exit poses and evaluate Eq. (21)
-
-5 Instantiate first visits as coverage and repeated visits as transit primitives
-
-6 Reject Π if any connector, primitive, or endpoint continuity check fails
-
-7 Return the valid pair (Π, q(t)) with minimum J; return failure if none exists
-
+```{=latex}
+\begin{algorithm}[H]
+\caption{Global route planning and trajectory assembly}
+\label{alg:global-route}
+\small
+\begin{algorithmic}[1]
+\Require Rectangles $\mathcal R$, connected feasible graph $G$, initial state $q_0$, local primitives $\mathcal L$, parameters $\Psi_P$
+\Ensure Visit sequence $\Pi$ and continuous trajectory $q(t)$, or route failure
+\State $S\gets\mathrm{FeasibleStarts}(q_0,\mathcal R,G)$
+\If{$S=\varnothing$}
+  \State \Return route failure
+\EndIf
+\State $\mathcal C\gets\varnothing$
+\For{each feasible start $s\in S$}
+  \State $\mathcal P\gets\mathrm{RandomizedNearestNeighbor}(G,s,\Psi_P)$
+  \State $\mathcal P\gets\mathcal P\cup\{\mathrm{OpenMstDfs}(G,s,c)\}$ \Comment{farthest branch last}
+  \For{each visit sequence $\Pi\in\mathcal P$}
+    \If{$\Pi$ does not visit every rectangle in $\mathcal R$}
+      \State \textbf{continue}
+    \EndIf
+    \State $a\gets\mathrm{CompatibleEntryExitStates}(\Pi,G)$
+    \If{$a\neq\mathrm{failure}$}
+      \State $\mathcal C\gets\mathcal C\cup\{(\Pi,a,J(\Pi,a))\}$ \Comment{Eq. (21)}
+    \EndIf
+  \EndFor
+\EndFor
+\For{each $(\Pi,a,J)$ in $\mathcal C$, sorted by increasing $J$}
+  \State $q\gets\mathrm{AssembleTrajectory}(q_0,\Pi,a,\mathcal L)$
+  \Statex \hspace{\algorithmicindent}\textit{Add start and inter-rectangle connectors; cover first visits, transit repeats.}
+  \If{$q$ is continuous and satisfies Eqs. (3a) and (3b)}
+    \State \Return $(\Pi,q)$
+  \EndIf
+\EndFor
+\State \Return route failure
+\end{algorithmic}
+\end{algorithm}
 ```
+
 
 ## 3.7 Work Coverage and Full-Trajectory Coverage
 
@@ -707,7 +721,7 @@ T_{\mathrm{plan}}=t_{\mathrm{eval,end}}-t_{\mathrm{raster,start}}.
 \qquad(28)
 $$
 
-$T_{\mathrm{exec}}$ 沿用第 3.5 节的分段常速及串行计时假设；$T_{\mathrm{plan}}$ 采用同一进程的墙钟时间，从保守规划栅格生成开始，到连续扫掠评价结束，包含矩形分解、连通修复、路线搜索、轨迹组装和覆盖计算，但不包含地图文件读取、结果写盘与可视化渲染。由此，$\rho_{\mathrm{work}}$、$\rho_{\mathrm{traj}}$、$T_{\mathrm{exec}}$ 和 $T_{\mathrm{plan}}$ 与图 5 中的输出定义保持一致。
+$T_{\mathrm{exec}}$ 沿用第 3.5 节的分段常速及串行计时假设；$T_{\mathrm{plan}}$ 采用同一进程的墙钟时间，从保守规划栅格生成开始，到连续扫掠评价结束，包含矩形分解、连通修复、路线搜索、轨迹组装和覆盖计算，但不包含地图文件读取、结果写盘与可视化渲染。由此，$\rho_{\mathrm{work}}$、$\rho_{\mathrm{traj}}$、$T_{\mathrm{exec}}$ 和 $T_{\mathrm{plan}}$ 与图 3 中的输出定义保持一致。
 
   
 
