@@ -22,16 +22,16 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 18. 四个类名保留，并在首次出现时按地图表示能力和机器人行为保真解释。
 - [x] 19. 第四类需求段挪到三类介绍之后、unified 句之前。
 - [x] 20. 前三类各补一句基本思路，没有新增算法。
-- [ ] 21. 第一类局限改为不表示 base 与 disc 的相对位置和臂角变化。
-- [ ] 22. 第二类定义删去 open-source，固定足迹留在定义里。
-- [ ] 23. 引用改贴到 polygon coverage、Fields2Cover、Nobleo 的名称上，Dubins 与 Spiral-STC 的引用留在机制词上。
-- [ ] 24. 在 unified 与 for 之间插入 , especially。
-- [ ] 26. 表中 Map and tool model 拆成 Map representation 与 Robot model，本文方法名改为 BiRect。
-- [ ] 27. 最后一列改为 Pros and cons，并用现有格子拆出优点和局限。
-- [ ] 28. 2.3 开头的引用按 BCD、STC、带孔分解、栅格、Fields2Cover、机械臂和 SatAOI 拆开。
-- [ ] 29. 三条缺口各留主题句，不再重讲 2.2 的方法清单。
-- [ ] 30. 同一基座位置和航向的不同臂角改写成盘心圆弧与整机碰撞、以及够得到不等于覆盖到两句。
-- [ ] 31. 删去 SatAOI 主要用于可作业位置及其后的方法句。
+- [x] 21. 第一类局限改为不表示 base 与 disc 的相对位置和臂角变化。
+- [x] 22. 第二类定义删去 open-source，固定足迹留在定义里。
+- [x] 23. 引用改贴到 polygon coverage、Fields2Cover、Nobleo 的名称上，Dubins 与 Spiral-STC 的引用留在机制词上。
+- [x] 24. 在 unified 与 for 之间插入 , especially。
+- [x] 26. 表中 Map and tool model 拆成 Map representation 与 Robot model，本文方法名改为 BiRect。
+- [x] 27. 最后一列改为 Pros and cons，并用现有格子拆出优点和局限。
+- [x] 28. 2.3 开头的引用按 BCD、STC、带孔分解、栅格、Fields2Cover、机械臂和 SatAOI 拆开。
+- [x] 29. 三条缺口各留主题句，不再重讲 2.2 的方法清单。
+- [x] 30. 同一基座位置和航向的不同臂角改写成盘心圆弧与整机碰撞、以及够得到不等于覆盖到两句。
+- [x] 31. 删去 SatAOI 主要用于可作业位置及其后的方法句。
 - [ ] 32. 第二缺口不再保留带 [16]–[20] 的固定足迹复述。
 - [ ] 33. 第二缺口只留 SatAOI 停在可作业区域、并由分层启发式接成链路的一句。
 - [ ] 34. 引言第一次出现 static reachability envelope 时给出定义，2.3 指回该句。
