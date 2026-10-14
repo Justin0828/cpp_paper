@@ -5,36 +5,31 @@ This study addresses the planning problem that maps a known, static, two-dimensi
 
 \subsection{Overall Planning Pipeline}
 
-The proposed hierarchy follows four stages: region representation, graph visitation, local execution, and coverage evaluation. Figure~\ref{fig:pipeline} summarizes the data flow. The inputs comprise a calibrated binary work map $M$ with physical pixel size $s_p$, an initial robot state $q_0$, geometric and motion parameters $\Theta_R$ for the base--arm--disc mechanism, and planning configuration $\Psi_P$. These quantities are defined formally in Section~\ref{sec:formulation}; the present subsection explains how they are progressively transformed into an executable trajectory and coverage measures.
+BiRect proceeds in four stages, and the output of each stage is the input of the next. Figure~\ref{fig:pipeline} summarizes the workflow. To improve the efficiency of searching a complex free space, rectangular decomposition gathers that space into a small number of bidirectional rectangular candidates. Connectivity completion outputs a feasible adjacency graph $G$, whose edges mean that a base--swing-arm transfer satisfying the geometric and velocity constraints exists, not merely that two rectangles touch. Then each rectangle supplies the time of a first coverage visit and of a repeated transit visit, and these times are used as the costs of global route planning. The global stage obtains a visitation sequence on $G$ and joins it into a trajectory; evaluation reads only this trajectory and returns the coverage ratios and the execution time, while $T_{\mathrm{plan}}$ is the computation time of the whole workflow and is not used as a search cost.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.98\linewidth]{pipeline_overall_improved_en.png}
-  \caption{Coverage-planning framework and principal data flow. The inputs on the left are the work map, coordinate calibration, robot model, initial state, and planning parameters. The four central modules successively produce an initial rectangle set $\mathcal R_1$, a final rectangle set $\mathcal R$ with adjacency graph $G$, entry- and exit-constrained local motion primitives with time costs, and a visitation sequence $\Pi$ with complete trajectory $q(t)$. Continuous disc sweeping then yields coverage ratios, execution time, and planning time.}
+  \caption{Workflow of BiRect.}
   \label{fig:pipeline}
 \end{figure}
-
-The rectangular-decomposition module first generates candidate rectangles on a conservative planning grid and selects suitable work units according to newly covered area, rectangle count, and overlap, producing the initial set $\mathcal R_1$. The connectivity-completion module creates geometric adjacency candidates, removes relationships that fail a base--arm transfer check, and inserts bridging rectangles when needed. Its output is a final rectangle set $\mathcal R$ and feasible adjacency graph $G$. An edge in $G$ therefore means not only that two rectangles touch geometrically, but also that at least one local transfer satisfies the geometric and velocity constraints in Eqs.~\eqref{eq:geometric-feasibility} and \eqref{eq:velocity-limits}.
-
-For every rectangle, the local-modeling module constructs two primitive types. A first visit uses a coverage primitive, whereas a repeated visit uses a transit primitive. Their durations depend on the entry and exit states and are denoted by $T_{\mathrm{cover}}(R;q^{\mathrm{in}},q^{\mathrm{out}})$ and $T_{\mathrm{transit}}(R;q^{\mathrm{in}},q^{\mathrm{out}})$, respectively. These costs, together with the transfer costs on graph edges, enter the global route search. After the visitation sequence $\Pi$ has been selected, the same primitives are instantiated as first-visit or repeated-visit motions and concatenated into the complete trajectory. The local motion model thus supports both visitation ordering and final trajectory generation.
-
-Starting from $q_0$, the global module generates a sequence on $G$ that permits repeated transit visits and connects adjacent primitive endpoints, yielding a continuous trajectory $q(t)$ with timing and work-state labels. The evaluation module recovers the disc-center path from $q(t)$ and computes effective-work coverage $\rho_{\mathrm{work}}$, full-trajectory coverage $\rho_{\mathrm{traj}}$, and execution time $T_{\mathrm{exec}}$. The wall-clock time from conservative-grid generation through trajectory evaluation is $T_{\mathrm{plan}}$. The following subsections define the inputs, states, and metrics, then describe each module and the continuous swept-area evaluation.
 
 \subsection{Problem Formulation and Notation}
 \label{sec:formulation}
 
 \subsubsection{From a Construction Scene to Planning Inputs}
+\label{sec:scene-inputs}
 
-The required scene information is first extracted from a CAD/BIM model, site-survey data, or localization and mapping output. For a floor to be troweled, a world-coordinate plane $\mathcal F_W$ coincident with the work surface is selected, and the boundary of the current task is specified in that plane. Walls, columns, equipment foundations, embedded components, reserved openings, and areas outside the work boundary are marked as unavailable. The remaining floor inside the boundary on which the disc may operate becomes the target work region. To account for localization error, map error, or additional clearance, unavailable-region contours can be dilated by a margin $\delta_{\mathrm{map}}$ before rasterization. The classified plane is then rasterized and geometrically calibrated to produce a physically scaled binary work map, which is the direct map input to CPP.
+The required scene information is first extracted from a CAD/BIM model, site-survey data, or localization and mapping output. For a floor to be troweled, a world-coordinate plane $\mathcal F_W$ coincident with the work surface is selected, and the boundary of the current task is specified in that plane. Walls, columns, equipment foundations, embedded components, reserved openings, and areas outside the work boundary are marked as unavailable. The remaining floor inside the boundary on which the disc may operate becomes the target work region. The classified plane is then rasterized and geometrically calibrated to produce a physically scaled binary work map $M$, which is the direct map input to CPP.
 
-Discretization converts heterogeneous geometry from CAD/BIM, field measurement, and mapping into spatial cells at a common resolution. This gives rectangle generation, adjacency testing, collision checking, and coverage calculation a consistent computational basis. At a resolution of $s_p$~m/pixel, the plane becomes a binary map $M$: white pixels are obstacle-free target pixels included in the coverage task, whereas black pixels represent walls, columns, openings, out-of-bound areas, and areas excluded by the safety margin. In result and evaluation images, blue pixels denote portions of the target region already swept by the disc. Blue is an overlay on $M$, not a third input-map class. A rigid transform $T_{WM}$ calibrates image coordinates to world coordinates, so every pixel corresponds to a physical location in metres.
+At a resolution of $s_p$~m/pixel, blue pixels in result and evaluation images denote portions of the target region already swept by the disc. Blue is an overlay on $M$, not a third input-map class. A rigid transform $T_{WM}$ calibrates image coordinates to world coordinates, so every pixel corresponds to a physical location in metres.
 
-The conversion from planar geometry to the binary map follows uniform labeling and conservative discretization. Regardless of boundary shape, all workable and unavailable regions are projected onto the same plane and classified at one resolution as free or occupied cells. Cells on an obstacle boundary or with ambiguous membership are treated as unavailable to avoid misclassifying obstacle space as workable floor. Straight walls and rectangular foundations map directly to contiguous black cells. Circular columns, curved boundaries, and openings are approximated by staircase boundaries at the selected resolution, optionally enlarged by the safety margin. In regions with irregular boundaries or dense obstacles, the occupancy map preserves the overall shape and connectivity; subsequent rectangle generation, hole filling, and connectivity completion handle them uniformly. The conversion therefore does not require a separate decomposition rule for every geometric shape. Its approximation accuracy is governed jointly by map resolution and safety margin.
+Unavailable regions are first enlarged by the safety margin $\delta_{\mathrm{map}}$ and then rasterized, and every boundary cell or cell of ambiguous membership is treated as unavailable. Circular columns, curved boundaries, and openings become staircase boundaries at the selected resolution. Straight walls and rectangular foundations map to contiguous occupied cells.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.96\linewidth]{figure_3_geometric_to_binary_raster.png}
-  \caption{Conversion from exact geometric descriptions to the binary raster input. The left column shows exact two-dimensional work regions and rectangular subregions abstracted from CAD/BIM, survey, or mapping data; the right column shows the binary map $M$ used by the planner. White denotes free target area, black denotes obstacles, openings, or out-of-bound regions, and dashed rectangles indicate approximate cells that may support later rectangular candidates. Examples include rectangular rooms, circular or curved boundaries, L-shaped areas, T-junction or corridor connections, regions with columns or openings, and irregular areas with dense obstacles.}
+  \caption{Conversion from exact geometric descriptions to the binary raster input.}
   \label{fig:rasterization-examples}
 \end{figure}
 
@@ -57,7 +52,7 @@ The initial base position, heading, and arm angle in $q_0$ are obtained from the
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.82\linewidth]{figure_4_body_arm_disc_model.png}
-  \caption{Geometry and motion parameters of the base--arm--disc system. The diagram identifies the base center, heading $\theta$, relative arm angle $\phi$, disc radius $r_d$, arm length $L$, base-center-to-pivot offset $d_p$, and base length and width $l_c,w_c$. These quantities determine the robot's occupied geometry and the disc-center position in Eq.~\eqref{eq:disc-center}.}
+  \caption{Geometry and motion parameters of the base--arm--disc system.}
   \label{fig:robot-geometry}
 \end{figure}
 
@@ -69,7 +64,7 @@ Let the input map be
 \begin{equation*}
 M\in\{0,255\}^{H_p\times W_p},
 \end{equation*}
-where $M_{uv}=0$ is an obstacle pixel and $M_{uv}=255$ a free pixel. With physical pixel size $s_p$, the free-pixel set is
+The labels $0$ and $255$ only distinguish obstacle and free; they are not grayscale values and not physical quantities. With physical pixel size $s_p$, the free-pixel set is
 \begin{equation*}
 \mathcal P_F=\{(u,v)\mid M_{uv}=255\}.
 \end{equation*}
@@ -120,7 +115,7 @@ All feasible states form $\mathcal Q_F\subseteq\mathcal Q$. For a motion segment
 \end{equation}
 Straight motion, in-place rotation, arm adjustment, and other primitives are adaptively subdivided, and Eq.~\eqref{eq:geometric-feasibility} is checked over every subinterval. Consequently, later rectangle adjacencies and entry states are candidates only; a transfer enters the final planning graph only after passing this check.
 
-Under Eqs.~\eqref{eq:geometric-feasibility} and \eqref{eq:velocity-limits}, the algorithm is assessed at three levels: work quality, trajectory-execution efficiency, and planning efficiency. The corresponding objectives are
+Under Eqs.~\eqref{eq:geometric-feasibility} and \eqref{eq:velocity-limits}, the algorithm is assessed at three levels: effective-work coverage, trajectory-execution efficiency, and planning efficiency. The corresponding objectives are
 \begin{equation}
 \max \rho_{\mathrm{work}}(q),\qquad
 \min T_{\mathrm{exec}}(q),\qquad
@@ -130,11 +125,11 @@ Under Eqs.~\eqref{eq:geometric-feasibility} and \eqref{eq:velocity-limits}, the 
 \end{equation}
 The effective-work coverage ratio $\rho_{\mathrm{work}}(q)$ is the fraction of the target area swept by the disc during work-labeled segments. The nominal execution time $T_{\mathrm{exec}}(q)$ runs from the initial state to completion and includes the initial connection, effective work, turns, arm adjustments, and inter-region transfers. The wall-clock planning time $T_{\mathrm{plan}}$ covers the algorithm from conservative-grid generation through trajectory assembly and coverage evaluation.
 
-These measures play distinct roles. The task-level quality measure $\rho_{\mathrm{work}}$ is encouraged indirectly through free-space rectangle representation, rewards for new coverage, and overlap penalties, then computed from the continuous disc sweep in Eqs.~\eqref{eq:disc-center}--\eqref{eq:swept-area} after the complete trajectory is available. The route-level objective $T_{\mathrm{exec}}$ supplies time costs to local primitives and global visitation candidates; the algorithm selects feasible trajectories with low proxy cost but does not claim a global minimum. The planning-time measure $T_{\mathrm{plan}}$ is not a decision variable of $q$; it is a design objective controlled by hierarchical decomposition, polynomial-time heuristics, and candidate truncation. This separation motivates the hierarchical heuristic framework.
+These measures play distinct roles. The task-level coverage measure $\rho_{\mathrm{work}}$ is encouraged indirectly through free-space rectangle representation, rewards for new coverage, and overlap penalties, then computed from the continuous disc sweep in Eqs.~\eqref{eq:disc-center}--\eqref{eq:swept-area} after the complete trajectory is available. The search uses time proxies of local coverage, transit, and transfer to compare visitation sequences; the full execution time $T_{\mathrm{exec}}$ is computed after the trajectory has been generated and is not used as a cost in the search. The algorithm selects feasible trajectories with low proxy cost but does not claim a global minimum. The planning-time measure $T_{\mathrm{plan}}$ is not a decision variable of $q$; it is a design objective controlled by hierarchical decomposition, polynomial-time heuristics, and candidate truncation. This separation motivates the hierarchical heuristic framework.
 
 \subsection{Conservative Rasterization and Rectangular Decomposition}
 
-The decomposition module first converts the pixel map into a coarser planning grid. Let each square planning cell contain $g\times g$ pixels, and let $\Omega_{ij}$ be the pixel block associated with planning cell $(i,j)$. Conservative rasterization gives
+Following the conservative rule of Section~\ref{sec:scene-inputs}, the test is written here on planning cells. Let each square planning cell contain $g\times g$ pixels, and let $\Omega_{ij}$ be the pixel block associated with planning cell $(i,j)$:
 \begin{equation}
 B_{ij}=\begin{cases}
 1, & \text{if } M_{uv}=255,\quad \forall (u,v)\in\Omega_{ij},\\
@@ -143,15 +138,13 @@ B_{ij}=\begin{cases}
 \tag{5}
 \label{eq:conservative-raster}
 \end{equation}
-Thus, $B_{ij}=1$ means that the planning cell can support rectangle generation; $B_{ij}=0$ means that it contains or touches an obstacle. The rule sacrifices some free area near obstacles but guarantees that subsequent rectangular candidates do not cross known obstacles.
-
 On $B$, the algorithm scans maximal contiguous runs of free cells by rows and by columns, extending them across adjacent scan lines as long as every enclosed cell remains free. This produces axis-aligned candidates of the form
 \begin{equation}
 R=[x_1,x_2]\times[y_1,y_2],
 \tag{6}
 \label{eq:rectangle}
 \end{equation}
-with all planning cells inside $R$ free. Candidates whose width or height is below a specified minimum are removed. The remainder are ordered first by decreasing area and, for equal areas, by increasing row and column coordinates of the upper-left and then lower-right corner. Only the first $C_{\max}$ candidates from each scan direction are retained. This deterministic truncation controls rapid growth in candidate count while making the candidate set repeatable for fixed inputs and parameters.
+All planning cells inside $R$ are free. Candidates whose width or height is below a specified minimum are removed. The remainder are ordered first by decreasing area and, for equal areas, by increasing row and column coordinates of the upper-left and then lower-right corner. Only the first $C_{\max}$ candidates from each scan direction are retained. This deterministic truncation controls rapid growth in candidate count while making the candidate set repeatable for fixed inputs and parameters.
 
 Candidate selection is formulated as a penalized maximum-coverage problem. Let $\mathcal U(R)$ be the set of planning cells covered by $R$ and $\mathcal A$ the cells already covered by selected rectangles. The marginal utility of selecting $R$ is
 \begin{equation}
@@ -159,11 +152,11 @@ Candidate selection is formulated as a penalized maximum-coverage problem. Let $
 \tag{7}
 \label{eq:marginal-utility}
 \end{equation}
-Cardinalities are measured in planning cells, so $\alpha$ has units of cells and $\beta$ is dimensionless. The first term rewards new coverage; the other terms penalize rectangle count and overlap. The algorithm repeatedly selects the row-scan candidate with the largest positive marginal utility, using the deterministic ordering above to break ties. It then processes the column-scan pool relative to the current $\mathcal A$, so column-oriented rectangles mainly supplement vertical structures poorly represented by row scans. The two greedy stages produce the initial selection.
+The absolute values in Eq.~\eqref{eq:marginal-utility} are counts of planning cells, so $\alpha$ has units of cells and $\beta$ is dimensionless. The first term rewards new coverage; the other terms penalize rectangle count and overlap. The algorithm repeatedly selects the row-scan candidate with the largest positive marginal utility, using the deterministic ordering above to break ties. It then processes the column-scan pool relative to the current $\mathcal A$, so column-oriented rectangles mainly supplement vertical structures poorly represented by row scans. The two greedy stages produce the initial selection.
 
 Candidate truncation or the penalties may leave a small number of free cells uncovered. A deterministic hole-filling stage therefore selects the first uncovered free cell in row-major order as a seed, enumerates maximal axis-aligned obstacle-free rectangles containing the seed, and selects the largest. Remaining ties are resolved by rectangle width and upper-left coordinates. The selected rectangle is added and $\mathcal A$ updated until every usable planning cell belongs to at least one rectangle. The resulting set, before connectivity repair, is $\mathcal R_1$. Minimum side length, $C_{\max}$, $\alpha$, $\beta$, and scan direction are included in $\Psi_P$.
 
-\subsection{Connectivity Completion and Final Segmentation}
+\subsection{Connectivity Completion}
 
 Covering every free planning cell with rectangles does not ensure that the robot can move continuously between them. The method therefore constructs an undirected graph
 \begin{equation}
@@ -179,9 +172,9 @@ R_b^\star=\arg\min_{R_b\in\mathcal B}\left(|\mathcal U(R_b)\setminus\mathcal A|+
 \tag{9}
 \label{eq:bridge-cost}
 \end{equation}
-where $\mathcal B$ is the current bridge-candidate set, the sum contains only edges used to connect components, and $\lambda_b$ weights transfer time. Relevant edges and connected components are recomputed after every insertion, until $G$ becomes connected. If $\mathcal B$ is empty while $G$ remains disconnected, no single continuous coverage trajectory is supported by the current candidate set and parameters. The method reports connectivity failure and does not proceed to global route planning.
+where $\mathcal B$ is the current bridge-candidate set, the sum contains only edges used to connect components, and $\lambda_b$ weights transfer time. Relevant edges and connected components are recomputed after every insertion, until $G$ becomes connected. The final rectangle set $\mathcal R$ is $\mathcal R_1$ after the bridging rectangles have been added. If $\mathcal B$ is empty while $G$ remains disconnected, no single continuous coverage trajectory is supported by the current candidate set and parameters. The method reports connectivity failure and does not proceed to global route planning.
 
-\begin{algorithm}[htbp]
+\begin{algorithm}[H]
 \caption{Rectangle segmentation and connectivity completion}
 \label{alg:segmentation}
 \small
@@ -226,10 +219,12 @@ The rectangle-coverage module supplies the local motion primitive. Given a recta
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.84\linewidth]{figure_6_single_rectangle_coverage.png}
-  \caption{Single-rectangle coverage primitive. The disc entry and exit are determined by neighboring rectangles or the initial state. The local planner compares time proxies for both sweep directions and feasible starting corners, then covers the rectangle through forward base motion and reciprocal arm swinging.}
+  \includegraphics[width=0.5\linewidth]{figure_6_single_rectangle_coverage.png}
+  \caption{Single-rectangle coverage primitive.}
   \label{fig:rectangle-primitive}
 \end{figure}
+
+Local paths are not redrawn for other aspect ratios. Each local path is a back-and-forth strip along one axis of the rectangle: the longer side is the default so as to reduce lane changes, and the other axis is also generated and compared by time.
 
 \subsubsection{Entry and Exit Poses}
 
@@ -247,7 +242,7 @@ The state and its connection from the preceding primitive are then checked again
 
 \subsubsection{Starting Corner, Strip Width, and Swing Amplitude}
 
-Let $\ell_R$ and $h_R$ be the rectangle dimensions parallel and perpendicular to the work strips. The local planner uses the longer axis by default to reduce lane changes, but also generates a solution along the other axis. Across the two sweep directions and their feasible starting corners, it compares the total time proxy for entry connection, coverage, lane changes, and exit connection. Thus $h_R$ always denotes the transverse extent crossed collectively by the strips, whereas $\ell_R$ is the travel length of one strip.
+The swing amplitude is the half-amplitude of the arm angle about its neutral position while one strip is covered. It is denoted $\phi_w$ and is determined by the strip width, the disc radius, and the arm length. A work strip is one working band covered by the disc as it travels back and forth along one side of the rectangle. Let $\ell_R$ and $h_R$ be the rectangle dimensions parallel and perpendicular to the work strips. $\ell_R$ is the travel length of one work strip, and $h_R$ is the transverse width crossed together by the strips. The local planner uses the longer axis by default to reduce lane changes, but also generates a solution along the other axis. Across the two sweep directions and their feasible starting corners, it compares the total time proxy for entry connection, coverage, lane changes, and exit connection. Thus $h_R$ always denotes the transverse extent crossed collectively by the strips, whereas $\ell_R$ is the travel length of one strip.
 
 For each sweep direction, the planner filters the four corners to retain starting points reachable from the entry and connectable to the exit; the parity of the strip count determines the coverage endpoint. It selects the feasible combination with the minimum sum of non-working motion and local coverage time. Entry, sweep direction, starting corner, strip-count parity, and exit therefore jointly determine the primitive; the start is not chosen merely as the nearest corner in Euclidean distance.
 
@@ -302,11 +297,11 @@ v_{\mathrm{work}}=\min(v_{\max},v_{\mathrm{safe}}).
 \tag{17}
 \label{eq:work-speed}
 \end{equation}
-When the arm is slow or the amplitude large, Eq.~\eqref{eq:work-speed} reduces the base speed so that the forward distance between adjacent half-sweeps does not exceed the disc diameter. This is a conservative rule derived from local sweep spacing, not a proof of complete coverage for every continuous arm trajectory. The actual swept area is therefore still checked after local motion generation by the procedure in Section~\ref{sec:coverage-evaluation}. The same relationship underlies the later experimental analysis of the arm-to-base speed ratio.
+When the arm is slow or the amplitude large, Eq.~\eqref{eq:work-speed} reduces the base speed so that the forward distance between adjacent half-sweeps does not exceed the disc diameter. This is a conservative rule derived from local sweep spacing, not a proof of complete coverage for every continuous arm trajectory. The actual swept area is therefore still checked after local motion generation by the procedure in Section~\ref{sec:coverage-evaluation}. The same base--arm velocity coupling underlies the later experiments.
 
 \subsubsection{Time Model for First and Repeated Visits}
 
-The first visit to a rectangle includes motion to the starting corner, coverage of all strips, lane changes, turns, arm deployment and retraction, and departure from the rectangle. If strip $k$ has length $\ell_k$, lane-change segment $k$ has length $d_k$, base rotation $m$ is $\Delta\theta_m$, and arm adjustment $m$ is $\Delta\phi_m$, the total coverage time is
+The first-visit time in Eq.~\eqref{eq:coverage-time} has four terms: strip travel, lane changes, in-place turns, and arm adjustments. Handoff time between rectangles lies in the edge cost $c_{ij}$ and does not enter $T_{\mathrm{cover}}$; travel toward the exit of the present rectangle, when it occurs, is counted in the lane-change or turn term. If strip $k$ has length $\ell_k$, lane-change segment $k$ has length $d_k$, base rotation $m$ is $\Delta\theta_m$, and arm adjustment $m$ is $\Delta\phi_m$, the total coverage time is
 \begin{equation}
 \begin{aligned}
 T_{\mathrm{cover}}(R;q^{\mathrm{in}},q^{\mathrm{out}})

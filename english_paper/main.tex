@@ -23,7 +23,7 @@
   linkcolor=black,
   citecolor=blue!60!black,
   urlcolor=blue!60!black,
-  pdftitle={Coverage Path Planning for a Swing-Arm Concrete Troweling Robot in Complex Environments},
+  pdftitle={BiRect: Bidirectional Rectangular Coverage Path Planning for a Swing-Arm Concrete Troweling Robot},
   pdfauthor={Yuzhi Pan}
 }
 \captionsetup{font=small,labelfont=bf}
@@ -32,7 +32,7 @@
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{2}
 
-\title{Coverage Path Planning for a Swing-Arm Concrete Troweling Robot in Complex Environments}
+\title{BiRect: Bidirectional Rectangular Coverage Path Planning for a Swing-Arm Concrete Troweling Robot}
 \author{Yuzhi Pan}
 \date{}
 
@@ -40,7 +40,7 @@
 \maketitle
 
 \begin{abstract}
-Concrete floor troweling must cover large areas within a limited construction window. In workspaces partitioned by walls, columns, and openings, a swing-arm robot must plan both base traversal and end-disc coverage. Most existing coverage path planning methods assume a fixed tool footprint and therefore cannot represent the time-varying sweep produced by an actuated arm or generate a continuous, executable route in a complex map. This paper presents a hierarchical coverage path planning method for known two-dimensional environments with obstacles. The method first organizes the workspace using axis-aligned rectangular candidates generated in two scan directions, followed by hole filling and connectivity completion. It then determines a global visitation order and synthesizes coordinated base--arm motions. Coverage is evaluated from the actual area swept by the circular troweling disc along the complete trajectory, while the effects of base speed and arm angular velocity on sweep continuity and execution time are explicitly included. On two test maps, the proposed method achieves full-trajectory coverage ratios of 94.11\% and 95.73\%, respectively, and both generated routes pass the motion-feasibility checks. By contrast, the connecting segments produced by a fixed-width baseline leave the valid workspace by 4.51~m$^2$ and 20.00~m$^2$, making those routes non-executable. Experiments on five maps further show that the bidirectional candidate strategy attains the highest mean full-trajectory coverage ratio (94.32\%) and the lowest mean total execution time (2316.60~s). These results support integrating complex-map decomposition, active arm motion, and continuous swept-area evaluation within a single planning pipeline. Validation in dynamic construction environments and on a physical robot remains future work.
+Compared with center-mounted and front-mounted configurations, a swing-arm robot can keep the base clear of walls, columns, and openings while the disc covers lateral regions and narrow passages during large-area, repetitive troweling. Existing coverage path planning methods still focus on regular sites or agricultural fields with a fixed tool footprint; they do not account for an active swing arm or for the time-varying disc sweep on a complex map. This paper therefore presents BiRect. It proposes, for a known two-dimensional obstacle map, joining the visitation order over a complex free space and coordinated base and swing-arm motion into one executable route. It introduces bidirectional rectangular candidates, together with hole filling and connectivity completion, so that an irregular free space becomes rectangles that a swing arm can visit continuously. It develops local sweeping that varies with arm angle; the coverage ratio and execution time are computed from the actual sweep of the circular disc along the complete trajectory, while the coupled effects of base speed and arm angular velocity on sweep continuity and execution time are further revealed. Experiments showed that the proposed method achieves full-trajectory coverage ratios of 94.11\% and 95.73\%, respectively, and both generated routes pass the motion-feasibility checks. By contrast, the connecting segments produced by a fixed-width baseline leave the valid workspace by 4.51~m$^2$ and 20.00~m$^2$, making those routes non-executable. Experiments further show that the bidirectional candidate strategy attains the highest mean full-trajectory coverage ratio (94.32\%) and the lowest mean total execution time (2316.60~s). These results support integrating complex-map decomposition, active arm motion, and continuous swept-area evaluation within a single planning pipeline. Validation in dynamic construction environments and on a physical robot remains future work.
 \end{abstract}
 
 \noindent\textbf{Keywords:} coverage path planning; construction robotics; concrete troweling; swing-arm robot; area decomposition
