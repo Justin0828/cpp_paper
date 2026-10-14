@@ -48,4 +48,10 @@
 
   Output: `english_paper/figures/figure_2_coverage_comparison_en.png`.
 
-- [ ] 81. Speed curves.
+- [x] 81. Speed curves redrawn from the existing comparison CSVs. The \(\rho\) axis starts at 0, ticks and markers stay on the six measured ratios, and there is no point at \(\rho=0\) and no single-strip curve. In-figure titles are `simple` and `complex`. Speed and \(\rho\) remain on the one bottom axis.
+
+  ```bash
+  python scripts/figures/speed_curves.py
+  ```
+
+  Output: `english_paper/figures/figure_5a_vehicle_speed_map_simple_en.png` and `english_paper/figures/figure_5b_vehicle_speed_parkingGraph_en.png`. Data: `pathCoverage_experiment/experiments/vehicle_speed_comparison/results/{map_test1,parkingGraph}/comparison_summary.csv`. The caption is unchanged.
