@@ -25,7 +25,14 @@
   Output: `english_paper/figures/figure_3_geometric_to_binary_raster.png`. Baselines in `assets/svg_sources/transfer.svg` are `y="118"` and `y="232"`.
 
 - [x] 49. The lower-right black cluster in Figure 4(d) agrees with the two rectangles in the horizontal arm of the left-hand geometry. The check is in `notes/codebase-map.md` under “Figure 4(d) black cluster”. Those cells were not redrawn, and no caption was added.
-- [ ] 63. Principle figures for 3.5.2 and 3.5.3.
+- [x] 63. Principle figures for 3.5.2 and 3.5.3. Symbols already in the methodology only: disc center on the boundary with the base retracted by \(d_p+L\); \(\ell_R\), \(h_R\), \(w_s\), \(N_s\), and one start corner; arm at \(\pm\phi_w\) with \(L\) and \(r_d\); then one disc diameter of base travel over \(T_{\mathrm{half}}\) labeled \(v_{\mathrm{work}}\). No new radius or arm-length sweep, and Figure 6 is unchanged.
+
+  ```bash
+  python scripts/figures/strip_geometry.py
+  python scripts/figures/speed_coupling.py
+  ```
+
+  Output: `english_paper/figures/figure_strip_geometry.png` at the start of 3.5.2, and `english_paper/figures/figure_speed_coupling.png` at the start of 3.5.3. No captions.
 - [ ] 67. Section 3.7 schematic.
 - [ ] 70. In-figure map names.
 - [ ] 81. Speed curves.
