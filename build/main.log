@@ -1,0 +1,2143 @@
+This is XeTeX, Version 3.141592653-2.6-0.999995 (TeX Live 2023/Debian) (preloaded format=xelatex 2026.10.14)  14 OCT 2026 18:55
+entering extended mode
+ \write18 enabled.
+ %&-line parsing enabled.
+**main.tex
+(./main.tex
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2024-01-22>
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/ctexart.c
+ls
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/config/ct
+exbackend.cfg
+File: ctexbackend.cfg 2022/07/14 v2.5.10 Backend configuration file (CTEX)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3
+.sty
+Package: expl3 2024-01-22 L3 programming layer (loader) 
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3ba
+ckend-xetex.def
+File: l3backend-xetex.def 2024-01-04 L3 backend support: XeTeX
+\g__graphics_track_int=\count183
+\l__pdf_internal_box=\box51
+\g__pdf_backend_object_int=\count184
+\g__pdf_backend_annotation_int=\count185
+\g__pdf_backend_link_int=\count186
+))
+Document Class: ctexart 2022/07/14 v2.5.10 Chinese adapter for class article (C
+TEX)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/ctexhook.
+sty
+Package: ctexhook 2022/07/14 v2.5.10 Document and package hooks (CTEX)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/ctexpatch
+.sty
+Package: ctexpatch 2022/07/14 v2.5.10 Patching commands (CTEX)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/base/fix-cm.st
+y
+Package: fix-cm 2020/11/24 v1.1t fixes to LaTeX
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/base/ts1enc.de
+f
+File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding TS1 on input line 47.
+))
+\l__ctex_tmp_int=\count187
+\l__ctex_tmp_box=\box52
+\l__ctex_tmp_dim=\dimen140
+\g__ctex_section_depth_int=\count188
+\g__ctex_font_size_int=\count189
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/config/ct
+exopts.cfg
+File: ctexopts.cfg 2022/07/14 v2.5.10 Option configuration file (CTEX)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/base/article.c
+ls
+Document Class: article 2023/05/17 v1.4n Standard LaTeX document class
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/base/size11.cl
+o
+File: size11.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count190
+\c@section=\count191
+\c@subsection=\count192
+\c@subsubsection=\count193
+\c@paragraph=\count194
+\c@subparagraph=\count195
+\c@figure=\count196
+\c@table=\count197
+\abovecaptionskip=\skip48
+\belowcaptionskip=\skip49
+\bibindent=\dimen141
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/engine/ct
+ex-engine-xetex.def
+File: ctex-engine-xetex.def 2022/07/14 v2.5.10 XeLaTeX adapter (CTEX)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/xelatex/xecjk/xeCJK.
+sty
+Package: xeCJK 2022/08/05 v3.9.1 Typesetting CJK scripts with XeLaTeX
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/l3packages/xte
+mplate/xtemplate.sty
+Package: xtemplate 2023-10-10 L3 Experimental prototype document functions
+\l__xtemplate_tmp_dim=\dimen142
+\l__xtemplate_tmp_int=\count198
+\l__xtemplate_tmp_muskip=\muskip16
+\l__xtemplate_tmp_skip=\skip50
+)
+\l__xeCJK_tmp_int=\count199
+\l__xeCJK_tmp_box=\box53
+\l__xeCJK_tmp_dim=\dimen143
+\l__xeCJK_tmp_skip=\skip51
+\g__xeCJK_space_factor_int=\count266
+\l__xeCJK_begin_int=\count267
+\l__xeCJK_end_int=\count268
+\c__xeCJK_CJK_class_int=\XeTeXcharclass1
+\c__xeCJK_FullLeft_class_int=\XeTeXcharclass2
+\c__xeCJK_FullRight_class_int=\XeTeXcharclass3
+\c__xeCJK_HalfLeft_class_int=\XeTeXcharclass4
+\c__xeCJK_HalfRight_class_int=\XeTeXcharclass5
+\c__xeCJK_NormalSpace_class_int=\XeTeXcharclass6
+\c__xeCJK_CM_class_int=\XeTeXcharclass7
+\c__xeCJK_HangulJamo_class_int=\XeTeXcharclass8
+\l__xeCJK_last_skip=\skip52
+\c__xeCJK_none_node=\count269
+\g__xeCJK_node_int=\count270
+\c__xeCJK_CJK_node_dim=\dimen144
+\c__xeCJK_CJK-space_node_dim=\dimen145
+\c__xeCJK_default_node_dim=\dimen146
+\c__xeCJK_CJK-widow_node_dim=\dimen147
+\c__xeCJK_normalspace_node_dim=\dimen148
+\c__xeCJK_default-space_node_skip=\skip53
+\l__xeCJK_ccglue_skip=\skip54
+\l__xeCJK_ecglue_skip=\skip55
+\l__xeCJK_punct_kern_skip=\skip56
+\l__xeCJK_indent_box=\box54
+\l__xeCJK_last_penalty_int=\count271
+\l__xeCJK_last_bound_dim=\dimen149
+\l__xeCJK_last_kern_dim=\dimen150
+\l__xeCJK_widow_penalty_int=\count272
+
+Package xtemplate Info: Declaring object type 'xeCJK/punctuation' taking 0
+(xtemplate)             argument(s) on line 2396.
+
+\l__xeCJK_fixed_punct_width_dim=\dimen151
+\l__xeCJK_mixed_punct_width_dim=\dimen152
+\l__xeCJK_middle_punct_width_dim=\dimen153
+\l__xeCJK_fixed_margin_width_dim=\dimen154
+\l__xeCJK_mixed_margin_width_dim=\dimen155
+\l__xeCJK_middle_margin_width_dim=\dimen156
+\l__xeCJK_bound_punct_width_dim=\dimen157
+\l__xeCJK_bound_margin_width_dim=\dimen158
+\l__xeCJK_margin_minimum_dim=\dimen159
+\l__xeCJK_kerning_total_width_dim=\dimen160
+\l__xeCJK_same_align_margin_dim=\dimen161
+\l__xeCJK_different_align_margin_dim=\dimen162
+\l__xeCJK_kerning_margin_width_dim=\dimen163
+\l__xeCJK_kerning_margin_minimum_dim=\dimen164
+\l__xeCJK_bound_dim=\dimen165
+\l__xeCJK_reverse_bound_dim=\dimen166
+\l__xeCJK_margin_dim=\dimen167
+\l__xeCJK_minimum_bound_dim=\dimen168
+\l__xeCJK_kerning_margin_dim=\dimen169
+\g__xeCJK_family_int=\count273
+\l__xeCJK_fam_int=\count274
+\g__xeCJK_fam_allocation_int=\count275
+\l__xeCJK_verb_case_int=\count276
+\l__xeCJK_verb_exspace_skip=\skip57
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/fontspec/fonts
+pec.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/l3packages/xpa
+rse/xparse.sty
+Package: xparse 2023-10-10 L3 Experimental document command parser
+)
+Package: fontspec 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTeX
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/fontspec/fonts
+pec-xetex.sty
+Package: fontspec-xetex 2022/01/15 v2.8a Font selection for XeLaTeX and LuaLaTe
+X
+\l__fontspec_script_int=\count277
+\l__fontspec_language_int=\count278
+\l__fontspec_strnum_int=\count279
+\l__fontspec_tmp_int=\count280
+\l__fontspec_tmpa_int=\count281
+\l__fontspec_tmpb_int=\count282
+\l__fontspec_tmpc_int=\count283
+\l__fontspec_em_int=\count284
+\l__fontspec_emdef_int=\count285
+\l__fontspec_strong_int=\count286
+\l__fontspec_strongdef_int=\count287
+\l__fontspec_tmpa_dim=\dimen170
+\l__fontspec_tmpb_dim=\dimen171
+\l__fontspec_tmpc_dim=\dimen172
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.s
+ty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/fontspec/fonts
+pec.cfg)))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/xelatex/xecjk/xeCJK.
+cfg
+File: xeCJK.cfg 2022/08/05 v3.9.1 Configuration file for xeCJK package
+))
+\ccwd=\dimen173
+\l__ctex_ccglue_skip=\skip58
+)
+\l__ctex_ziju_dim=\dimen174
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/zhnumber/zhnum
+ber.sty
+Package: zhnumber 2022/07/14 v3.0 Typesetting numbers with Chinese glyphs
+\l__zhnum_scale_int=\count288
+\l__zhnum_tmp_int=\count289
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/zhnumber/zhnum
+ber-utf8.cfg
+File: zhnumber-utf8.cfg 2022/07/14 v3.0 Chinese numerals with UTF8 encoding
+))
+\l__ctex_heading_skip=\skip59
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/scheme/ct
+ex-scheme-chinese-article.def
+File: ctex-scheme-chinese-article.def 2022/07/14 v2.5.10 Chinese scheme for art
+icle (CTEX)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/config/ct
+ex-name-utf8.cfg
+File: ctex-name-utf8.cfg 2022/07/14 v2.5.10 Caption with encoding UTF-8 (CTEX)
+)))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ctex/config/ct
+ex.cfg
+File: ctex.cfg 2022/07/14 v2.5.10 Configuration file (CTEX)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/geometry/geome
+try.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/graphics/keyva
+l.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/iftex/ifvtex
+.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/iftex/iftex.
+sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
+\Gm@cnth=\count290
+\Gm@cntv=\count291
+\c@Gm@tempcnt=\count292
+\Gm@bindingoffset=\dimen175
+\Gm@wd@mp=\dimen176
+\Gm@odd@mp=\dimen177
+\Gm@even@mp=\dimen178
+\Gm@layoutwidth=\dimen179
+\Gm@layoutheight=\dimen180
+\Gm@layouthoffset=\dimen181
+\Gm@layoutvoffset=\dimen182
+\Gm@dimlist=\toks18
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsmat
+h.sty
+Package: amsmath 2023/05/13 v2.17o AMS math features
+\@mathmargin=\skip60
+
+For additional information on amsmath, use the `?' option.
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsmath/amstex
+t.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsgen
+.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks19
+\ex@=\dimen183
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsbsy
+.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen184
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsmath/amsopn
+.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count293
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count294
+\leftroot@=\count295
+LaTeX Info: Redefining \overline on input line 399.
+LaTeX Info: Redefining \colon on input line 410.
+\classnum@=\count296
+\DOTSCASE@=\count297
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box55
+\strutbox@=\box56
+LaTeX Info: Redefining \big on input line 722.
+LaTeX Info: Redefining \Big on input line 723.
+LaTeX Info: Redefining \bigg on input line 724.
+LaTeX Info: Redefining \Bigg on input line 725.
+\big@size=\dimen185
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count298
+LaTeX Info: Redefining \bmod on input line 905.
+LaTeX Info: Redefining \pmod on input line 910.
+LaTeX Info: Redefining \smash on input line 940.
+LaTeX Info: Redefining \relbar on input line 970.
+LaTeX Info: Redefining \Relbar on input line 971.
+\c@MaxMatrixCols=\count299
+\dotsspace@=\muskip17
+\c@parentequation=\count300
+\dspbrk@lvl=\count301
+\tag@help=\toks20
+\row@=\count302
+\column@=\count303
+\maxfields@=\count304
+\andhelp@=\toks21
+\eqnshift@=\dimen186
+\alignsep@=\dimen187
+\tagshift@=\dimen188
+\tagwidth@=\dimen189
+\totwidth@=\dimen190
+\lineht@=\dimen191
+\@envbody=\toks22
+\multlinegap=\skip61
+\multlinetaggap=\skip62
+\mathdisplay@stack=\toks23
+LaTeX Info: Redefining \[ on input line 2953.
+LaTeX Info: Redefining \] on input line 2954.
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amssy
+mb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfo
+nts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/booktabs/bookt
+abs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen192
+\lightrulewidth=\dimen193
+\cmidrulewidth=\dimen194
+\belowrulesep=\dimen195
+\belowbottomsep=\dimen196
+\aboverulesep=\dimen197
+\abovetopsep=\dimen198
+\cmidrulesep=\dimen199
+\cmidrulekern=\dimen256
+\defaultaddspace=\dimen257
+\@cmidla=\count305
+\@cmidlb=\count306
+\@aboverulesep=\dimen258
+\@belowrulesep=\dimen259
+\@thisruleclass=\count307
+\@lastruleclass=\count308
+\@thisrulewidth=\dimen260
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/graphics/graph
+icx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/graphics/graph
+ics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.
+sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/g
+raphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: xetex.def on input line 107.
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/graphics-def/x
+etex.def
+File: xetex.def 2022/09/22 v5.0n Graphics/color driver for xetex
+))
+\Gin@req@height=\dimen261
+\Gin@req@width=\dimen262
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tools/longtabl
+e.sty
+Package: longtable 2023-11-01 v4.19 Multi-page Table package (DPC)
+\LTleft=\skip63
+\LTright=\skip64
+\LTpre=\skip65
+\LTpost=\skip66
+\LTchunksize=\count309
+\LTcapwidth=\dimen263
+\LT@head=\box57
+\LT@firsthead=\box58
+\LT@foot=\box59
+\LT@lastfoot=\box60
+\LT@gbox=\box61
+\LT@cols=\count310
+\LT@rows=\count311
+\c@LT@tables=\count312
+\c@LT@chunks=\count313
+\LT@p@ftn=\toks24
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tools/array.st
+y
+Package: array 2023/10/16 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen264
+\ar@mcellbox=\box62
+\extrarowheight=\dimen265
+\NC@list=\toks25
+\extratabsurround=\skip67
+\backup@length=\skip68
+\ar@cellbox=\box63
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/ragged2e/ragge
+d2e.sty
+Package: ragged2e 2023/06/22 v3.6 ragged2e Package
+\CenteringLeftskip=\skip69
+\RaggedLeftLeftskip=\skip70
+\RaggedRightLeftskip=\skip71
+\CenteringRightskip=\skip72
+\RaggedLeftRightskip=\skip73
+\RaggedRightRightskip=\skip74
+\CenteringParfillskip=\skip75
+\RaggedLeftParfillskip=\skip76
+\RaggedRightParfillskip=\skip77
+\JustifyingParfillskip=\skip78
+\CenteringParindent=\skip79
+\RaggedLeftParindent=\skip80
+\RaggedRightParindent=\skip81
+\JustifyingParindent=\skip82
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/float/float.st
+y
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count314
+\float@exts=\toks26
+\float@box=\box64
+\@float@everytoks=\toks27
+\@floatcapt=\box65
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/algorithms/alg
+orithm.sty
+Invalid UTF-8 byte or sequence at line 11 replaced by U+FFFD.
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/base/ifthen.st
+y
+Package: ifthen 2022/04/13 v1.1d Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks28
+\c@algorithm=\count315
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/a
+lgpseudocode.sty
+Package: algpseudocode 
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/algorithmicx/a
+lgorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count316
+\c@ALG@rem=\count317
+\c@ALG@nested=\count318
+\ALG@tlm=\skip83
+\ALG@thistlm=\skip84
+\c@ALG@Lnr=\count319
+\c@ALG@blocknr=\count320
+\c@ALG@storecount=\count321
+\c@ALG@tmpcounter=\count322
+\ALG@tmplength=\skip85
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcol
+orbox.sty
+Package: tcolorbox 2024/01/10 version 6.2.0 text color boxes
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer
+/pgf.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/
+pgfrcs.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/utilitie
+s/pgfutil-common.tex
+\pgfutil@everybye=\toks29
+\pgfutil@tempdima=\dimen266
+\pgfutil@tempdimb=\dimen267
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/utilitie
+s/pgfutil-latex.def
+\pgfutil@abb=\box66
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/utilitie
+s/pgfrcs.code.tex
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/pgf.revi
+sion.tex)
+Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
+))
+Package: pgf 2023-01-15 v3.1.10 (3.1.10)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/basiclayer
+/pgfcore.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/systemlaye
+r/pgfsys.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/systemla
+yer/pgfsys.code.tex
+Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/utilitie
+s/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks30
+\pgfkeys@temptoks=\toks31
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/utilitie
+s/pgfkeyslibraryfiltered.code.tex
+\pgfkeys@tmptoks=\toks32
+))
+\pgf@x=\dimen268
+\pgf@y=\dimen269
+\pgf@xa=\dimen270
+\pgf@ya=\dimen271
+\pgf@xb=\dimen272
+\pgf@yb=\dimen273
+\pgf@xc=\dimen274
+\pgf@yc=\dimen275
+\pgf@xd=\dimen276
+\pgf@yd=\dimen277
+\w@pgf@writea=\write3
+\r@pgf@reada=\read2
+\c@pgf@counta=\count323
+\c@pgf@countb=\count324
+\c@pgf@countc=\count325
+\c@pgf@countd=\count326
+\t@pgf@toka=\toks33
+\t@pgf@tokb=\toks34
+\t@pgf@tokc=\toks35
+\pgf@sys@id@count=\count327
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/systemla
+yer/pgf.cfg
+File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
+)
+Driver file for pgf: pgfsys-xetex.def
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/systemla
+yer/pgfsys-xetex.def
+File: pgfsys-xetex.def 2023-01-15 v3.1.10 (3.1.10)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/systemla
+yer/pgfsys-dvipdfmx.def
+File: pgfsys-dvipdfmx.def 2023-01-15 v3.1.10 (3.1.10)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/systemla
+yer/pgfsys-common-pdf.def
+File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
+)
+\pgfsys@objnum=\count328
+)))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/systemla
+yer/pgfsyssoftpath.code.tex
+File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfsyssoftpath@smallbuffer@items=\count329
+\pgfsyssoftpath@bigbuffer@items=\count330
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/systemla
+yer/pgfsysprotocol.code.tex
+File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.
+sty
+Package: xcolor 2023/11/15 v3.01 LaTeX color extensions (UK)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/c
+olor.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: xetex.def on input line 274.
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/graphics/mathc
+olor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1350.
+Package xcolor Info: Model `RGB' extended on input line 1366.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1368.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1369.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1370.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1372.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1373.
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcore.code.tex
+Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+math.code.tex
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathutil.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathparser.code.tex
+\pgfmath@dimen=\dimen278
+\pgfmath@count=\count331
+\pgfmath@box=\box67
+\pgfmath@toks=\toks36
+\pgfmath@stack@operand=\toks37
+\pgfmath@stack@operation=\toks38
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.basic.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.trigonometric.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.random.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.comparison.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.base.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.round.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.misc.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfunctions.integerarithmetics.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathcalc.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+mathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count332
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+int.code.tex)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorepoints.code.tex
+File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@picminx=\dimen279
+\pgf@picmaxx=\dimen280
+\pgf@picminy=\dimen281
+\pgf@picmaxy=\dimen282
+\pgf@pathminx=\dimen283
+\pgf@pathmaxx=\dimen284
+\pgf@pathminy=\dimen285
+\pgf@pathmaxy=\dimen286
+\pgf@xx=\dimen287
+\pgf@xy=\dimen288
+\pgf@yx=\dimen289
+\pgf@yy=\dimen290
+\pgf@zx=\dimen291
+\pgf@zy=\dimen292
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorepathconstruct.code.tex
+File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@path@lastx=\dimen293
+\pgf@path@lasty=\dimen294
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorepathusage.code.tex
+File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@shorten@end@additional=\dimen295
+\pgf@shorten@start@additional=\dimen296
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorescopes.code.tex
+File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfpic=\box68
+\pgf@hbox=\box69
+\pgf@layerbox@main=\box70
+\pgf@picture@serial@count=\count333
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcoregraphicstate.code.tex
+File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgflinewidth=\dimen297
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcoretransformations.code.tex
+File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@pt@x=\dimen298
+\pgf@pt@y=\dimen299
+\pgf@pt@temp=\dimen300
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorequick.code.tex
+File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcoreobjects.code.tex
+File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorepathprocessing.code.tex
+File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorearrows.code.tex
+File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowsep=\dimen301
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcoreshade.code.tex
+File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@max=\dimen302
+\pgf@sys@shading@range@num=\count334
+\pgf@shadingcount=\count335
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcoreimage.code.tex
+File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcoreexternal.code.tex
+File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfexternal@startupbox=\box71
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorelayers.code.tex
+File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcoretransparency.code.tex
+File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorepatterns.code.tex
+File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/basiclay
+er/pgfcorerdf.code.tex
+File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/
+pgfmoduleshapes.code.tex
+File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodeparttextbox=\box72
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/
+pgfmoduleplot.code.tex
+File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibil
+ity/pgfcomp-version-0-65.sty
+Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
+\pgf@nodesepstart=\dimen303
+\pgf@nodesepend=\dimen304
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/compatibil
+ity/pgfcomp-version-1-18.sty
+Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tools/verbatim
+.sty
+Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks39
+\verbatim@line=\toks40
+\verbatim@in@stream=\read3
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/environ/enviro
+n.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/trimspaces/tri
+mspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etool
+box.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count336
+)
+\tcb@titlebox=\box73
+\tcb@upperbox=\box74
+\tcb@lowerbox=\box75
+\tcb@phantombox=\box76
+\c@tcbbreakpart=\count337
+\c@tcblayer=\count338
+\c@tcolorbox@number=\count339
+\l__tcobox_tmpa_box=\box77
+\l__tcobox_tmpa_dim=\dimen305
+\tcb@temp=\box78
+\tcb@temp=\box79
+\tcb@temp=\box80
+\tcb@temp=\box81
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbr
+aster.code.tex
+Library (tcolorbox): 'tcbraster.code.tex' version '6.2.0'
+\c@tcbrastercolumn=\count340
+\c@tcbrasterrow=\count341
+\c@tcbrasternum=\count342
+\c@tcbraster=\count343
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbs
+kins.code.tex
+Library (tcolorbox): 'tcbskins.code.tex' version '6.2.0'
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/frontendla
+yer/tikz.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/
+pgffor.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/utilities/
+pgfkeys.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/utilitie
+s/pgfkeys.code.tex))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pgf/math/pgfma
+th.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/math/pgf
+math.code.tex))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/utilitie
+s/pgffor.code.tex
+Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
+\pgffor@iter=\dimen306
+\pgffor@skip=\dimen307
+\pgffor@stack=\toks41
+\pgffor@toks=\toks42
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/frontend
+layer/tikz/tikz.code.tex
+Package: tikz 2023-01-15 v3.1.10 (3.1.10)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/librarie
+s/pgflibraryplothandlers.code.tex
+File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@plot@mark@count=\count344
+\pgfplotmarksize=\dimen308
+)
+\tikz@lastx=\dimen309
+\tikz@lasty=\dimen310
+\tikz@lastxsaved=\dimen311
+\tikz@lastysaved=\dimen312
+\tikz@lastmovetox=\dimen313
+\tikz@lastmovetoy=\dimen314
+\tikzleveldistance=\dimen315
+\tikzsiblingdistance=\dimen316
+\tikz@figbox=\box82
+\tikz@figbox@bg=\box83
+\tikz@tempbox=\box84
+\tikz@tempbox@bg=\box85
+\tikztreelevel=\count345
+\tikznumberofchildren=\count346
+\tikznumberofcurrentchild=\count347
+\tikz@fig@count=\count348
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/
+pgfmodulematrix.code.tex
+File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfmatrixcurrentrow=\count349
+\pgfmatrixcurrentcolumn=\count350
+\pgf@matrix@numberofcolumns=\count351
+)
+\tikz@expandcount=\count352
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/frontend
+layer/tikz/libraries/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tikzfill/tikzf
+ill.image.sty
+Package: tikzfill.image 2023/08/08 v1.0.1 Image filling library for TikZ
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tikzfill/tikzf
+ill-common.sty
+Package: tikzfill-common 2023/08/08 v1.0.1 Auxiliary code for tikzfill
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tikzfill/tikzl
+ibraryfill.image.code.tex
+File: tikzlibraryfill.image.code.tex 2023/08/08 v1.0.1 Image filling library
+\l__tikzfill_img_box=\box86
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbs
+kinsjigsaw.code.tex
+Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '6.2.0'
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbb
+reakable.code.tex
+Library (tcolorbox): 'tcbbreakable.code.tex' version '6.2.0'
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/pdfcol/pdfcol.
+sty
+Package: pdfcol 2022-09-21 v1.7 Handle new color stacks for pdfTeX (HO)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/ltxcmds/ltxc
+mds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/infwarerr/in
+fwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdfcol Info: Interface disabled because of missing PDF mode of pdfTeX.
+)
+Package pdfcol Info: pdfTeX's color stacks are not available.
+\tcb@testbox=\box87
+\tcb@totalupperbox=\box88
+\tcb@totallowerbox=\box89
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbh
+ooks.code.tex
+Library (tcolorbox): 'tcbhooks.code.tex' version '6.2.0'
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbt
+heorems.code.tex
+Library (tcolorbox): 'tcbtheorems.code.tex' version '6.2.0'
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbf
+itting.code.tex
+Library (tcolorbox): 'tcbfitting.code.tex' version '6.2.0'
+\tcbfitdim=\dimen317
+\tcb@lowerfitdim=\dimen318
+\tcb@upperfitdim=\dimen319
+\tcb@cur@hbadness=\count353
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbl
+istingsutf8.code.tex
+Library (tcolorbox): 'tcblistingsutf8.code.tex' version '6.2.0'
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbl
+istings.code.tex
+Library (tcolorbox): 'tcblistings.code.tex' version '6.2.0'
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/listings/listi
+ngs.sty
+\lst@mode=\count354
+\lst@gtempboxa=\box90
+\lst@token=\toks43
+\lst@length=\count355
+\lst@currlwidth=\dimen320
+\lst@column=\count356
+\lst@pos=\count357
+\lst@lostspace=\dimen321
+\lst@width=\dimen322
+\lst@newlines=\count358
+\lst@lineno=\count359
+\lst@maxwidth=\dimen323
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/listings/lstmi
+sc.sty
+File: lstmisc.sty 2023/02/27 1.9 (Carsten Heinz)
+\c@lstnumber=\count360
+\lst@skipnumbers=\count361
+\lst@framebox=\box91
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/listings/listi
+ngs.cfg
+File: listings.cfg 2023/02/27 1.9 listings configuration
+))
+Package: listings 2023/02/27 1.9 (Carsten Heinz)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/xelatex/xecjk/xeCJK-
+listings.sty
+Package: xeCJK-listings 2022/08/05 v3.9.1 xeCJK patch file for listings
+\l__xeCJK_listings_max_char_int=\count362
+\l__xeCJK_listings_flag_int=\count363
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbl
+istingscore.code.tex
+Library (tcolorbox): 'tcblistingscore.code.tex' version '6.2.0'
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbp
+rocessing.code.tex
+Library (tcolorbox): 'tcbprocessing.code.tex' version '6.2.0'
+)
+\c@tcblisting=\count364
+))
+Package tcolorbox Info: Library `listingsutf8' is compatible with pdftex only. 
+Library `listings` is loaded instead. on input line 29.
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbe
+xternal.code.tex
+Library (tcolorbox): 'tcbexternal.code.tex' version '6.2.0'
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbm
+agazine.code.tex
+Library (tcolorbox): 'tcbmagazine.code.tex' version '6.2.0'
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbv
+ignette.code.tex
+Library (tcolorbox): 'tcbvignette.code.tex' version '6.2.0'
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/frontend
+layer/tikz/libraries/tikzlibraryfadings.code.tex
+File: tikzlibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pgf/librarie
+s/pgflibraryfadings.code.tex
+File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tcolorbox/tcbp
+oster.code.tex
+Library (tcolorbox): 'tcbposter.code.tex' version '6.2.0'
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyper
+ref.sty
+Package: hyperref 2024-01-20 v7.01h Hypertext links for LaTeX
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/kvsetkeys/kvse
+tkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/kvdefinekeys
+/kvdefinekeys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pdfescape/pd
+fescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/pdftexcmds/p
+dftexcmds.sty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode not found.
+))
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/hycolor/hycolo
+r.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/auxhook/auxhoo
+k.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/hyperref/namer
+ef.sty
+Package: nameref 2023-11-26 v2.56 Cross-referencing by name of section
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/refcount/refco
+unt.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/gettitlestri
+ng/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/kvoptions/kvop
+tions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+))
+\c@section@level=\count365
+)
+\@linkdim=\dimen324
+\Hy@linkcounter=\count366
+\Hy@pagecounter=\count367
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1en
+c.def
+File: pd1enc.def 2024-01-20 v7.01h Hyperref: PDFDocEncoding definition (HO)
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/intcalc/intc
+alc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+\Hy@SavedSpaceFactor=\count368
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/hyperref/puenc
+.def
+File: puenc.def 2024-01-20 v7.01h Hyperref: PDF Unicode definition (HO)
+)
+Package hyperref Info: Option `unicode' set `true' on input line 4062.
+Package hyperref Info: Hyper figures OFF on input line 4179.
+Package hyperref Info: Link nesting OFF on input line 4184.
+Package hyperref Info: Hyper index ON on input line 4187.
+Package hyperref Info: Plain pages OFF on input line 4194.
+Package hyperref Info: Backreferencing OFF on input line 4199.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4446.
+\c@Hy@tempcnt=\count369
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip18
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4784.
+\XeTeXLinkMargin=\dimen325
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/bitset/bitse
+t.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/bigintcalc/b
+igintcalc.sty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count370
+\Field@Width=\dimen326
+\Fld@charsize=\dimen327
+Package hyperref Info: Hyper figures OFF on input line 6063.
+Package hyperref Info: Link nesting OFF on input line 6068.
+Package hyperref Info: Hyper index ON on input line 6071.
+Package hyperref Info: backreferencing OFF on input line 6078.
+Package hyperref Info: Link coloring OFF on input line 6083.
+Package hyperref Info: Link coloring with OCG OFF on input line 6088.
+Package hyperref Info: PDF/A mode OFF on input line 6093.
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/base/atbegshi-
+ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count371
+\c@Item=\count372
+\c@Hfootnote=\count373
+)
+Package hyperref Info: Driver (autodetected): hxetex.
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/hyperref/hxete
+x.def
+File: hxetex.def 2024-01-20 v7.01h Hyperref driver for XeTeX
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/stringenc/st
+ringenc.sty
+Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
+)
+)
+\pdfm@box=\box92
+\c@Hy@AnnotLevel=\count374
+\HyField@AnnotCount=\count375
+\Fld@listcount=\count376
+\c@bookmark@seq@number=\count377
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/rerunfilecheck
+/rerunfilecheck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/base/atveryend
+-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
+kage
+with kernel methods
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/uniquecounte
+r/uniquecounter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip86
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/markdown/markd
+own.sty
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/markdown/mar
+kdown.tex
+\markdownOptionFrozenCacheCounter=\count378
+\markdownInputFileStream=\read4
+\markdownOutputFileStream=\write4
+Package markdown Info: Using mode 3: The lt3luabridge package on input line 266
+7.
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/lt3luabridge
+/lt3luabridge.tex
+\g_luabridge_method_int=\count379
+
+Package luabridge Info: Using shell escape as the bridging method
+
+))
+Package: markdown 2023-04-27 v2.23.0-0-g0b22f91 markdown renderer
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/paralist/paral
+ist.sty
+Package: paralist 2017/01/22 v2.7 Extended list environments
+\pltopsep=\skip87
+\plpartopsep=\skip88
+\plitemsep=\skip89
+\plparsep=\skip90
+\pl@lab=\toks44
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/csvsimple/csvs
+imple.sty
+Package: csvsimple 2024/01/19 v2.6.0 LaTeX CSV file processing
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/csvsimple/csvs
+imple-legacy.sty
+Package: csvsimple-legacy 2024/01/19 version 2.6.0 LaTeX2e CSV file processing
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/tools/shellesc
+.sty
+Package: shellesc 2023/07/08 v1.0d unified shell escape interface for LaTeX
+Package shellesc Info: Unrestricted shell escape enabled on input line 75.
+)
+\csv@file=\read5
+\c@csvinputline=\count380
+\c@csvrow=\count381
+\c@csvcol=\count382
+\csv@out=\write5
+)
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancy
+vrb.sty
+Package: fancyvrb 2024/01/20 4.5c verbatim text (tvz,hv)
+\FV@CodeLineNo=\count383
+\FV@InFile=\read6
+\FV@TabBox=\box93
+\c@FancyVerbLine=\count384
+\FV@StepNumber=\count385
+\FV@OutFile=\write6
+)
+\markdownLaTeXCitationsCounter=\count386
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/gobble/gobbl
+e.sty
+Package: gobble 2019/01/04 v0.2 Provides more gobble macros
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/generic/gobble/gobbl
+e.tex))
+\markdownLaTeXRowCounter=\count387
+\markdownLaTeXRowTotal=\count388
+\markdownLaTeXColumnCounter=\count389
+\markdownLaTeXColumnTotal=\count390
+\markdownLaTeXTable=\toks45
+\markdownLaTeXTableAlignment=\toks46
+\markdownLaTeXTableEnd=\toks47
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 13.
+
+Package fontspec Info: Could not resolve font "Noto Serif CJK SC/I" (it
+(fontspec)             probably doesn't exist).
+
+
+Package fontspec Info: Font family 'NotoSerifCJKSC(0)' created for font 'Noto
+(fontspec)             Serif CJK SC' with options [Script={CJK}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->"Noto Serif CJK
+(fontspec)             SC/OT:script=hani;language=dflt;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->"Noto Serif CJK
+(fontspec)             SC/B/OT:script=hani;language=dflt;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->"Noto Serif
+(fontspec)             CJK SC/BI/OT:script=hani;language=dflt;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
+
+
+Package fontspec Info: Font family 'DejaVuSansMono(0)' created for font
+(fontspec)             'DejaVu Sans Mono' with options
+(fontspec)             [WordSpace={1,0,0},HyphenChar=None,PunctuationSpace=Word
+Space].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->"DejaVu Sans
+(fontspec)             Mono/OT:script=latn;language=dflt;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
+(fontspec)             and font adjustment code:
+(fontspec)             \fontdimen 2\font =1\fontdimen 2\font \fontdimen 3\font
+(fontspec)             =0\fontdimen 3\font \fontdimen 4\font =0\fontdimen
+(fontspec)             4\font \fontdimen 7\font =0\fontdimen 2\font
+(fontspec)             \tex_hyphenchar:D \font =-1\scan_stop: 
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->"DejaVu Sans
+(fontspec)             Mono/B/OT:script=latn;language=dflt;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
+(fontspec)             and font adjustment code:
+(fontspec)             \fontdimen 2\font =1\fontdimen 2\font \fontdimen 3\font
+(fontspec)             =0\fontdimen 3\font \fontdimen 4\font =0\fontdimen
+(fontspec)             4\font \fontdimen 7\font =0\fontdimen 2\font
+(fontspec)             \tex_hyphenchar:D \font =-1\scan_stop: 
+(fontspec)             - 'italic' (m/it) with NFSS spec.: <->"DejaVu Sans
+(fontspec)             Mono/I/OT:script=latn;language=dflt;"
+(fontspec)             - 'italic small caps'  (m/scit) with NFSS spec.: 
+(fontspec)             and font adjustment code:
+(fontspec)             \fontdimen 2\font =1\fontdimen 2\font \fontdimen 3\font
+(fontspec)             =0\fontdimen 3\font \fontdimen 4\font =0\fontdimen
+(fontspec)             4\font \fontdimen 7\font =0\fontdimen 2\font
+(fontspec)             \tex_hyphenchar:D \font =-1\scan_stop: 
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->"DejaVu Sans
+(fontspec)             Mono/BI/OT:script=latn;language=dflt;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
+(fontspec)             and font adjustment code:
+(fontspec)             \fontdimen 2\font =1\fontdimen 2\font \fontdimen 3\font
+(fontspec)             =0\fontdimen 3\font \fontdimen 4\font =0\fontdimen
+(fontspec)             4\font \fontdimen 7\font =0\fontdimen 2\font
+(fontspec)             \tex_hyphenchar:D \font =-1\scan_stop: 
+
+ (build/main.aux)
+\openout1 = `main.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 55.
+LaTeX Font Info:    ... okay on input line 55.
+
+Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
+(fontspec)             this).
+
+\symlegacymaths=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 55.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 55.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 55.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 55.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 55.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 55.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 55.
+LaTeX Font Info:    Redeclaring math accent \check on input line 55.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 55.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 55.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 55.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 55.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 55.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `normal' on input line 55.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 55.
+LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
+(Font)              `operators' in the math version `bold' on input line 55.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 55.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 55.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 55.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 55.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 55.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> TU/DejaVuSansMono(0)/m/n on input line
+ 55.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 55.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 55.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 55.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> TU/DejaVuSansMono(0)/b/n on input line
+ 55.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: xetex
+*geometry* verbose mode - [ preamble ] result:
+* driver: xetex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
+* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* \paperwidth=597.50787pt
+* \paperheight=845.04684pt
+* \textwidth=455.24411pt
+* \textheight=702.78308pt
+* \oddsidemargin=-1.1381pt
+* \evensidemargin=-1.1381pt
+* \topmargin=-38.1381pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=11.0pt
+* \footskip=30.0pt
+* \marginparwidth=50.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+\c@lstlisting=\count391
+Package hyperref Info: Link coloring ON on input line 55.
+(build/main.out) (build/main.out)
+\@outlinefile=\write7
+\openout7 = `main.out'.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 57.
+
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.
+fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 57.
+
+
+(/home/panyz/texlive/root/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.
+fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Package markdown Info: Including markdown document "sections/intro.tex" on inpu
+t line 67.
+\g_tmpa_iow=\write8
+\openout8 = `main.markdown.lua'.
+
+
+Package luabridge Info: Writing a helper Lua script to file
+(luabridge)             \markdownOptionHelperScriptFileName 
+
+
+Package luabridge Info: Executing a helper Lua script from file
+(luabridge)             \markdownOptionHelperScriptFileName 
+
+ (|texlua ./main.markdown.lua)
+(./_markdown_main/49d3a291ea4006b3cf663b3fbb4c4e52.md.tex [1
+
+]
+File: figures/figure_1_swing_arm_troweling_robot_photo.jpg Graphic file (type b
+mp)
+<figures/figure_1_swing_arm_troweling_robot_photo.jpg>
+ [2] [3]
+File: figures/figure_2_disc_vehicle_relationships.png Graphic file (type bmp)
+<figures/figure_2_disc_vehicle_relationships.png>
+ [4]
+[5]
+
+Package fontspec Info: Could not resolve font "Noto Sans Mono CJK SC/I" (it
+(fontspec)             probably doesn't exist).
+
+
+Package fontspec Info: Font family 'NotoSansMonoCJKSC(0)' created for font
+(fontspec)             'Noto Sans Mono CJK SC' with options [Script={CJK}].
+(fontspec)              
+(fontspec)              This font family consists of the following NFSS
+(fontspec)             series/shapes:
+(fontspec)              
+(fontspec)             - 'normal' (m/n) with NFSS spec.: <->"Noto Sans Mono
+(fontspec)             CJK SC/OT:script=hani;language=dflt;"
+(fontspec)             - 'small caps'  (m/sc) with NFSS spec.: 
+(fontspec)             - 'bold' (b/n) with NFSS spec.: <->"Noto Sans Mono CJK
+(fontspec)             SC/B/OT:script=hani;language=dflt;"
+(fontspec)             - 'bold small caps'  (b/sc) with NFSS spec.: 
+(fontspec)             - 'bold italic' (b/it) with NFSS spec.: <->"Noto Sans
+(fontspec)             Mono CJK SC/BI/OT:script=hani;language=dflt;"
+(fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
+
+
+Overfull \hbox (206.12376pt too wide) in paragraph at lines 67--67
+[]\TU/DejaVuSansMono(0)/m/n/10.95 {=latex} \begingroup \footnotesize \setlength
+{\tabcolsep}{3pt} \renewcommand{\arraystretch}{1.16}
+ []
+
+
+Overfull \hbox (711.62009pt too wide) in paragraph at lines 67--67
+\TU/DejaVuSansMono(0)/m/n/10.95 \begin{longtable}{@{}>{\raggedright\arraybacksl
+ash}p{1.7cm}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash
+}p{2.9cm}>{\raggedright\arraybackslash}p{7.9cm}@{}}
+ []
+
+[6] [7])
+Package markdown Info: Including markdown document "sections/method.tex" on inp
+ut line 68.
+\openout8 = `main.markdown.lua'.
+
+
+Package luabridge Info: Writing a helper Lua script to file
+(luabridge)             \markdownOptionHelperScriptFileName 
+
+
+Package luabridge Info: Executing a helper Lua script from file
+(luabridge)             \markdownOptionHelperScriptFileName 
+
+ (|texlua ./main.markdown.lua)
+(./_markdown_main/3fb442a635ffa68307a90eb8abf2daf1.md.tex
+File: figures/pipeline_overall_improved_en.png Graphic file (type bmp)
+<figures/pipeline_overall_improved_en.png>
+ [8] [9]
+File: figures/figure_3_geometric_to_binary_raster.png Graphic file (type bmp)
+<figures/figure_3_geometric_to_binary_raster.png>
+ [10]
+File: figures/figure_4_body_arm_disc_model.png Graphic file (type bmp)
+<figures/figure_4_body_arm_disc_model.png>
+ [11]
+[12] [13] [14]
+Overfull \hbox (80.86732pt too wide) in paragraph at lines 193--193
+[]\TU/DejaVuSansMono(0)/m/n/10.95 {=latex} \begin{algorithm}[H] \caption{Rectan
+gle segmentation and connectivity
+ []
+
+
+Overfull \hbox (39.18997pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 completion} \label{alg:segmentation} \small \be
+gin{algorithmic}[1] \Require
+ []
+
+
+Overfull \hbox (32.5975pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 Conservative free-cell grid $B$, planning param
+eters $\Psi_P$, robot model
+ []
+
+
+Overfull \hbox (19.4126pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 $\Theta_R$ \Ensure Rectangle set $\mathcal R$ a
+nd feasible graph $G$, or
+ []
+
+
+Overfull \hbox (65.5598pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 connectivity failure \State $F\gets\{u:B(u)=1\}
+$; $\mathcal R\gets\varnothing$;
+ []
+
+
+Overfull \hbox (111.70676pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 $\mathcal A\gets\varnothing$ \State $(C_r,C_c)\
+gets\mathrm{ScanAndTruncate}(B,\Psi_P)$
+ []
+
+
+Overfull \hbox (19.41257pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 \State $C_{\mathrm{all}}\gets C_r\cup C_c$ \For
+{$C\in(C_r,C_c)$, in this
+ []
+
+
+Overfull \hbox (151.2617pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 order} \While{$\exists R\in C:\Delta(R\mid\math
+cal A)>0$} \State $R^\star\gets\arg\max_{R\in
+ []
+
+
+Overfull \hbox (12.82014pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 C}\Delta(R\mid\mathcal A)$ \Comment{Eq. (7); de
+terministic ties} \State
+ []
+
+
+Overfull \hbox (85.33716pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 $\mathcal R\gets\mathcal R\cup\{R^\star\}$; $\m
+athcal A\gets\mathcal A\cup\mathcal
+ []
+
+
+Overfull \hbox (98.52206pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 U(R^\star)$ \State $C\gets C\setminus\{R^\star\
+}$ \EndWhile \EndFor \While{$\mathcal
+ []
+
+
+Overfull \hbox (6.2275pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 A\neq F$} \State $u\gets\mathrm{FirstUncovered}
+(F\setminus\mathcal A)$
+ []
+
+
+Overfull \hbox (78.7447pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 \State $R^\star\gets\mathrm{LargestMaximalRecta
+ngle}(B,u)$ \Comment{deterministic
+ []
+
+
+Overfull \hbox (78.74472pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 ties} \State $\mathcal R\gets\mathcal R\cup\{R^
+\star\}$; $\mathcal A\gets\mathcal
+ []
+
+
+Overfull \hbox (26.00507pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 A\cup\mathcal U(R^\star)$ \EndWhile \State $\ma
+thcal R_1\gets\mathcal R$;
+ []
+
+
+Overfull \hbox (78.74449pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 $G\gets\mathrm{FeasibleGraph}(\mathcal R_1,\The
+ta_R)$ \While{$G$ is disconnected}
+ []
+
+
+Overfull \hbox (78.7447pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 \State $\mathcal B\gets\mathrm{FeasibleBridges}
+(C_{\mathrm{all}}\setminus\mathcal
+ []
+
+
+Overfull \hbox (19.41261pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 R,G,\Theta_R)$ \If{$\mathcal B=\varnothing$} \S
+tate \Return connectivity
+ []
+
+
+Overfull \hbox (19.41243pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 failure \EndIf \State $R_b^\star\gets\mathrm{Mi
+nBridgeCost}(\mathcal B)$
+ []
+
+
+Overfull \hbox (6.22769pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 \Comment{Eq. (9)} \State $\mathcal R\gets\mathc
+al R\cup\{R_b^\star\}$;
+ []
+
+
+Overfull \hbox (32.59753pt too wide) in paragraph at lines 193--193
+\TU/DejaVuSansMono(0)/m/n/10.95 $G\gets\mathrm{UpdateFeasibleGraph}(G,R_b^\star
+)$ \EndWhile \State \Return
+ []
+
+[15]
+File: figures/figure_6_single_rectangle_coverage.png Graphic file (type bmp)
+<figures/figure_6_single_rectangle_coverage.png>
+ [16] [17] [18] [19]
+Overfull \hbox (61.08997pt too wide) in paragraph at lines 359--359
+[]\TU/DejaVuSansMono(0)/m/n/10.95 {=latex} \begin{algorithm}[H] \caption{Global
+ route planning and trajectory
+ []
+
+
+Overfull \hbox (26.00507pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 assembly} \label{alg:global-route} \small \begi
+n{algorithmic}[1] \Require
+ []
+
+
+Overfull \hbox (39.18997pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 Rectangles $\mathcal R$, connected feasible gra
+ph $G$, initial state $q_0$,
+ []
+
+
+Overfull \hbox (26.00507pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 local primitives $\mathcal L$, parameters $\Psi
+_P$ \Ensure Visit sequence
+ []
+
+
+Overfull \hbox (250.14851pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 $\Pi$ and continuous trajectory $q(t)$, or rout
+e failure \State $S\gets\mathrm{FeasibleStarts}(q_0,\mathcal
+ []
+
+
+Overfull \hbox (65.55981pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 R,G)$ \If{$S=\varnothing$} \State \Return route
+ failure \EndIf \State $\mathcal
+ []
+
+
+Overfull \hbox (6.2277pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 C\gets\varnothing$ \For{each feasible start $s\
+in S$} \State $\mathcal
+ []
+
+
+Overfull \hbox (6.2277pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 P\gets\mathrm{RandomizedNearestNeighbor}(G,s,\P
+si_P)$ \State $\mathcal
+ []
+
+
+Overfull \hbox (45.78244pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 P\gets\mathcal P\cup\{\mathrm{OpenMstDfs}(G,s,c
+)\}$ \Comment{farthest branch
+ []
+
+
+Overfull \hbox (39.18996pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 last} \For{each visit sequence $\Pi\in\mathcal 
+P$} \If{$\Pi$ does not visit
+ []
+
+
+Overfull \hbox (12.82018pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 every rectangle in $\mathcal R$} \State \textbf
+{continue} \EndIf \State
+ []
+
+
+Overfull \hbox (58.96712pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 $a\gets\mathrm{CompatibleEntryExitStates}(\Pi,G
+)$ \If{$a\neq\mathrm{failure}$}
+ []
+
+
+Overfull \hbox (12.82016pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 \State $\mathcal C\gets\mathcal C\cup\{(\Pi,a,J
+(\Pi,a))\}$ \Comment{Eq.
+ []
+
+
+Overfull \hbox (32.59753pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 (21)} \EndIf \EndFor \EndFor \For{each $(\Pi,a,
+J)$ in $\mathcal C$, sorted
+ []
+
+
+Overfull \hbox (65.55978pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 by increasing $J$} \State $q\gets\mathrm{Assemb
+leTrajectory}(q_0,\Pi,a,\mathcal
+ []
+
+
+Overfull \hbox (45.78242pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 L)$ \Statex \hspace{\algorithmicindent}\textit{
+Add start and inter-rectangle
+ []
+
+
+Overfull \hbox (12.82016pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 connectors; cover first visits, transit repeats
+.} \If{$q$ is continuous
+ []
+
+
+Overfull \hbox (26.00507pt too wide) in paragraph at lines 359--359
+\TU/DejaVuSansMono(0)/m/n/10.95 and satisfies Eqs. (3a) and (3b)} \State \Retur
+n $(\Pi,q)$ \EndIf \EndFor
+ []
+
+[20] [21])
+Package markdown Info: Including markdown document "sections/experiments.tex" o
+n input line 69.
+\openout8 = `main.markdown.lua'.
+
+
+Package luabridge Info: Writing a helper Lua script to file
+(luabridge)             \markdownOptionHelperScriptFileName 
+
+
+Package luabridge Info: Executing a helper Lua script from file
+(luabridge)             \markdownOptionHelperScriptFileName 
+
+ (|texlua ./main.markdown.lua)
+(./_markdown_main/9c44ef6ac45c7d383f1d2de1b134563b.md.tex [22]
+Overfull \hbox (225.90112pt too wide) in paragraph at lines 34--34
+[]\TU/DejaVuSansMono(0)/m/n/10.95 {=latex} \begin{center} \footnotesize \setlen
+gth{\tabcolsep}{3pt} \renewcommand{\arraystretch}{1.18}
+ []
+
+
+Overfull \hbox (43.21066pt too wide) in paragraph at lines 34--34
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 法 \TU/DejaVuSansMono(0)/m/n/10.95 & \shortst
+ack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 评 价 面 积\TU/DejaVuSansMono(0)/m/n/10.95 \
+\(m²)} & \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 覆 盖 面 积\TU/DejaVuSansMo
+no(0)/m/n/10.95 \\(m²)} & \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 覆
+ []
+
+
+Overfull \hbox (51.92574pt too wide) in paragraph at lines 34--34
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 盖 率\TU/DejaVuSansMono(0)/m/n/10.95 \\(\%)} &
+ \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 总 时 长\TU/DejaVuSansMono(0)/m/n/
+10.95 /\TU/NotoSansMonoCJKSC(0)/m/n/10.95 规 划 时\TU/DejaVuSansMono(0)/m/n/10.95 
+\\(s/s)} & \TU/NotoSansMonoCJKSC(0)/m/n/10.95 路 径 检 查 \TU/DejaVuSansMono(0)/m/n
+/10.95 \\ \midrule map\_test1
+ []
+
+
+Overfull \hbox (32.37294pt too wide) in paragraph at lines 34--34
+\TU/DejaVuSansMono(0)/m/n/10.95 & \TU/NotoSansMonoCJKSC(0)/m/n/10.95 本 文 方 法 \T
+U/DejaVuSansMono(0)/m/n/10.95 & 611.00 & 575.00 & 94.11 & 854.73/1.298 & \TU/No
+toSansMonoCJKSC(0)/m/n/10.95 通 过 \TU/DejaVuSansMono(0)/m/n/10.95 \\ & Fields2Co
+ver
+ []
+
+
+Overfull \hbox (8.35031pt too wide) in paragraph at lines 34--34
+\TU/DejaVuSansMono(0)/m/n/10.95 & 533.17 & 418.00 & 78.40 & 295.50/0.075 & \TU/
+NotoSansMonoCJKSC(0)/m/n/10.95 越 界 \TU/DejaVuSansMono(0)/m/n/10.95 4.51 m² \\ p
+arkingGraph
+ []
+
+
+Overfull \hbox (58.74275pt too wide) in paragraph at lines 34--34
+\TU/DejaVuSansMono(0)/m/n/10.95 & \TU/NotoSansMonoCJKSC(0)/m/n/10.95 本 文 方 法 \T
+U/DejaVuSansMono(0)/m/n/10.95 & 4294.00 & 4110.50 & 95.73 & 5844.73/17.981 & \T
+U/NotoSansMonoCJKSC(0)/m/n/10.95 通 过 \TU/DejaVuSansMono(0)/m/n/10.95 \\ & Field
+s2Cover
+ []
+
+
+Overfull \hbox (28.12769pt too wide) in paragraph at lines 34--34
+\TU/DejaVuSansMono(0)/m/n/10.95 & 4046.79 & 3756.85 & 92.84 & 2883.81/6.339 & \
+TU/NotoSansMonoCJKSC(0)/m/n/10.95 越 界 \TU/DejaVuSansMono(0)/m/n/10.95 20.00 m² 
+\\ \bottomrule
+ []
+
+File: figures/figure_2_coverage_comparison_cn.png Graphic file (type bmp)
+<figures/figure_2_coverage_comparison_cn.png>
+[23] [24]
+Overfull \hbox (219.30867pt too wide) in paragraph at lines 86--86
+[]\TU/DejaVuSansMono(0)/m/n/10.95 {=latex} \begingroup \footnotesize \setlength
+{\tabcolsep}{2.5pt} \renewcommand{\arraystretch}{1.10}
+ []
+
+
+Overfull \hbox (1041.24281pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 \begin{longtable}{@{}p{2.9cm}p{2.2cm}>{\raggedl
+eft\arraybackslash}p{1.6cm}>{\raggedleft\arraybackslash}p{1.75cm}>{\raggedleft\
+arraybackslash}p{1.5cm}>{\raggedleft\arraybackslash}p{1.6cm}>{\raggedleft\array
+backslash}p{1.6cm}@{}}
+ []
+
+
+Overfull \hbox (7.90118pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 \toprule \TU/NotoSansMonoCJKSC(0)/m/n/10.95 地 图
+ \TU/DejaVuSansMono(0)/m/n/10.95 & \TU/NotoSansMonoCJKSC(0)/m/n/10.95 策 略 \TU/D
+ejaVuSansMono(0)/m/n/10.95 & \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 贪 婪
+\TU/DejaVuSansMono(0)/m/n/10.95 \\\TU/NotoSansMonoCJKSC(0)/m/n/10.95 覆 盖 率\TU/D
+ejaVuSansMono(0)/m/n/10.95 } & \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 最
+ 终 分 区\TU/DejaVuSansMono(0)/m/n/10.95 \\\TU/NotoSansMonoCJKSC(0)/m/n/10.95 覆
+ []
+
+
+Overfull \hbox (40.86345pt too wide) in paragraph at lines 86--86
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 盖 率\TU/DejaVuSansMono(0)/m/n/10.95 } & \shor
+tstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 分 区\TU/DejaVuSansMono(0)/m/n/10.95 \\
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 重 叠 率\TU/DejaVuSansMono(0)/m/n/10.95 } & \sh
+ortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 全 轨 迹\TU/DejaVuSansMono(0)/m/n/10.9
+5 \\\TU/NotoSansMonoCJKSC(0)/m/n/10.95 覆 盖 率\TU/DejaVuSansMono(0)/m/n/10.95 } &
+ \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 总
+ []
+
+
+Overfull \hbox (16.95311pt too wide) in paragraph at lines 86--86
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 时 长\TU/DejaVuSansMono(0)/m/n/10.95 \\(s)} \\
+ \midrule \endfirsthead \toprule \TU/NotoSansMonoCJKSC(0)/m/n/10.95 地 图 \TU/Dej
+aVuSansMono(0)/m/n/10.95 & \TU/NotoSansMonoCJKSC(0)/m/n/10.95 策 略 \TU/DejaVuSan
+sMono(0)/m/n/10.95 & \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 贪
+ []
+
+
+Overfull \hbox (86.89835pt too wide) in paragraph at lines 86--86
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 婪\TU/DejaVuSansMono(0)/m/n/10.95 \\\TU/NotoS
+ansMonoCJKSC(0)/m/n/10.95 覆 盖 率\TU/DejaVuSansMono(0)/m/n/10.95 } & \shortstack{
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 最 终 分 区\TU/DejaVuSansMono(0)/m/n/10.95 \\\TU
+/NotoSansMonoCJKSC(0)/m/n/10.95 覆 盖 率\TU/DejaVuSansMono(0)/m/n/10.95 } & \short
+stack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 分 区\TU/DejaVuSansMono(0)/m/n/10.95 \\\
+TU/NotoSansMonoCJKSC(0)/m/n/10.95 重 叠 率\TU/DejaVuSansMono(0)/m/n/10.95 } & \sho
+rtstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 全
+ []
+
+
+Overfull \hbox (1.5333pt too wide) in paragraph at lines 86--86
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 轨 迹\TU/DejaVuSansMono(0)/m/n/10.95 \\\TU/Not
+oSansMonoCJKSC(0)/m/n/10.95 覆 盖 率\TU/DejaVuSansMono(0)/m/n/10.95 } & \shortstac
+k{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 总 时 长\TU/DejaVuSansMono(0)/m/n/10.95 \\(s)
+} \\ \midrule \endhead map\_test1
+ []
+
+
+Overfull \hbox (32.59752pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 & row-only & 72.01\% & 100.00\% & 34.21\% & 93.
+04\% & 696.89 \\ & col-only
+ []
+
+
+Overfull \hbox (58.96713pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 & 72.01\% & 100.00\% & 34.21\% & 93.04\% & 696.
+89 \\ & row-then-col & 100.00\%
+ []
+
+
+Overfull \hbox (32.59752pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 & 100.00\% & 0.00\% & 94.11\% & 854.73 \\ \midr
+ule parkingGraph & row-only
+ []
+
+
+Overfull \hbox (32.59732pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 & 87.32\% & 100.00\% & 75.34\% & 95.73\% & 5844
+.73 \\ & col-only & 87.32\%
+ []
+
+
+Overfull \hbox (6.2275pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 & 100.00\% & 75.34\% & 95.90\% & 5896.03 \\ & r
+ow-then-col & 87.32\% &
+ []
+
+
+Overfull \hbox (10.47276pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 100.00\% & 75.34\% & 95.73\% & 5844.73 \\ \midr
+ule \TU/NotoSansMonoCJKSC(0)/m/n/10.95 梳 状 通 道 \TU/DejaVuSansMono(0)/m/n/10.95 
+& row-only &
+ []
+
+
+Overfull \hbox (19.41241pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 87.18\% & 100.00\% & 34.46\% & 93.82\% & 2065.0
+9 \\ & col-only & 86.53\%
+ []
+
+
+Overfull \hbox (6.2275pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 & 100.00\% & 31.46\% & 93.94\% & 2032.55 \\ & r
+ow-then-col & 96.22\% &
+ []
+
+
+Overfull \hbox (10.47276pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 100.00\% & 27.13\% & 94.01\% & 1986.42 \\ \midr
+ule \TU/NotoSansMonoCJKSC(0)/m/n/10.95 交 织 区 域 \TU/DejaVuSansMono(0)/m/n/10.95 
+& row-only &
+ []
+
+
+Overfull \hbox (19.41241pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 84.23\% & 100.00\% & 47.89\% & 95.26\% & 1532.6
+5 \\ & col-only & 83.17\%
+ []
+
+
+Overfull \hbox (6.2275pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 & 100.00\% & 52.59\% & 95.49\% & 1575.63 \\ & r
+ow-then-col & 96.76\% &
+ []
+
+
+Overfull \hbox (10.47276pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 100.00\% & 40.74\% & 95.70\% & 1522.77 \\ \midr
+ule \TU/NotoSansMonoCJKSC(0)/m/n/10.95 错 位 房 间 \TU/DejaVuSansMono(0)/m/n/10.95 
+& row-only &
+ []
+
+
+Overfull \hbox (19.41241pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 82.95\% & 100.00\% & 38.78\% & 91.97\% & 1496.7
+3 \\ & col-only & 81.81\%
+ []
+
+
+Overfull \hbox (6.2275pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 & 100.00\% & 36.74\% & 91.51\% & 1443.31 \\ & r
+ow-then-col & 99.14\% &
+ []
+
+
+Overfull \hbox (10.47276pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 100.00\% & 24.46\% & 92.06\% & 1374.38 \\ \midr
+ule \TU/NotoSansMonoCJKSC(0)/m/n/10.95 五 图 平 均 \TU/DejaVuSansMono(0)/m/n/10.95 
+& row-only &
+ []
+
+
+Overfull \hbox (15.50656pt too wide) in paragraph at lines 86--86
+|\TU/NotoSansMonoCJKSC(0)/m/n/10.95 —| \TU/DejaVuSansMono(0)/m/n/10.95 &  |\TU/
+NotoSansMonoCJKSC(0)/m/n/10.95 —| \TU/DejaVuSansMono(0)/m/n/10.95 &  |\TU/NotoS
+ansMonoCJKSC(0)/m/n/10.95 —| \TU/DejaVuSansMono(0)/m/n/10.95 & 93.96\% & 2327.2
+2 \\ & col-only &  |\TU/NotoSansMonoCJKSC(0)/m/n/10.95 —| \TU/DejaVuSansMono(0)
+/m/n/10.95 &  |\TU/NotoSansMonoCJKSC(0)/m/n/10.95 —| \TU/DejaVuSansMono(0)/m/n/
+10.95 &  |\TU/NotoSansMonoCJKSC(0)/m/n/10.95 —| \TU/DejaVuSansMono(0)/m/n/10.95
+ & 93.98\% & 2328.88
+ []
+
+
+Overfull \hbox (60.4376pt too wide) in paragraph at lines 86--86
+\TU/DejaVuSansMono(0)/m/n/10.95 \\ & row-then-col &  |\TU/NotoSansMonoCJKSC(0)/
+m/n/10.95 —| \TU/DejaVuSansMono(0)/m/n/10.95 &  |\TU/NotoSansMonoCJKSC(0)/m/n/1
+0.95 —| \TU/DejaVuSansMono(0)/m/n/10.95 &  |\TU/NotoSansMonoCJKSC(0)/m/n/10.95 
+—| \TU/DejaVuSansMono(0)/m/n/10.95 & 94.32\% & 2316.60 \\ \bottomrule \end{long
+table}
+ []
+
+[25]
+File: figures/figure_3_segmentation_order_en.png Graphic file (type bmp)
+<figures/figure_3_segmentation_order_en.png>
+ [26]
+Overfull \hbox (225.90112pt too wide) in paragraph at lines 131--131
+[]\TU/DejaVuSansMono(0)/m/n/10.95 {=latex} \begin{center} \footnotesize \setlen
+gth{\tabcolsep}{3pt} \renewcommand{\arraystretch}{1.12}
+ []
+
+
+Overfull \hbox (981.9107pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 \begin{tabular}{@{}p{2.8cm}>{\raggedleft\arrayb
+ackslash}p{1.65cm}>{\raggedleft\arraybackslash}p{2.05cm}>{\raggedleft\arrayback
+slash}p{2.2cm}>{\raggedleft\arraybackslash}p{2.1cm}>{\raggedleft\arraybackslash
+}p{2.8cm}@{}}
+ []
+
+
+Overfull \hbox (3.8803pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 \toprule \TU/NotoSansMonoCJKSC(0)/m/n/10.95 地 图
+ \TU/DejaVuSansMono(0)/m/n/10.95 & \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.
+95 车 速\TU/DejaVuSansMono(0)/m/n/10.95 \\(m/s)} & \shortstack{$\rho$\\(m/°)} &
+ []
+
+
+Overfull \hbox (1.421pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10.95 
+全 轨 迹\TU/DejaVuSansMono(0)/m/n/10.95 \\\TU/NotoSansMonoCJKSC(0)/m/n/10.95 覆 盖 率
+\TU/DejaVuSansMono(0)/m/n/10.95 } & \shortstack{\TU/NotoSansMonoCJKSC(0)/m/n/10
+.95 总 时 长\TU/DejaVuSansMono(0)/m/n/10.95 \\(s)} & \shortstack{\TU/NotoSansMonoC
+JKSC(0)/m/n/10.95 单 位
+ []
+
+
+Overfull \hbox (36.84277pt too wide) in paragraph at lines 131--131
+\TU/NotoSansMonoCJKSC(0)/m/n/10.95 面 积 耗 时\TU/DejaVuSansMono(0)/m/n/10.95 \\(s/
+m²)} \\ \midrule map\_test1 & 0.5 & 0.00556 & 96.44\% & 1680.45
+ []
+
+
+Overfull \hbox (26.00505pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 & 2.852 \\ & 1.0 & 0.01111 & 95.46\% & 1095.53 
+& 1.878 \\ & 1.5 & 0.01667
+ []
+
+
+Overfull \hbox (19.41261pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 & 88.83\% & 928.81 & 1.711 \\ & 2.0 & 0.02222 &
+ 88.75\% & 829.74 & 1.530
+ []
+
+
+Overfull \hbox (32.5973pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 \\ & 2.5 & 0.02778 & 86.25\% & 772.26 & 1.465 \
+\ & 3.0 & 0.03333 & 85.27\%
+ []
+
+
+Overfull \hbox (58.96733pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 & 735.12 & 1.411 \\ \midrule parkingGraph & 0.5
+ & 0.00556 & 99.15\% & 14525.14
+ []
+
+
+Overfull \hbox (26.00505pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 & 3.412 \\ & 1.0 & 0.01111 & 96.65\% & 8346.21 
+& 2.011 \\ & 1.5 & 0.01667
+ []
+
+
+Overfull \hbox (32.59752pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 & 93.74\% & 6214.22 & 1.544 \\ & 2.0 & 0.02222 
+& 92.33\% & 5130.64 & 1.294
+ []
+
+
+Overfull \hbox (39.18976pt too wide) in paragraph at lines 131--131
+\TU/DejaVuSansMono(0)/m/n/10.95 \\ & 2.5 & 0.02778 & 91.03\% & 4526.86 & 1.158 
+\\ & 3.0 & 0.03333 & 90.32\%
+ []
+
+File: figures/figure_5a_vehicle_speed_map_simple_en.png Graphic file (type bmp)
+
+<figures/figure_5a_vehicle_speed_map_simple_en.png>
+[27]
+File: figures/figure_5b_vehicle_speed_parkingGraph_en.png Graphic file (type bm
+p)
+<figures/figure_5b_vehicle_speed_parkingGraph_en.png>
+ [28])
+Package markdown Info: Including markdown document "sections/conclusion.tex" on
+ input line 70.
+\openout8 = `main.markdown.lua'.
+
+
+Package luabridge Info: Writing a helper Lua script to file
+(luabridge)             \markdownOptionHelperScriptFileName 
+
+
+Package luabridge Info: Executing a helper Lua script from file
+(luabridge)             \markdownOptionHelperScriptFileName 
+
+ (|texlua ./main.markdown.lua)
+(./_markdown_main/58bb2b4222bf78b451ccbbeaa186172e.md.tex) (build/main.bbl
+[29]
+Underfull \hbox (badness 2042) in paragraph at lines 41--50
+\TU/lmr/m/it/10 Symposium on Automation and Robotics in Construction\TU/lmr/m/n
+/10 , pages 389–396, 2025.  URL:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--50
+[][]$[][][][][] [] [] [] [][][] [] [][][][][] [] [][][] [] [][][][][][][][][][]
+[][] [] [][][][] [] [][][][][][][][][][][] [] [][] [] [][][] [] [][][][] [] [][
+][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 41--50
+[][][][][][][][] [] [][][][][][] [] [][][][][][] [] [][][][][][][][][][][][] []
+ [][][][] [] [][] [] [][][][][][][][] [] [][][] [] [][][][][][][][][][] []
+ []
+
+
+Underfull \hbox (badness 7888) in paragraph at lines 52--56
+[]\TU/lmr/m/n/10 Ontario Construction Secretariat.  2024 contractor survey, 202
+4.  URL: [][]$[][][][][] []
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--56
+[] [] [][][][][][][][][][][][][][][] [] [][][] [] [][][][][][][][][][][] [] [][
+][][][][][] [] [][][][] [] [][] [] [][][] [] [][][][][][][][][] []
+ []
+
+
+LaTeX Font Warning: Font shape `TU/NotoSerifCJKSC(0)/m/sl' undefined
+(Font)              using `TU/NotoSerifCJKSC(0)/m/n' instead on input line 107.
+
+
+[30]) [31] (build/main.aux)
+ ***********
+LaTeX2e <2023-11-01> patch level 1
+L3 programming layer <2022/08/05>
+ ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 12EB48D0E842B634191D7F714AD11BB3;6199.
+ ) 
+Here is how much of TeX's memory you used:
+ 36878 strings out of 476891
+ 888796 string characters out of 5803940
+ 1958627 words of memory out of 5000000
+ 58118 multiletter control sequences out of 15000+600000
+ 568419 words of font info for 128 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 93i,11n,99p,1456b,933s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+Output written on build/main.xdv (31 pages, 642520 bytes).

@@ -1,3 +1,5 @@
-build/
+# The root build/ is the frozen Chinese paper and stays in git.
+# The English paper still builds, so its output stays ignored.
+english_paper/build/
 _markdown_main/
 Coverage_Path_Planning/
