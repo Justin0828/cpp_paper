@@ -1,0 +1,7 @@
+Class B is done on rev/B.
+
+Items 25, 38, 48, 49, 63, 67, 70, and 81 each have a figure at the path english_paper includes, or, for item 49, a written check that the Figure 4(d) black cluster already matches the left-hand obstacles. Experimental data files and experimental numbers were not changed. Body sentences, captions, and table numbers were not edited.
+
+From english_paper/, latexmk -pdf -outdir=build main.tex exited 0 twice. Both logs name the cited figures and report no missing image. Both PDFs are 31 pages.
+
+Item 49 did not get a new raster or a caption. The speed-plot titles simple and complex were applied in the item 81 redraw, not in the coverage-title commit.
