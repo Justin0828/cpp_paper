@@ -1,112 +1,103 @@
-"""Schematic for subsection 3.7 (revision 67).
+"""Work sweep versus full-trajectory sweep on one shared path."""
 
-Two adjacent rectangles and one transfer. Work-strip swings are effective
-work. Lane changes, an in-place turn, arm deploy/retract, and the handoff
-are non-work. C_work is the work-segment disc sweep; C_traj adds the
-non-work disc sweep. Not an experimental map, and no third coverage ratio.
-"""
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
-
-from paper_style import INK, NAVY, NONWORK, NONWORK_WASH, WORK, WORK_WASH, figures_dir, use_serif
+from tikzfig import FIGURES, compile_tikz
 
 
-def _swing(x0, x1, y, waves=4):
-    xs = np.linspace(x0, x1, 240)
-    ys = y + 0.16 * np.sin(waves * 2 * np.pi * (xs - x0) / (x1 - x0))
-    return xs, ys
+BODY = r"""
+\begin{tikzpicture}[x=1mm,y=1mm]
+  \useasboundingbox (0,0) rectangle (\paperfullwidth, 96mm);
+  \node[tag, anchor=north] at (40,11) {(a)};
+  \node[tag, anchor=north] at (116,11) {(b)};
 
+  \fill[workband] (46,89) rectangle (52,93.2);
+  \node[anchor=west] at (53.2,91.1) {work sweep};
+  \fill[secondary, fill opacity=0.40] (88,89) rectangle (94,93.2);
+  \node[anchor=west] at (95.2,91.1) {non-work sweep};
 
-def _lane(x, y0, y1):
-    ys = np.linspace(y0, y1, 80)
-    xs = x + 0.18 * np.sin(np.pi * (ys - y0) / (y1 - y0))
-    return xs, ys
+  \newcommand{\workbands}{%
+    \fill[workband] (10,21.8) rectangle (30,26.2);
+    \fill[workband] (10,31.8) rectangle (30,36.2);
+    \fill[workband] (10,41.8) rectangle (30,46.2);
+    \fill[workband] (52,23.8) rectangle (70,28.2);
+    \fill[workband] (52,35.8) rectangle (70,40.2);
+  }
+  \newcommand{\routepaths}{%
+    \draw[flow] (11,24) -- (29,24);
+    \draw[flow] (29,34) -- (11,34);
+    \draw[flow] (11,44) -- (29,44);
+    \draw[flow] (53,26) -- (69,26);
+    \draw[flow] (69,38) -- (53,38);
+    \draw[aux] (30,24) .. controls (35.2,24) and (35.2,34) .. (30,34);
+    \draw[aux] (10,34) .. controls (4.8,34) and (4.8,44) .. (10,44);
+    \draw[aux] (70,26) .. controls (75.2,26) and (75.2,38) .. (70,38);
+    \draw[aux] (30,44) .. controls (40,58) and (48,52) .. (52,26);
+  }
+  % Disc-diameter band along the lane changes and the transfer. Same width as the orange strips.
+  \newcommand{\nonworkband}{%
+    \fill[secondary, fill opacity=0.40]
+      (30.00,26.20) -- (30.39,26.25) -- (30.66,26.37) -- (30.92,26.58) -- (31.18,26.91)
+      -- (31.42,27.39) -- (31.59,27.99) -- (31.69,28.65) -- (31.69,29.35) -- (31.59,30.01)
+      -- (31.42,30.61) -- (31.18,31.09) -- (30.92,31.42) -- (30.66,31.63) -- (30.39,31.75)
+      -- (30.00,31.80) -- (30.00,36.20) -- (31.56,35.99) -- (32.94,35.40) -- (34.07,34.50)
+      -- (34.92,33.41) -- (35.52,32.21) -- (35.89,30.95) -- (36.08,29.65) -- (36.08,28.35)
+      -- (35.89,27.05) -- (35.52,25.79) -- (34.92,24.59) -- (34.07,23.50) -- (32.94,22.60)
+      -- (31.56,22.01) -- (30.00,21.80) -- cycle;
+    \fill[secondary, fill opacity=0.40]
+      (10.00,31.80) -- (8.44,32.01) -- (7.06,32.60) -- (5.93,33.50) -- (5.08,34.59)
+      -- (4.48,35.79) -- (4.11,37.05) -- (3.92,38.35) -- (3.92,39.65) -- (4.11,40.95)
+      -- (4.48,42.21) -- (5.08,43.41) -- (5.93,44.50) -- (7.06,45.40) -- (8.44,45.99)
+      -- (10.00,46.20) -- (10.00,41.80) -- (9.61,41.75) -- (9.34,41.63) -- (9.08,41.42)
+      -- (8.82,41.09) -- (8.58,40.61) -- (8.41,40.01) -- (8.31,39.35) -- (8.31,38.65)
+      -- (8.41,37.99) -- (8.58,37.39) -- (8.82,36.91) -- (9.08,36.58) -- (9.34,36.37)
+      -- (9.61,36.25) -- (10.00,36.20) -- cycle;
+    \fill[secondary, fill opacity=0.40]
+      (70.00,28.20) -- (70.28,28.24) -- (70.51,28.36) -- (70.79,28.64) -- (71.10,29.12)
+      -- (71.37,29.79) -- (71.58,30.61) -- (71.69,31.53) -- (71.69,32.47) -- (71.58,33.39)
+      -- (71.37,34.21) -- (71.10,34.88) -- (70.79,35.36) -- (70.51,35.64) -- (70.28,35.76)
+      -- (70.00,35.80) -- (70.00,40.20) -- (71.66,39.94) -- (73.10,39.20) -- (74.20,38.14)
+      -- (75.00,36.91) -- (75.56,35.57) -- (75.91,34.17) -- (76.08,32.73) -- (76.08,31.27)
+      -- (75.91,29.83) -- (75.56,28.43) -- (75.00,27.09) -- (74.20,25.86) -- (73.10,24.80)
+      -- (71.66,24.06) -- (70.00,23.80) -- cycle;
+    \fill[secondary, fill opacity=0.40]
+      (28.21,45.28) -- (30.30,47.97) -- (32.40,50.15) -- (34.53,51.84) -- (36.76,52.99)
+      -- (39.09,53.53) -- (41.44,53.34) -- (43.63,52.41) -- (45.55,50.89) -- (47.22,48.85)
+      -- (48.70,46.33) -- (50.03,43.33) -- (51.24,39.85) -- (52.33,35.85) -- (53.31,31.35)
+      -- (54.17,26.33) -- (49.83,25.67) -- (48.99,30.51) -- (48.05,34.81) -- (47.03,38.55)
+      -- (45.94,41.73) -- (44.78,44.34) -- (43.60,46.35) -- (42.43,47.78) -- (41.35,48.65)
+      -- (40.38,49.06) -- (39.43,49.14) -- (38.32,48.88) -- (36.95,48.16) -- (35.38,46.91)
+      -- (33.64,45.10) -- (31.79,42.72) -- cycle;
+  }
 
-
-def _draw_scene(ax, sweeps):
-    left = (0.35, 0.55, 3.15, 2.55)
-    right = (4.55, 0.55, 3.15, 2.55)
-    for box in (left, right):
-        ax.add_patch(Rectangle((box[0], box[1]), box[2], box[3],
-                               facecolor="#F7F8FA", edgecolor=INK, lw=1.05, zorder=1))
-    work = []
-    nonwork = []
-    # Deploy / retract outside the first rectangle.
-    nonwork.append((np.array([0.05, 0.55, 0.35]), np.array([1.15, 0.85, 0.85])))
-    # In-place turn just inside the entry.
-    turn = np.linspace(-np.pi / 2, np.pi / 2, 40)
-    nonwork.append((0.7 + 0.22 * np.cos(turn), 1.05 + 0.22 * np.sin(turn)))
-    # Three work strips and two lane changes in the left rectangle.
-    lanes_y = (1.05, 1.85, 2.55)
-    for index, y in enumerate(lanes_y):
-        xs, ys = _swing(0.7, 3.15, y, waves=3.5)
-        if index % 2 == 1:
-            xs = xs[::-1]
-            ys = ys[::-1]
-        work.append((xs, ys))
-    nonwork.append(_lane(3.15, 1.05, 1.85))
-    nonwork.append(_lane(0.7, 1.85, 2.55))
-    # Handoff between the rectangles.
-    t = np.linspace(0, 1, 80)
-    nonwork.append((
-        3.5 + t * 1.15,
-        2.55 + 0.35 * np.sin(np.pi * t),
-    ))
-    # Two work strips and one lane change in the right rectangle.
-    work.append(_swing(4.9, 7.35, 1.15, waves=3.5))
-    xs, ys = _swing(4.9, 7.35, 2.05, waves=3.5)
-    work.append((xs[::-1], ys[::-1]))
-    nonwork.append(_lane(7.35, 1.15, 2.05))
-
-    def paint(path, color, wash, width):
-        xs, ys = path
-        if sweeps:
-            ax.plot(xs, ys, color=wash, lw=width, solid_capstyle="round", zorder=2)
-        ax.plot(xs, ys, color=color, lw=1.35, solid_capstyle="round", zorder=3)
-
-    for path in nonwork:
-        paint(path, NONWORK, NONWORK_WASH, 10)
-    for path in work:
-        paint(path, WORK, WORK_WASH, 11)
+  \begin{scope}[shift={(2,16)}]
+    \draw[region] (6,18) rectangle (36,52);
+    \draw[region] (48,20) rectangle (74,48);
+    \workbands
+    \routepaths
+    \node[sym, anchor=south] (cw) at (18,55.5) {$\mathcal{C}_{\mathrm{work}}$};
+    \draw[guide] (cw.south) -- (18,46.2);
+  \end{scope}
+  \begin{scope}[shift={(78,16)}]
+    \draw[region] (6,18) rectangle (36,52);
+    \draw[region] (48,20) rectangle (74,48);
+    \nonworkband
+    \workbands
+    \routepaths
+    \node[sym, anchor=south] (ct) at (40,61) {$\mathcal{C}_{\mathrm{traj}}$};
+    \draw[guide] (ct.south) -- (40,52.2);
+  \end{scope}
+\end{tikzpicture}
+"""
 
 
 def main() -> None:
-    use_serif()
-    fig, axes = plt.subplots(2, 1, figsize=(7.4, 5.6))
-    for ax, sweeps, tag in (
-        (axes[0], False, "(a)"),
-        (axes[1], True, "(b)"),
-    ):
-        ax.set_xlim(-0.15, 8.05)
-        ax.set_ylim(-0.55, 3.55)
-        ax.set_aspect("equal")
-        ax.axis("off")
-        _draw_scene(ax, sweeps)
-        ax.text(0.0, 3.42, tag, fontsize=12, color=NAVY, fontweight="bold", ha="left", va="top")
-    axes[0].text(
-        4.05, -0.48,
-        "work-strip swing: effective work\n"
-        "lane change, in-place turn, deploy/retract, handoff: non-work",
-        ha="center", va="bottom", fontsize=8.5, color=INK,
-    )
-    axes[1].text(1.9, 3.22, r"$\mathcal{C}_{\mathrm{work}}$", fontsize=12, color=WORK, ha="center")
-    axes[1].text(
-        4.05, -0.42,
-        r"$\mathcal{C}_{\mathrm{traj}}$ adds the non-work disc sweep",
-        ha="center", va="bottom", fontsize=9, color=INK,
-    )
-    fig.tight_layout(h_pad=0.4)
-    out = figures_dir() / "figure_coverage_segments.png"
-    fig.savefig(out, dpi=220)
-    plt.close(fig)
-    print(out)
+    compile_tikz(BODY, FIGURES / "figure_coverage_segments.pdf")
 
 
 if __name__ == "__main__":

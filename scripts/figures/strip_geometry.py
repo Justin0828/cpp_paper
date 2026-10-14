@@ -1,142 +1,82 @@
-"""Principle figure for subsection 3.5.2 (revision 63, first figure).
+"""Entry pose, work strips, and swing amplitude for one rectangle."""
 
-Three panels, using symbols already defined in the methodology:
-(a) disc center on the rectangle boundary, base retracted by d_p+L;
-(b) ell_R, h_R, w_s, N_s, and one start corner;
-(c) arm at +/- phi_w with w_s, L, and r_d.
-"""
+from __future__ import annotations
 
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.patches import Arc, Circle, Rectangle
-
-from paper_style import INK, NAVY, RULE, SLATE, WORK, figures_dir, use_serif
+from tikzfig import FIGURES, compile_tikz
 
 
-def _dim(ax, p0, p1, text, offset=(0, 0.16), color=SLATE):
-    ax.annotate(
-        "",
-        xy=p1,
-        xytext=p0,
-        arrowprops=dict(arrowstyle="<->", color=color, lw=0.9, shrinkA=0, shrinkB=0),
-    )
-    mid = ((p0[0] + p1[0]) / 2 + offset[0], (p0[1] + p1[1]) / 2 + offset[1])
-    ax.text(mid[0], mid[1], text, ha="center", va="center", fontsize=11, color=NAVY)
+BODY = r"""
+\begin{tikzpicture}[x=1mm,y=1mm]
+  \useasboundingbox (0,0) rectangle (\paperfullwidth, 68mm);
+  \node[tag, anchor=north] at (26,8) {(a)};
+  \node[tag, anchor=north] at (82,8) {(b)};
+  \node[tag, anchor=north] at (136,8) {(c)};
 
+  % (a) retracted entry on the left boundary, heading outward.
+  \draw[region] (20,22) rectangle (48,50);
+  \draw[arm] (11.2,36) -- (20,36);
+  \draw[chassis] (3.4,32.8) rectangle (11.2,39.2);
+  \draw[disc] (20,36) circle[radius=4.0];
+  \fill[ink] (20,36) circle[radius=0.45];
+  \fill[ink] (7.3,36) circle[radius=0.4];
+  \draw[guide] (7.3,39.2) -- (7.3,55);
+  \draw[guide] (20,40) -- (20,55);
+  \draw[dim] (7.3,55) -- (20,55);
+  \node[sym, anchor=south] at (13.6,55.3) {$d_p+L$};
+  \draw[flow] (7.3,29.6) -- (2.2,29.6);
+  \node[sym, anchor=north] at (4.6,29.2) {$\theta$};
 
-def _panel_a(ax):
-    ax.set_xlim(-0.3, 6.3)
-    ax.set_ylim(-0.15, 3.7)
-    rect = Rectangle((2.15, 0.45), 3.5, 2.35, facecolor="#F4F7FB", edgecolor=INK, lw=1.1, zorder=1)
-    ax.add_patch(rect)
-    # theta = pi puts the retracted base outside the left boundary.
-    disc = np.array([2.15, 1.62])
-    base = disc + np.array([-1.45, 0.0])
-    ax.plot([base[0], disc[0]], [base[1], disc[1]], color=NAVY, lw=1.35, zorder=2)
-    ax.add_patch(Rectangle((base[0] - 0.42, base[1] - 0.28), 0.84, 0.56,
-                           facecolor="#E7EEF5", edgecolor=NAVY, lw=1.1, zorder=3))
-    ax.add_patch(Circle(disc, 0.30, facecolor="#D6E4F0", edgecolor=WORK, lw=1.2, zorder=4))
-    ax.plot(*disc, "o", color=INK, ms=3.5, zorder=5)
-    ax.annotate(
-        "",
-        xy=(base[0] - 0.62, base[1]),
-        xytext=(base[0] - 0.05, base[1]),
-        arrowprops=dict(arrowstyle="-|>", color=NAVY, lw=1.1),
-    )
-    ax.text(base[0] - 0.62, base[1] + 0.16, r"$\theta$", color=NAVY, fontsize=11, ha="center")
-    _dim(ax, (base[0], 2.55), (disc[0], 2.55), r"$d_p+L$", offset=(0, 0.18))
-    ax.plot([base[0], base[0]], [base[1] + 0.28, 2.55], color=RULE, lw=0.6)
-    ax.plot([disc[0], disc[0]], [disc[1] + 0.30, 2.55], color=RULE, lw=0.6)
-    ax.text(disc[0] + 0.42, disc[1] - 0.55, "disc center", fontsize=9, color=INK, ha="left")
-    ax.set_title("(a)", loc="left", fontsize=12, color=NAVY, pad=2)
+  % (b) strips along the long side.
+  \draw[region] (64,24) rectangle (100,50);
+  \draw[aux] (64,32.667) -- (100,32.667);
+  \draw[aux] (64,41.333) -- (100,41.333);
+  \fill[emphasis] (64,24) circle[radius=0.75];
+  \draw[guide] (64,24) -- (64,17.5);
+  \draw[guide] (100,24) -- (100,17.5);
+  \draw[dim] (64,17.5) -- (100,17.5);
+  \node[sym, anchor=north] at (82,17.1) {$\ell_R$};
+  \draw[guide] (100,24) -- (106,24);
+  \draw[guide] (100,50) -- (106,50);
+  \draw[dim] (106,24) -- (106,50);
+  \node[sym, anchor=west] at (106.4,37) {$h_R$};
+  \draw[guide] (64,24) -- (58.5,24);
+  \draw[guide] (64,32.667) -- (58.5,32.667);
+  \draw[dim] (58.5,24) -- (58.5,32.667);
+  \node[sym, anchor=east] at (58.1,28.3) {$w_s$};
+  \node[sym, anchor=south] at (82,50.3) {$N_s$};
 
-
-def _panel_b(ax):
-    ax.set_xlim(-0.55, 5.3)
-    ax.set_ylim(-0.85, 3.55)
-    width, height = 3.6, 2.4
-    origin = (0.35, 0.25)
-    strips = 3
-    strip_h = height / strips
-    ax.add_patch(Rectangle(origin, width, height, facecolor="#F4F7FB", edgecolor=INK, lw=1.1))
-    for k in range(1, strips):
-        y = origin[1] + k * strip_h
-        ax.plot([origin[0], origin[0] + width], [y, y], color=WORK, lw=0.8, ls=(0, (3, 2)))
-    # One start corner.
-    corner = (origin[0], origin[1])
-    ax.plot(*corner, "o", color=NAVY, ms=6, zorder=4)
-    ax.text(corner[0] + 0.12, corner[1] + 0.12, "start", fontsize=9, color=NAVY, ha="left", va="bottom")
-    _dim(ax, (origin[0], -0.15), (origin[0] + width, -0.15), r"$\ell_R$", offset=(0, -0.28))
-    _dim(ax, (origin[0] + width + 0.28, origin[1]), (origin[0] + width + 0.28, origin[1] + height),
-         r"$h_R$", offset=(0.32, 0))
-    _dim(ax, (origin[0] - 0.22, origin[1]), (origin[0] - 0.22, origin[1] + strip_h),
-         r"$w_s$", offset=(-0.28, 0))
-    ax.text(origin[0] + width / 2, origin[1] + height + 0.18, r"$N_s$", ha="center", va="bottom",
-            fontsize=12, color=NAVY)
-    ax.set_title("(b)", loc="left", fontsize=12, color=NAVY, pad=2)
-
-
-def _panel_c(ax):
-    ax.set_xlim(-0.35, 2.55)
-    ax.set_ylim(-1.55, 1.55)
-    length = 1.15
-    phi = 0.62
-    radius = 0.28
-    half = length * np.sin(phi) + radius
-    ax.axhspan(-half, half, color="#F4F7FB", zorder=0)
-    ax.plot([-0.15, 2.15], [half, half], color=INK, lw=0.8)
-    ax.plot([-0.15, 2.15], [-half, -half], color=INK, lw=0.8)
-    ax.plot([-0.15, 2.15], [0, 0], color=RULE, lw=0.7, ls=(0, (2, 2)))
-    pivot = np.array([0.15, 0.0])
-    for sign, shade in ((1, 0.55), (-1, 0.25)):
-        angle = sign * phi
-        tip = pivot + length * np.array([np.cos(angle), np.sin(angle)])
-        ax.plot([pivot[0], tip[0]], [pivot[1], tip[1]], color=NAVY, lw=1.3, alpha=0.45 + shade, zorder=3)
-        ax.add_patch(Circle(tip, radius, facecolor="#D6E4F0", edgecolor=WORK, lw=1.1,
-                            alpha=0.55 + 0.4 * shade, zorder=4))
-    ax.plot(*pivot, "o", color=INK, ms=4, zorder=5)
-    arc = Arc(pivot, 0.85, 0.85, angle=0, theta1=-np.degrees(phi), theta2=np.degrees(phi),
-              color=SLATE, lw=0.9)
-    ax.add_patch(arc)
-    ax.text(pivot[0] + 0.52, 0.22, r"$\phi_w$", fontsize=11, color=NAVY)
-    ax.text(pivot[0] + 0.52, -0.38, r"$-\phi_w$", fontsize=11, color=NAVY)
-    mid_tip = pivot + length * np.array([np.cos(phi), np.sin(phi)])
-    arm = mid_tip - pivot
-    perp = np.array([-arm[1], arm[0]]) / np.linalg.norm(arm)
-    label_l = (pivot + mid_tip) / 2 + 0.16 * perp
-    ax.text(label_l[0], label_l[1], r"$L$", fontsize=12, color=NAVY, ha="center", va="center")
-    # Outer disc edge meets the strip boundary: that radial gap is r_d.
-    ax.annotate(
-        "",
-        xy=(mid_tip[0], mid_tip[1] + radius),
-        xytext=(mid_tip[0], mid_tip[1]),
-        arrowprops=dict(arrowstyle="<->", color=SLATE, lw=0.8, shrinkA=0, shrinkB=0),
-    )
-    ax.text(mid_tip[0] + radius + 0.06, mid_tip[1] + radius / 2, r"$r_d$", fontsize=11,
-            color=NAVY, ha="left", va="center")
-    _dim(ax, (2.25, -half), (2.25, half), r"$w_s$", offset=(0.34, 0))
-    ax.set_title("(c)", loc="left", fontsize=12, color=NAVY, pad=2)
+  % (c) half-amplitude that brings the disc edge to the strip boundary.
+  \begin{scope}[shift={(122,39)}]
+    \draw[main] (-4,12.43) -- (20,12.43);
+    \draw[main] (-4,-12.43) -- (20,-12.43);
+    \draw[aux] (-4,0) -- (20,0);
+    \draw[arm] (0,0) -- (36:14);
+    \draw[arm] (0,0) -- (-36:14);
+    \draw[disc] (36:14) circle[radius=4.2];
+    \draw[disc] (-36:14) circle[radius=4.2];
+    \fill[ink] (0,0) circle[radius=0.45];
+    \draw[guide] (0,0) ++(36:6.5) arc[start angle=36, end angle=-36, radius=6.5];
+    \node[sym, anchor=west] at (7.2,2.3) {$\phi_w$};
+    \node[sym, anchor=west] at (7.2,-3.6) {$-\phi_w$};
+    \node[sym, anchor=south] at (34:8.6) {$L$};
+    \draw[guide] (36:14) -- ++(0:4.2);
+    \node[sym, anchor=west] at ($(36:14)+(0:5.0)$) {$r_d$};
+    \draw[guide] (20,12.43) -- (24.5,12.43);
+    \draw[guide] (20,-12.43) -- (24.5,-12.43);
+    \draw[dim] (24.5,-12.43) -- (24.5,12.43);
+    \node[sym, anchor=west] at (25,0) {$w_s$};
+  \end{scope}
+\end{tikzpicture}
+"""
 
 
 def main() -> None:
-    use_serif()
-    fig, axes = plt.subplots(1, 3, figsize=(7.6, 3.15))
-    for ax in axes:
-        ax.set_aspect("equal")
-        ax.axis("off")
-    _panel_a(axes[0])
-    _panel_b(axes[1])
-    _panel_c(axes[2])
-    fig.tight_layout(w_pad=1.4)
-    out = figures_dir() / "figure_strip_geometry.png"
-    fig.savefig(out, dpi=220)
-    plt.close(fig)
-    print(out)
+    compile_tikz(BODY, FIGURES / "figure_strip_geometry.pdf")
 
 
 if __name__ == "__main__":

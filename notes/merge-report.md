@@ -68,3 +68,20 @@ Git 冲突两处，都在英文稿。两处都按 `revisions.md` 合并，没有
 | 27 | 条目 70、81。Figure 13 标题是 simple、complex。横轴从 \(\rho=0\) 起，第一个刻度仍是测得的 0.5 m/s（\(\rho=0.00556\)），0 上没有刻度，也没有补出来的单条带曲线。结论段同样使用 simple / complex。 |
 
 根目录中文 PDF 没有这些新图。若要看中文稿里的旧地图名，打开 `build/main.pdf` 的实验节即可；那一部分这次没有改。
+
+## 并入 rev/figs
+
+`rev/merged` 从 `4616dcd` 快进到 `rev/figs`（`bf9d98b`）。中间只有两笔提交：`f05f697`（Redraw eight English figures to one journal style）和 `bf9d98b`（Fix the speed-coupling and coverage-segment diagrams）。没有冲突，图和脚本都是 `rev/figs` 这一侧。没有推送，也没有改 `main`。
+
+八张重绘图换成矢量 PDF，正文 `\includegraphics` 已指向这些 PDF：
+
+- `figure_cpp_class_quadrant.pdf`
+- `figure_strip_geometry.pdf`
+- `figure_speed_coupling.pdf`
+- `figure_coverage_segments.pdf`
+- `figure_2_coverage_comparison_en.pdf`
+- `figure_5a_vehicle_speed_map_simple_en.pdf`
+- `figure_5b_vehicle_speed_parkingGraph_en.pdf`
+- `pipeline_overall_improved_en.pdf`
+
+照片和 `rev/figs` 仍引用的 PNG/JPG 没有改成矢量：`figure_1_swing_arm_troweling_robot_photo.jpg`、`figure_2_disc_vehicle_relationships.png`、`figure_3_geometric_to_binary_raster.png`、`figure_3_segmentation_order_en.png`、`figure_4_body_arm_disc_model.png`、`figure_6_single_rectangle_coverage.png`。
