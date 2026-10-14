@@ -32,16 +32,16 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 29. 三条缺口各留主题句，不再重讲 2.2 的方法清单。
 - [x] 30. 同一基座位置和航向的不同臂角改写成盘心圆弧与整机碰撞、以及够得到不等于覆盖到两句。
 - [x] 31. 删去 SatAOI 主要用于可作业位置及其后的方法句。
-- [ ] 32. 第二缺口不再保留带 [16]–[20] 的固定足迹复述。
-- [ ] 33. 第二缺口只留 SatAOI 停在可作业区域、并由分层启发式接成链路的一句。
-- [ ] 34. 引言第一次出现 static reachability envelope 时给出定义，2.3 指回该句。
-- [ ] 35. 基座速度与摆臂角速度决定相邻扫掠间距的两句并成一句。
-- [ ] 36. 删去把速度分析写入覆盖的句子和文末研究缺口总结。
-- [ ] 37. 3.1 的 data flow 改为 workflow。
-- [ ] 39. Figure 3 图注改为 Workflow of BiRect.，Fields2Cover 对比、扫描策略和速度图注删去第二句及以后。
-- [ ] 40. 矩形分解前补上 to improve the efficiency of searching a complex free space。
-- [ ] 41. 局部运动用 Then 并回 3.1，不再单独成段。
-- [ ] 42. 局部时间改为 are used as the costs of global route planning。
+- [x] 32. 第二缺口不再保留带 [16]–[20] 的固定足迹复述。
+- [x] 33. 第二缺口只留 SatAOI 停在可作业区域、并由分层启发式接成链路的一句。
+- [x] 34. 引言第一次出现 static reachability envelope 时给出定义，2.3 指回该句。
+- [x] 35. 基座速度与摆臂角速度决定相邻扫掠间距的两句并成一句。
+- [x] 36. 删去把速度分析写入覆盖的句子和文末研究缺口总结。
+- [x] 37. 3.1 的 data flow 改为 workflow。
+- [x] 39. Figure 3 图注改为 Workflow of BiRect.，Fields2Cover 对比、扫描策略和速度图注删去第二句及以后。
+- [x] 40. 矩形分解前补上 to improve the efficiency of searching a complex free space。
+- [x] 41. 局部运动用 Then 并回 3.1，不再单独成段。
+- [x] 42. 局部时间改为 are used as the costs of global route planning。
 - [ ] 43. 3.1 改成四段数据交接，不提前定义后文的矩形集、时间和覆盖率符号。
 - [ ] 44. 3.2.1 压成一条从场景到二值图的叙述，第二段只留分辨率、蓝色叠加和刚体变换。
 - [ ] 45. 与 44、46、47 一起压缩重复段落，没有另加句子。
