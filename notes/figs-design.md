@@ -1,0 +1,187 @@
+# Figure designs
+
+Measured inclusion widths for `english_paper` (`a4paper`, 11 pt, 25 mm margins):
+
+- `\textwidth` = 455.24411 pt = 160.000 mm. Six full-width figures use this as the PDF media-box width.
+- Speed minipage `0.49\linewidth` = 223.07211 pt = 78.401 mm. `figure_5a` and `figure_5b` use this width. Their `\includegraphics[width=\linewidth]` lines and the lines `\small (a) \texttt{simple}` and `\small (b) \texttt{complex}` stay. Those two PDFs contain no second `(a)` or `(b)`.
+
+The manuscript is not a 3.5 in / 7 in two-column page. Media boxes follow the real inclusion width so 8–9 pt type is not scaled.
+
+Colors and strokes are only in `figures/style/paperstyle.tex` and `figures/style/paper.mplstyle`.
+
+| Role | Hex | Sample |
+| --- | --- | --- |
+| Disc stroke | `#E97132` | Arm in figure 4 and figure 6 |
+| Disc fill | `#F2AA84` | Disc fill in figure 4 and figure 6 |
+| Chassis fill | `#8FDFED` | Base fill in figure 4 and figure 6 |
+| Path / main line | `#156082` | Paths and dimension arrows in figure 4 and figure 6 |
+| Secondary | `#7F7F7F` | Dotted construction line in figure 6 |
+| Emphasis | `#C23B3B` | No red sample in figure 4 or figure 6; kept distinct from the disc orange |
+
+`#042433` is the disc-rim outline in figure 4 and is used only as type ink. `#F3F3F3` is a neutral secondary tint for free-space fills. Strokes are 0.8 pt (main) and 0.5 pt (auxiliary). Dimension lines are solid 0.5 pt with a double arrow. Dashes are only auxiliary lines. Schematic type is `newtxtext` / `newtxmath`. Data figures use Nimbus Roman, the Times-metric face, through `paper.mplstyle`. Panel tags, where a figure has panels, are `(a)`, `(b)`, `(c)`, `(d)` centered directly under the panel at 9 pt. The same placement is used for every multi-panel figure.
+
+Same object, same color: disc and disc sweep are orange, the base is cyan, routes and structure lines are navy, non-work or construction marks are gray, collisions and the fourth capability class are red.
+
+## figure_cpp_class_quadrant
+
+One sentence. The four capability classes already named in Section 2.2 sit on map representation and robot-model fidelity, and BiRect is the environment--platform coupled class.
+
+Layout. One panel, no `(a)` tag. Media box 455.24411 pt by 112 mm. Four rounded cells in a 2 by 2 grid. A navy arrow under the grid is the horizontal axis; a navy arrow on the left is the vertical axis.
+
+Elements.
+
+- Lower left, white fill, navy 0.8 pt edge: class “Idealized coverage”; entries BCD and STC.
+- Lower right, same edge: “Map-enhanced”; Polygon CPP, Fields2Cover, Nobleo.
+- Upper left, same edge: “Platform-constrained”; Mobile manipulator, SatAOI.
+- Upper right, red 0.8 pt edge, “BiRect” in red: “Environment--platform coupled”.
+- Horizontal axis label “Map representation”, ends “idealized” and “complex”.
+- Vertical axis label “Robot model”, ends “fixed footprint” and “base--arm--disc”.
+- No series, no map, no percentages.
+
+Symbols and the body. The figure has no mathematical symbols. The two axis names are the two dimensions defined in the paragraph that begins “Existing CPP methods can be compared along two dimensions” (`english_paper/sections/introduction.tex`, before `fig:cpp-classes`). The four class names are the names in that same paragraph and in Table `tab:cpp-comparison`. Fields2Cover is drawn only in the map-enhanced cell, as the table note requires. BiRect is the proposed row of that table.
+
+Baseline match. Flat cells, navy structure, one red accent, serif labels, no chart furniture. Figure 3 places titles under panels; this figure is a single diagram, so it has no panel tag.
+
+Advisor B25. The sketch uses only the four existing classes. It plots no experimental map and no numeric result.
+
+## figure_strip_geometry
+
+One sentence. For one rectangle, the retracted entry pose puts the base outside the boundary, the rectangle is divided into \(N_s\) work strips, and the swing half-amplitude \(\phi_w\) is the angle that lets the disc cover one strip.
+
+Layout. Three panels in one row. Media box 455.24411 pt by 68 mm. Tags `(a)`, `(b)`, `(c)` centered under the panels.
+
+Elements.
+
+- `(a)` Entry pose. Free rectangle, navy 0.8 pt. Disc (orange fill, orange 0.8 pt edge) centered on the left boundary. Cyan base outside that boundary. Orange arm. Heading arrow \(\theta\) pointing out of the rectangle (the left-boundary case \(\theta=\pi\)). Solid 0.5 pt double arrow from the base center to the disc center, labeled \(d_p+L\).
+- `(b)` Work strips. One rectangle, three bands separated by gray dashed 0.5 pt lines. Solid 0.5 pt double arrows: \(\ell_R\) along the strip, \(h_R\) across all strips, \(w_s\) across one strip. \(N_s\) above the rectangle. Red dot at the lower-left corner, the starting corner.
+- `(c)` Swing amplitude. Cross-section of one strip. Gray dashed centerline. Arms at \(+\phi_w\) and \(-\phi_w\), length \(L\), orange. Discs of radius \(r_d\) whose outer edges meet the strip boundaries. Solid 0.5 pt angle mark \(\phi_w\). Solid 0.5 pt double arrows for \(r_d\) and \(w_s\).
+
+Symbols and the body. All are introduced before or at the figure in `methodology.tex`.
+
+- \(d_p\), \(L\), \(r_d\), \(\theta\): Section 3.2, the paragraph before Eq. (1), and Eq. (1).
+- \(d_p+L\): Eq. (10), retracted base center.
+- \(\ell_R\), \(h_R\), work strip: the paragraph that begins “The swing amplitude is the half-amplitude”, immediately before this figure.
+- \(\phi_w\): the first sentence of that paragraph.
+- \(N_s\), \(w_s\): Eq. (13).
+- The relation drawn in `(c)`, outer edge at \(L\sin\phi_w+r_d\), is Eq. (14).
+
+Baseline match. Disc orange, base cyan, structure navy, as in figure 4. Dimension arrows are the same double-arrow idea as figure 4, drawn solid 0.5 pt because dashes are reserved for auxiliary lines. Serif math is `newtxmath`, the body font. No paragraph inside the figure.
+
+Advisor B63, first figure. Principle drawing for Section 3.5.2. Only symbols already defined for that subsection. Not an experimental map.
+
+## figure_speed_coupling
+
+One sentence. While the arm swings from \(-\phi_w\) to \(+\phi_w\) in time \(T_{\mathrm{half}}\), the base at \(v_{\mathrm{work}}\) advances one disc diameter \(2r_d\), so the next sweep meets the previous one along the travel direction.
+
+Layout. One panel, no tag. Media box 455.24411 pt by 66 mm. Two poses side by side, travel to the right.
+
+Elements.
+
+- Pose at \(-\phi_w\) and pose at \(+\phi_w\): cyan base, orange arm, orange disc.
+- The two base centers are one disc diameter apart. Solid 0.5 pt double arrow labeled \(2r_d\).
+- Solid 0.5 pt double arrow over the same interval labeled \(T_{\mathrm{half}}\).
+- Navy 0.8 pt arrow labeled \(v_{\mathrm{work}}\) in the travel direction.
+- Labels \(-\phi_w\) and \(+\phi_w\) on the two arms.
+- No second disc-radius arrow and no arm-length arrow; those are in the strip figure.
+
+Symbols and the body. Section 3.5.3, the paragraph before this figure and Eqs. (15)–(17). \(\phi_w\) and \(r_d\) are already defined in Section 3.5.2 and Section 3.2. \(v_{\mathrm{work}}=\min(v_{\max},2r_d/T_{\mathrm{half}})\).
+
+Baseline match. Same robot coloring as figure 4. One horizontal motion arrow, as in the travel arrows of figure 6. No experimental curve.
+
+Advisor B63, second figure. Principle drawing for Section 3.5.3. No new symbol beyond that subsection.
+
+## figure_coverage_segments
+
+One sentence. \(\mathcal C_{\mathrm{work}}\) is the disc sweep on the work strips of two rectangles; \(\mathcal C_{\mathrm{traj}}\) is that sweep plus the disc sweep of the one transfer between them.
+
+Layout. Two panels. Media box 455.24411 pt by 74 mm. Tags `(a)` and `(b)` centered under the panels. Both panels use the same two rectangles and the same one transfer.
+
+Elements.
+
+- Two free rectangles, navy 0.8 pt, light gray fill.
+- Work strips: orange bands (disc fill) with a navy 0.8 pt centerline and a direction arrow. This is the disc on a work strip.
+- The transfer: gray dashed 0.5 pt curve from the first rectangle to the second. Dashed because it is auxiliary to the work.
+- `(a)`, labeled \(\mathcal C_{\mathrm{work}}\): orange bands only. The transfer has no sweep.
+- `(b)`, labeled \(\mathcal C_{\mathrm{traj}}\): the same orange bands, plus gray discs along the transfer.
+- No map, no third ratio, no sentence.
+
+Symbols and the body. \(\mathcal C_{\mathrm{work}}\) and \(\mathcal C_{\mathrm{traj}}\) are Eq. (25) in Section 3.7, the subsection that contains this figure. The paragraph immediately above the figure defines which segments are effective work and which (transfer, lane change, adjustment) are non-work. The drawing keeps the advisor’s two rectangles and one transfer; it does not add a separate icon for every non-work phase listed in that paragraph.
+
+Baseline match. Disc orange and path navy follow figure 4 and figure 6. Gray is the non-work color, the secondary role. Panel tags sit under the panels, as in figure 3.
+
+Advisor B67. Two rectangles and one transfer. Not an experimental map.
+
+## figure_2_coverage_comparison_en
+
+One sentence. On `simple` and on `complex`, BiRect’s full-trajectory disc sweep stays in the free space, while the Fields2Cover centerline leaves the field.
+
+Layout. Two by two. Media box 455.24411 pt wide; height set with the panels (about 6.4 in). Tags under the panels:
+
+- `(a)` `simple`, BiRect
+- `(b)` `simple`, Fields2Cover
+- `(c)` `complex`, BiRect
+- `(d)` `complex`, Fields2Cover
+
+Each tag line also carries the saved ratio, and the Fields2Cover lines carry the saved outside area. Equal aspect, axes in metres. One legend under the grid: uncovered free space, full-trajectory sweep, obstacle, centerline, invalid. The legend does not cover the maps.
+
+Elements.
+
+- Free space: secondary tint. Obstacle: ink. Full-trajectory sweep: disc fill. Centerline: path navy at the main stroke on the Fields2Cover panels, with the portion outside the field in emphasis red.
+- BiRect panels show the full-trajectory disc mask. The stored `coverage_final.png` is the work-only mask (its blue count equals `work_disc.covered_free_px`, not the full-trajectory count). The full-trajectory mask is not stored. The script rebuilds it from the frozen config and seed, the reproduction path in `notes/codebase-map.md`, and aborts if the rebuilt pixel count or ratio differs from `metrics.json`. It writes no result file.
+- Fields2Cover panels read the GeoJSON field, `path.csv`, and `metrics.json`. The raster is a half-width buffer of the saved path, drawn as a picture of that path. The printed ratio and outside area are the saved metric values, not a new measurement.
+- In-figure names are `simple` and `complex`. File names stay `map_test1` and `parkingGraph`.
+
+Numbers printed from the files, then shown at the table’s two-decimal rounding:
+
+- BiRect `simple`: `coverage.full_trajectory_disc.coverage_ratio` 0.9410801963993454, label 94.11%.
+- Fields2Cover `simple`: `coverage_ratio` 0.7839828689793511, label 78.40%; `path_validation.swept_area_outside_field_m2` 4.513435771890705, label 4.51 m².
+- BiRect `complex`: 0.9572659524918491, label 95.73%.
+- Fields2Cover `complex`: 0.92835265474812, label 92.84%; outside area 20.002713623842464, label 20.00 m².
+
+Symbols and the body. The panel words `simple`, `complex`, BiRect, and Fields2Cover are the names in Section 4.1 and Table `tab:baseline-comparison`. No new symbol. The ratios are the table’s coverage ratios.
+
+Baseline match. Disc-colored sweep, navy path, red for the failure, serif 8 pt labels. The map is a data figure, so it uses matplotlib and `paper.mplstyle` rather than TikZ.
+
+Advisor B70. The picture says `simple` and `complex`. CSV, JSON, and GeoJSON names are unchanged, and no experimental number is edited.
+
+## figure_5a_vehicle_speed_map_simple_en and figure_5b_vehicle_speed_parkingGraph_en
+
+One sentence. As base speed rises, full-trajectory coverage and execution time both fall; the horizontal axis starts at 0 and the markers are only the six measured speeds.
+
+Layout. One axes pair per PDF. No panel tag inside the PDF. Media box 223.07211 pt wide and 2.55 in tall. `figure_5a` reads `map_test1/comparison_summary.csv` and is the `simple` panel. `figure_5b` reads `parkingGraph/comparison_summary.csv` and is the `complex` panel. The tex under the figures already says so.
+
+Elements.
+
+- Horizontal axis: configured base speed \(v\) in m/s, limit starting at 0. Ticks only at the six saved speeds 0.5, 1.0, 1.5, 2.0, 2.5, 3.0. No marker at 0.
+- Left axis, navy 0.8 pt, circle markers: `full_trajectory_disc_coverage_ratio` times 100.
+- Right axis, red 0.8 pt, square markers: `duration_seconds`.
+- Dotted gray 0.5 pt horizontal grid, auxiliary.
+- Legend above the axes, one row: “Coverage”, “Time”. It does not cover the curves.
+- No work-strip series and no single-strip series. `work_disc_coverage_ratio` is not plotted.
+- No in-figure map title, so the tex label is not repeated.
+
+Symbols and the body. \(v\) is the base speed in the speed-study section. \(\rho=v/\omega_a\) is defined in that section; the script prints \(\rho\) beside each point and does not add a \(\rho=0\) sample. The plotted coverage and duration are the columns behind Table `tab:speed-study`.
+
+Baseline match. Navy and red are the path and emphasis roles. Serif 8 pt type. The two curves are the whole figure; there is no schematic mixed in.
+
+Advisor B81 and B70. The curves are redrawn from `comparison_summary.csv`. The speed axis starts at 0. No new run, no added sample, no single-strip curve. The directory names stay in the file names; the words `simple` and `complex` stay in the tex under the figures.
+
+## pipeline_overall_improved_en
+
+Source: `assets/svg_sources/pipeline_overall_improved_en.svg`. The file exists, so the title is edited there and the included image is re-exported. The PNG is not painted on.
+
+Box 4’s visible title becomes exactly `4. Global Route Planning & Rectangle Coverage`. It is split after the ampersand so it fits the box, in one `<text class="title-small">` with a `<tspan>`. `title-small` is `font-weight: 700`, the same class as boxes 1, 2, and 3. The inline size is 18 px, the size already used by the other two-line title (box 3). No other box text, module, or color in the SVG changes.
+
+The paper includes the re-exported PDF at `\includegraphics[width=\linewidth]`. The PDF media box is `\textwidth`, so that line does not scale the artwork a second time. The SVG’s own `width="140mm"` attribute stays; the scale to the text width happens once at export.
+
+Advisor B38. The old “Global Routing” wording becomes this global-route-planning title. The four module boxes stay.
+
+## Self-check log
+
+Previews were rendered with `pdftocairo` at the inclusion width and read back. Defects below are ones the preview showed; each line is the fix that removed it.
+
+- Strip panel (c): the \(r_d\) arrow was drawn inside the disc and crossed the strip boundary. The radius is now the horizontal radius, with the label outside the disc and clear of \(w_s\).
+- Coverage segments, panel (b): the gray discs sat above the transfer curve. They are centered on the Bézier, and the dashed transfer is drawn again on top of them.
+- Speed coupling: the two poses sat in a small patch of a wide canvas. The geometry is scaled by 1.18 inside the same 9 pt labels, and the media box is 84 mm tall so \(T_{\mathrm{half}}\) is not clipped.
+- Coverage comparison: the panel tags collided with the axis numbers, and the bottom legend collided with panel (c). The legend is above the panels. Each tag sits in the gap under its axis. The labels read `(a) simple, BiRect` / `94.11%`, `(b) simple, Fields2Cover` / `78.40%, 4.51 m² outside`, `(c) complex, BiRect` / `95.73%`, `(d) complex, Fields2Cover` / `92.84%, 20.00 m² outside`.
+- Pipeline export: cairosvg gives a `tspan` with `font-style: italic` a zero advance, ignores `baseline-shift`, and this machine has neither Arial nor Cambria Math. The render copy embeds Liberation Serif Italic, lowers subscripts with `dy`, and flattens math `tspan`s. The SVG source keeps `Arial`, `Cambria Math`, and the title string. Box 4 reads `4. Global Route Planning & Rectangle Coverage` on two lines in `title-small` (`font-weight: 700`), the same class as boxes 1–3. One line does not fit the box at that size.

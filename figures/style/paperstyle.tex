@@ -1,0 +1,52 @@
+% Shared TikZ style for the eight redrawn english_paper figures.
+% Colors and the two stroke weights live only in this file and in paper.mplstyle.
+%
+% Five principal colors, sampled from
+% english_paper/figures/figure_4_body_arm_disc_model.png and
+% english_paper/figures/figure_6_single_rectangle_coverage.png
+% unless a role is marked otherwise:
+%   disc       #E97132   arm stroke in figure 4 and figure 6
+%   discfill   #F2AA84   disc fill in figure 4 and figure 6 (same role)
+%   chassis    #8FDFED   base fill in figure 4 and figure 6
+%   path       #156082   path, heading, and dimension arrows in both
+%   secondary  #7F7F7F   dotted construction line in figure 6
+%   emphasis   #C23B3B   error / highlight; figure 4 and figure 6 have no red sample
+% Ink #042433 is the disc-rim outline in figure 4. It is type color, not a sixth data color.
+% secondaryfill is a neutral tint of secondary for paper backgrounds.
+
+\definecolor{disc}{HTML}{E97132}
+\definecolor{discfill}{HTML}{F2AA84}
+\definecolor{chassis}{HTML}{8FDFED}
+\definecolor{path}{HTML}{156082}
+\definecolor{secondary}{HTML}{7F7F7F}
+\definecolor{secondaryfill}{HTML}{F3F3F3}
+\definecolor{emphasis}{HTML}{C23B3B}
+\definecolor{ink}{HTML}{042433}
+
+\colorlet{nonworkfill}{secondary!32!white}
+\colorlet{workband}{discfill!82!white}
+
+\newcommand{\lwmain}{0.8pt}
+\newcommand{\lwaux}{0.5pt}
+
+% Article textwidth with \documentclass[a4paper,11pt]{article} and margin 25mm.
+% Measured: \the\textwidth = 455.24411pt; 0.49\textwidth = 223.07211pt.
+\newcommand{\paperfullwidth}{455.24411pt}
+\newcommand{\paperspeedwidth}{223.07211pt}
+
+\tikzset{
+  every node/.style={text=ink, inner sep=1.2pt, font=\fontsize{8}{9.6}\selectfont},
+  tag/.style={font=\fontsize{9}{10.8}\selectfont, text=ink, inner sep=0pt},
+  sym/.style={font=\fontsize{9}{10.8}\selectfont, text=ink, inner sep=1pt},
+  main/.style={draw=path, line width=\lwmain},
+  aux/.style={draw=secondary, line width=\lwaux, dashed},
+  guide/.style={draw=path, line width=\lwaux},
+  dim/.style={guide, {Stealth[length=1.5mm, width=1.15mm]}-{Stealth[length=1.5mm, width=1.15mm]}},
+  flow/.style={main, -{Stealth[length=1.7mm, width=1.3mm]}},
+  disc/.style={draw=disc, fill=discfill, line width=\lwmain},
+  chassis/.style={draw=path, fill=chassis, line width=\lwmain},
+  arm/.style={draw=disc, line width=\lwmain, line cap=round},
+  region/.style={main, fill=secondaryfill, rounded corners=0pt},
+  cell/.style={main, fill=white, rounded corners=1.6mm},
+  cellon/.style={draw=emphasis, line width=\lwmain, fill=white, rounded corners=1.6mm},
+}

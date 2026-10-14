@@ -1,0 +1,55 @@
+# Matplotlib style for the three data figures.
+# Colors match figures/style/paperstyle.tex. Hex digits have no leading hash:
+# a hash starts a comment in a matplotlib style sheet.
+#
+# role.disc: E97132
+# role.discfill: F2AA84
+# role.chassis: 8FDFED
+# role.path: 156082
+# role.secondary: 7F7F7F
+# role.secondaryfill: F3F3F3
+# role.emphasis: C23B3B
+# role.ink: 042433
+# stroke.main: 0.8
+# stroke.aux: 0.5
+# inclusion.full_in: 6.2992128130621285
+# inclusion.speed_in: 3.0866488169364885
+
+font.family: Nimbus Roman
+font.size: 8
+axes.labelsize: 8
+axes.titlesize: 9
+xtick.labelsize: 8
+ytick.labelsize: 8
+legend.fontsize: 8
+axes.unicode_minus: False
+mathtext.fontset: custom
+mathtext.rm: Nimbus Roman
+mathtext.it: Nimbus Roman:italic
+mathtext.bf: Nimbus Roman:bold
+pdf.fonttype: 42
+ps.fonttype: 42
+
+lines.linewidth: 0.8
+lines.linestyle: -
+axes.linewidth: 0.5
+grid.linewidth: 0.5
+grid.linestyle: :
+grid.color: 7F7F7F
+patch.linewidth: 0.8
+axes.edgecolor: 042433
+axes.labelcolor: 042433
+text.color: 042433
+xtick.color: 042433
+ytick.color: 042433
+xtick.major.width: 0.5
+ytick.major.width: 0.5
+xtick.major.size: 2.4
+ytick.major.size: 2.4
+xtick.direction: out
+ytick.direction: out
+legend.frameon: False
+figure.facecolor: white
+axes.facecolor: white
+savefig.facecolor: white
+axes.prop_cycle: cycler('color', ['156082', 'C23B3B', 'E97132', '8FDFED', '7F7F7F'])
