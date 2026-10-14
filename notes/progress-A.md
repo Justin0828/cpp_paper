@@ -62,16 +62,16 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 62. Algorithm 1 改用 [H]，与 Connectivity Completion 放在同一小节。
 - [x] 64. 在 3.5.2 开头定义 swing amplitude 为覆盖一条条带时臂角相对中位的半幅。
 - [x] 65. 在长度和宽度符号之前定义 work strip，并保持 ell_R 与 h_R 的原有含义。
-- [ ] 66. 首次访问的文字改为条带行驶、换道、原地转角和摆臂调整四项，交接时间留在边代价里。
-- [ ] 68. 在 experiments 与 evaluate 之间插入 are designed to。
-- [ ] 69. 第一组实验改为验证障碍图上的可执行覆盖和更高的全程覆盖率。
-- [ ] 71. 黑白像素的重复定义改为一句按前面的定义。
-- [ ] 72. 写明除速度实验外三台速度上限同时使用，速度实验的基座线速度为已有的六档。
-- [ ] 73. 4.1 标题改为 Executability and Coverage against Fields2Cover。
-- [ ] 74. 实验节删去 Fields2Cover 的功能介绍，只留固定宽度代表这一句和原有对照设置。
-- [ ] 75. 表中方法名改为加粗的 BiRect，并加粗两图全程覆盖率 94.11%、95.73% 和 Passed。
-- [ ] 76. 扫描策略表按列加粗占优的策略名和数字，row-then-col 用 mbox 避免拆行；地图名未改，因为第 70 条是 B 类。
-- [ ] 77. 94.32% 改写成五张图上 row-then-column 的全程覆盖率算术平均。
+- [x] 66. 首次访问的文字改为条带行驶、换道、原地转角和摆臂调整四项，交接时间留在边代价里。
+- [x] 68. 在 experiments 与 evaluate 之间插入 are designed to。
+- [x] 69. 第一组实验改为验证障碍图上的可执行覆盖和更高的全程覆盖率。
+- [x] 71. 黑白像素的重复定义改为一句按前面的定义。
+- [x] 72. 写明除速度实验外三台速度上限同时使用，速度实验的基座线速度为已有的六档。
+- [x] 73. 4.1 标题改为 Executability and Coverage against Fields2Cover。
+- [x] 74. 实验节删去 Fields2Cover 的功能介绍，只留固定宽度代表这一句和原有对照设置。
+- [x] 75. 表中方法名改为加粗的 BiRect，并加粗两图全程覆盖率 94.11%、95.73% 和 Passed。
+- [x] 76. 扫描策略表按列加粗占优的策略名和数字，row-then-col 用 mbox 避免拆行；地图名未改，因为第 70 条是 B 类。
+- [x] 77. 94.32% 改写成五张图上 row-then-column 的全程覆盖率算术平均。
 - [ ] 78. 统一称为 base--arm velocity coupling，并在首次出现时定义；rho 只作为该耦合的比值。
 - [ ] 79. 把 Fields2Cover 覆盖对比图移到 4.1 的实验介绍之后，并用 [H] 固定位置。
 - [ ] 80. 讨论结论改成对应三个实验的正面三句，删去 not simply another decomposition。
