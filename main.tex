@@ -11,6 +11,7 @@
 \usepackage{hyperref}
 \usepackage[pipeTables,texMathDollars,rawAttribute]{markdown}
 \hypersetup{colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=blue}
+\IfFileExists{/System/Library/Fonts/Supplemental/Songti.ttc}{%
 \setCJKmainfont[
   Path=/System/Library/Fonts/Supplemental/,
   FontIndex=4,
@@ -19,7 +20,13 @@
 ]{Songti.ttc}
 \setCJKsansfont[Path=/System/Library/Fonts/]{STHeiti Medium.ttc}
 \setCJKmonofont[Path=/System/Library/Fonts/Supplemental/]{Songti.ttc}
-\setmonofont{Menlo}
+\setmonofont{Menlo}%
+}{%
+\setCJKmainfont{Noto Serif CJK SC}
+\setCJKsansfont{Noto Sans CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}
+\setmonofont{DejaVu Sans Mono}%
+}
 % Manual numeric citations in the Markdown source link to BibTeX's anchors.
 \newcommand{\refjump}[2]{\hyperlink{cite.#1}{[#2]}}
 \graphicspath{{figures/}}

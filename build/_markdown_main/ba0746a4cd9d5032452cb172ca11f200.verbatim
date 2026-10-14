@@ -1,6 +1,0 @@
-\[
-\widehat{\mathcal C}_s
-=\bigcup_{j=0}^{m-1}
-\mathrm{Capsule}(\mathbf c_j,\mathbf c_{j+1},r_d).
-\qquad(24)
-\]

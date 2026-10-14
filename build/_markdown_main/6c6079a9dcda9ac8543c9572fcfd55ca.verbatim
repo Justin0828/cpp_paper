@@ -1,6 +1,0 @@
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=0.78\linewidth]{figures/figure_3_geometric_to_binary_raster.png}
-  \caption{精确地图到二值栅格地图的转换示意图。左侧为从 CAD/BIM、测绘或建图结果抽象得到的精确二维作业区域，右侧为进入本文算法前的二值栅格地图 $M$。图中展示了轴对齐矩形、曲线边界、L 型区域、含多形状内部障碍物的 L 型区域、含内部障碍物区域以及不规则多障碍物区域等情形；浅色区域表示自由/待覆盖区域，深色区域表示障碍物或地图外区域。}
-  \label{fig:geometric-to-raster}
-\end{figure}
