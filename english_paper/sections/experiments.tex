@@ -3,7 +3,7 @@
 
 Three groups of experiments are designed to evaluate the proposed swing-arm CPP method. The first compares BiRect with Fields2Cover to verify that, on obstacle maps, active swing-arm motion gives executable coverage and a higher full-trajectory coverage ratio than fixed-width strips. The second compares rectangular-candidate scan strategies to determine how bidirectional candidates affect coverage quality and redundancy in complex spaces. The third varies base speed at a fixed arm angular velocity to expose how base--arm velocity coupling affects coverage and execution time.
 
-All three groups use two base maps. \texttt{map\_test1} contains four regular rectangular obstacles and tests basic obstacle avoidance and coverage. \texttt{parkingGraph} contains densely distributed small obstacles and better resembles a construction floor partitioned by columns, openings, and local structures. The scan-strategy experiment additionally uses three directional maps:
+All three groups use two base maps. \texttt{simple} contains four regular rectangular obstacles and tests basic obstacle avoidance and coverage. \texttt{complex} contains densely distributed small obstacles and better resembles a construction floor partitioned by columns, openings, and local structures. The scan-strategy experiment additionally uses three directional maps:
 \begin{itemize}[nosep]
   \item \texttt{scan\_comb\_corridors}: horizontal comb-like corridors;
   \item \texttt{scan\_mixed\_weave}: interwoven horizontal and vertical structures; and
@@ -22,7 +22,7 @@ For Fields2Cover, the working width is $1.50$~m, equal to the diameter of the pr
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.96\linewidth]{figure_2_coverage_comparison_en.png}
-  \caption{Coverage paths and swept regions for the proposed method and Fields2Cover: panels (a) and (b) show \texttt{map\_test1}, and panels (c) and (d) show \texttt{parkingGraph}.}
+  \caption{Coverage paths and swept regions for the proposed method and Fields2Cover: panels (a) and (b) show \texttt{simple}, and panels (c) and (d) show \texttt{complex}.}
   \label{fig:baseline-comparison}
 \end{figure}
 
@@ -37,9 +37,9 @@ For Fields2Cover, the working width is $1.50$~m, equal to the diameter of the pr
 \toprule
 Map & Method & \shortstack{Evaluation\\area (m$^2$)} & \shortstack{Covered\\area (m$^2$)} & \shortstack{Coverage\\ratio (\%)} & \shortstack{Execution/planning\\time (s/s)} & Path check \\
 \midrule
-\texttt{map\_test1} & \textbf{BiRect} & 611.00 & 575.00 & \textbf{94.11} & 854.73/1.298 & \textbf{Passed} \\
+\texttt{simple} & \textbf{BiRect} & 611.00 & 575.00 & \textbf{94.11} & 854.73/1.298 & \textbf{Passed} \\
  & Fields2Cover & 533.17 & 418.00 & 78.40 & 295.50/0.075 & 4.51~m$^2$ outside \\
-\texttt{parking}\allowbreak\texttt{Graph} & \textbf{BiRect} & 4294.00 & 4110.50 & \textbf{95.73} & 5844.73/17.981 & \textbf{Passed} \\
+\texttt{complex} & \textbf{BiRect} & 4294.00 & 4110.50 & \textbf{95.73} & 5844.73/17.981 & \textbf{Passed} \\
  & Fields2Cover & 4046.79 & 3756.85 & 92.84 & 2883.81/6.339 & 20.00~m$^2$ outside \\
 \bottomrule
 \end{tabular}
@@ -47,9 +47,9 @@ Map & Method & \shortstack{Evaluation\\area (m$^2$)} & \shortstack{Covered\\area
 
 The evaluated areas in Table~\ref{tab:baseline-comparison} differ between methods, so their coverage ratios should not be interpreted as same-domain percentage-point differences. The Fields2Cover routes fail the path check; their execution and planning times are reported only for the generated outputs.
 
-On \texttt{map\_test1}, Fields2Cover has shorter generation and nominal execution times with a $1.50$~m fixed width equal to the disc diameter. Its complete trajectory sweeps 418.00~m$^2$ (78.40\%), compared with 575.00~m$^2$ (94.11\%) for the proposed method. Its connecting segments, however, sweep 4.51~m$^2$ outside the admissible region. The recorded 295.50~s execution time and 0.075~s planning time therefore describe an invalid generated path rather than an executable solution. This illustrates the principal benefit of the swing-arm configuration: the base need not drive along every strip that the disc must cover. Arm motion extends the covered region and creates a wider time-varying sweep within the same free space.
+On \texttt{simple}, Fields2Cover has shorter generation and nominal execution times with a $1.50$~m fixed width equal to the disc diameter. Its complete trajectory sweeps 418.00~m$^2$ (78.40\%), compared with 575.00~m$^2$ (94.11\%) for the proposed method. Its connecting segments, however, sweep 4.51~m$^2$ outside the admissible region. The recorded 295.50~s execution time and 0.075~s planning time therefore describe an invalid generated path rather than an executable solution. This illustrates the principal benefit of the swing-arm configuration: the base need not drive along every strip that the disc must cover. Arm motion extends the covered region and creates a wider time-varying sweep within the same free space.
 
-On \texttt{parkingGraph}, the proposed method covers 4110.50~m$^2$, or 95.73\% of its evaluation domain. Fields2Cover sweeps 3756.85~m$^2$ (92.84\%) along the complete trajectory. Yet its connecting path for the $1.50$~m tool leaves the free space, creating 20.00~m$^2$ of invalid base sweep; the corresponding 2883.81~s execution time and 6.339~s planning time are likewise not valid baseline scores. The problem is concentrated near dense local obstacles. Although individual swaths fit inside the eroded region, curvature-constrained connections between swaths require additional room. Without a broad transfer area analogous to an agricultural headland, these connections can cross the boundary of the original free space. Active arm sweeping partially decouples base travel from end-disc coverage and preserves greater coverage capability and path continuity in such complex regions.
+On \texttt{complex}, the proposed method covers 4110.50~m$^2$, or 95.73\% of its evaluation domain. Fields2Cover sweeps 3756.85~m$^2$ (92.84\%) along the complete trajectory. Yet its connecting path for the $1.50$~m tool leaves the free space, creating 20.00~m$^2$ of invalid base sweep; the corresponding 2883.81~s execution time and 6.339~s planning time are likewise not valid baseline scores. The problem is concentrated near dense local obstacles. Although individual swaths fit inside the eroded region, curvature-constrained connections between swaths require additional room. Without a broad transfer area analogous to an agricultural headland, these connections can cross the boundary of the original free space. Active arm sweeping partially decouples base travel from end-disc coverage and preserves greater coverage capability and path continuity in such complex regions.
 
 \subsection{Effect of the Rectangle-Candidate Scan Strategy}
 
@@ -67,11 +67,11 @@ Map & Strategy & \shortstack{Greedy\\coverage} & \shortstack{Final\\partition\\c
 Map & Strategy & \shortstack{Greedy\\coverage} & \shortstack{Final\\partition\\coverage} & \shortstack{Partition\\overlap} & \shortstack{Trajectory\\coverage} & \shortstack{Total time\\(s)} \\
 \midrule
 \endhead
-\texttt{map\_test1} & \textbf{row-only} & 72.01\% & 100.00\% & 34.21\% & 93.04\% & \textbf{696.89} \\
+\texttt{simple} & \textbf{row-only} & 72.01\% & 100.00\% & 34.21\% & 93.04\% & \textbf{696.89} \\
  & \textbf{col-only} & 72.01\% & 100.00\% & 34.21\% & 93.04\% & \textbf{696.89} \\
  & \textbf{\mbox{row-then-col}} & \textbf{100.00\%} & 100.00\% & \textbf{0.00\%} & \textbf{94.11\%} & 854.73 \\
 \midrule
-\texttt{parking}\allowbreak\texttt{Graph} & \textbf{row-only} & 87.32\% & 100.00\% & 75.34\% & 95.73\% & \textbf{5844.73} \\
+\texttt{complex} & \textbf{row-only} & 87.32\% & 100.00\% & 75.34\% & 95.73\% & \textbf{5844.73} \\
  & \textbf{col-only} & 87.32\% & 100.00\% & 75.34\% & \textbf{95.90\%} & 5896.03 \\
  & \textbf{\mbox{row-then-col}} & 87.32\% & 100.00\% & 75.34\% & 95.73\% & \textbf{5844.73} \\
 \midrule
@@ -93,7 +93,7 @@ Five-map mean & row-only & -- & -- & -- & 93.96\% & 2327.22 \\
 \bottomrule
 \end{longtable}
 
-The two general maps first establish basic behavior in non-directional scenes. On \texttt{map\_test1}, row-then-column achieves the highest full-trajectory coverage (94.11\%) and reduces partition overlap to zero, but its 854.73~s execution time exceeds the 696.89~s of either one-direction strategy. In this regular obstacle scene, bidirectional scanning trades longer execution for higher coverage. On \texttt{parkingGraph}, row-then-column and row-only select the same rectangles and give identical results. Column-only provides slightly higher coverage (95.90\%), whereas row-only and row-then-column tie for the shortest total time (5844.73~s). Bidirectional scanning therefore does not dominate every metric in every scene. When free space has a pronounced principal direction or row candidates already capture the structure, a one-direction strategy may be faster or marginally improve coverage.
+The two general maps first establish basic behavior in non-directional scenes. On \texttt{simple}, row-then-column achieves the highest full-trajectory coverage (94.11\%) and reduces partition overlap to zero, but its 854.73~s execution time exceeds the 696.89~s of either one-direction strategy. In this regular obstacle scene, bidirectional scanning trades longer execution for higher coverage. On \texttt{complex}, row-then-column and row-only select the same rectangles and give identical results. Column-only provides slightly higher coverage (95.90\%), whereas row-only and row-then-column tie for the shortest total time (5844.73~s). Bidirectional scanning therefore does not dominate every metric in every scene. When free space has a pronounced principal direction or row candidates already capture the structure, a one-direction strategy may be faster or marginally improve coverage.
 
 The three directional maps then isolate scan-direction bias; they are not intended to prove that bidirectional scanning is optimal on arbitrary maps. Horizontal corridors, orthogonal interweaving, and offset connections amplify residual regions created by a single scan direction. On all three maps, row-then-column gives the highest greedy coverage and lowest partition overlap. Column candidates supplement regions that row candidates represent poorly rather than merely increasing the rectangle count. This improvement propagates to execution: row-then-column gives both the highest full-trajectory coverage and shortest time on all three maps, respectively 94.01\%/1986.42~s, 95.70\%/1522.77~s, and 92.06\%/1374.38~s. Their mean is 93.93\%/1627.86~s. When a map truly contains residual structures in both directions, complementary row and column candidates reduce directional bias and redundant visitation while increasing useful sweep along the complete trajectory.
 
@@ -112,7 +112,7 @@ The first two experiments address route and decomposition quality. Swing-arm cov
 
 This experiment tests the analysis in Section~3.5.3. At fixed arm angular velocity, increasing base speed should shorten execution but enlarge the spacing between adjacent sweeps and reduce coverage. Keeping the rectangle set, visitation order, and local-work structure fixed isolates the effect of base speed.
 
-The arm angular velocity is fixed at $\omega_a=90^\circ$/s. The same planned solutions are executed on \texttt{map\_test1} and \texttt{parkingGraph} with base speed increasing from 0.5 to 3.0~m/s. The ratio of this base--arm velocity coupling is
+The arm angular velocity is fixed at $\omega_a=90^\circ$/s. The same planned solutions are executed on \texttt{simple} and \texttt{complex} with base speed increasing from 0.5 to 3.0~m/s. The ratio of this base--arm velocity coupling is
 \begin{equation*}
 \rho=\frac{v}{\omega_a},
 \end{equation*}
@@ -129,14 +129,14 @@ with units of m/degree. It is the base distance traveled while the arm rotates t
 \toprule
 Map & \shortstack{Base speed\\(m/s)} & \shortstack{$\rho$\\(m/degree)} & \shortstack{Full-path\\coverage} & \shortstack{Total time\\(s)} & \shortstack{Time per covered\\area (s/m$^2$)} \\
 \midrule
-\texttt{map\_test1} & 0.5 & 0.00556 & 96.44\% & 1680.45 & 2.852 \\
+\texttt{simple} & 0.5 & 0.00556 & 96.44\% & 1680.45 & 2.852 \\
  & 1.0 & 0.01111 & 95.46\% & 1095.53 & 1.878 \\
  & 1.5 & 0.01667 & 88.83\% & 928.81 & 1.711 \\
  & 2.0 & 0.02222 & 88.75\% & 829.74 & 1.530 \\
  & 2.5 & 0.02778 & 86.25\% & 772.26 & 1.465 \\
  & 3.0 & 0.03333 & 85.27\% & 735.12 & 1.411 \\
 \midrule
-\texttt{parking}\allowbreak\texttt{Graph} & 0.5 & 0.00556 & 99.15\% & 14525.14 & 3.412 \\
+\texttt{complex} & 0.5 & 0.00556 & 99.15\% & 14525.14 & 3.412 \\
  & 1.0 & 0.01111 & 96.65\% & 8346.21 & 2.011 \\
  & 1.5 & 0.01667 & 93.74\% & 6214.22 & 1.544 \\
  & 2.0 & 0.02222 & 92.33\% & 5130.64 & 1.294 \\
@@ -146,21 +146,21 @@ Map & \shortstack{Base speed\\(m/s)} & \shortstack{$\rho$\\(m/degree)} & \shorts
 \end{tabular}
 \end{table}
 
-Table~\ref{tab:speed-study} shows a clear coverage--time trade-off, although the full-trajectory results make it more moderate than an analysis of work strips alone might suggest. Total time decreases monotonically with base speed: from 1680.45 to 735.12~s (56.25\%) on \texttt{map\_test1} and from 14525.14 to 4120.11~s (71.63\%) on \texttt{parkingGraph}. As $\rho$ increases from 0.00556 to 0.03333~m/degree, coverage decreases from 96.44\% to 85.27\% and from 99.15\% to 90.32\%, reductions of 11.17 and 8.83 percentage points. Larger sweep spacing therefore weakens coverage continuity, but no tested condition makes the full-trajectory coverage unusably low.
+Table~\ref{tab:speed-study} shows a clear coverage--time trade-off, although the full-trajectory results make it more moderate than an analysis of work strips alone might suggest. Total time decreases monotonically with base speed: from 1680.45 to 735.12~s (56.25\%) on \texttt{simple} and from 14525.14 to 4120.11~s (71.63\%) on \texttt{complex}. As $\rho$ increases from 0.00556 to 0.03333~m/degree, coverage decreases from 96.44\% to 85.27\% and from 99.15\% to 90.32\%, reductions of 11.17 and 8.83 percentage points. Larger sweep spacing therefore weakens coverage continuity, but no tested condition makes the full-trajectory coverage unusably low.
 
-Time per unit covered area further clarifies the trade-off. It decreases continuously with base speed on both maps: from 2.852 to 1.411~s/m$^2$ on \texttt{map\_test1} and from 3.412 to 1.062~s/m$^2$ on \texttt{parkingGraph}, improvements of 50.53\% and 68.88\%. A speed of 3.0~m/s gives both the shortest total time and lowest time per covered area, at the cost of coverage ratios of 85.27\% and 90.32\%. Conversely, 0.5~m/s gives the highest coverage on both maps. If both maps must retain at least 95\% full-trajectory coverage, 1.0~m/s is the highest tested admissible speed, while already reducing total time by 34.81\% and 42.54\% relative to 0.5~m/s. Base speed should therefore be selected jointly with arm angular velocity according to a minimum-coverage constraint and schedule objective, rather than treated as an incidental parameter after geometric planning. Smaller $\rho$ favors coverage quality; larger $\rho$ favors time efficiency when a coverage loss of roughly 9--11 percentage points is acceptable.
+Time per unit covered area further clarifies the trade-off. It decreases continuously with base speed on both maps: from 2.852 to 1.411~s/m$^2$ on \texttt{simple} and from 3.412 to 1.062~s/m$^2$ on \texttt{complex}, improvements of 50.53\% and 68.88\%. A speed of 3.0~m/s gives both the shortest total time and lowest time per covered area, at the cost of coverage ratios of 85.27\% and 90.32\%. Conversely, 0.5~m/s gives the highest coverage on both maps. If both maps must retain at least 95\% full-trajectory coverage, 1.0~m/s is the highest tested admissible speed, while already reducing total time by 34.81\% and 42.54\% relative to 0.5~m/s. Base speed should therefore be selected jointly with arm angular velocity according to a minimum-coverage constraint and schedule objective, rather than treated as an incidental parameter after geometric planning. Smaller $\rho$ favors coverage quality; larger $\rho$ favors time efficiency when a coverage loss of roughly 9--11 percentage points is acceptable.
 
 \begin{figure}[htbp]
   \centering
   \begin{minipage}[t]{0.49\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figure_5a_vehicle_speed_map_simple_en.png}\\[-0.4em]
-    \small (a) \texttt{map\_test1}
+    \small (a) \texttt{simple}
   \end{minipage}\hfill
   \begin{minipage}[t]{0.49\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figure_5b_vehicle_speed_parkingGraph_en.png}\\[-0.4em]
-    \small (b) \texttt{parkingGraph}
+    \small (b) \texttt{complex}
   \end{minipage}
   \caption{Effect of base--arm velocity coupling on full-trajectory coverage and execution time.}
   \label{fig:speed-study}

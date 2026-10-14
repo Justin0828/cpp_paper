@@ -244,6 +244,13 @@ The state and its connection from the preceding primitive are then checked again
 
 The swing amplitude is the half-amplitude of the arm angle about its neutral position while one strip is covered. It is denoted $\phi_w$ and is determined by the strip width, the disc radius, and the arm length. A work strip is one working band covered by the disc as it travels back and forth along one side of the rectangle. Let $\ell_R$ and $h_R$ be the rectangle dimensions parallel and perpendicular to the work strips. $\ell_R$ is the travel length of one work strip, and $h_R$ is the transverse width crossed together by the strips. The local planner uses the longer axis by default to reduce lane changes, but also generates a solution along the other axis. Across the two sweep directions and their feasible starting corners, it compares the total time proxy for entry connection, coverage, lane changes, and exit connection. Thus $h_R$ always denotes the transverse extent crossed collectively by the strips, whereas $\ell_R$ is the travel length of one strip.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\linewidth]{figure_strip_geometry.png}
+  \caption{Entry pose, work strips, and swing amplitude $\phi_w$ for one rectangle.}
+  \label{fig:strip-geometry}
+\end{figure}
+
 For each sweep direction, the planner filters the four corners to retain starting points reachable from the entry and connectable to the exit; the parity of the strip count determines the coverage endpoint. It selects the feasible combination with the minimum sum of non-working motion and local coverage time. Entry, sweep direction, starting corner, strip-count parity, and exit therefore jointly determine the primitive; the start is not chosen merely as the nearest corner in Euclidean distance.
 
 Coverage inside the rectangle follows a Boustrophedon pattern, but the work width is not fixed. It is determined by the maximum usable arm angle and disc radius. For arm limits $[\phi_{\min},\phi_{\max}]$, the symmetric usable angle is
@@ -278,6 +285,13 @@ The half-amplitude required to cover a strip of width $w_s$ is
 clipped to $[0,\phi_s]$. This prevents systematic gaps between adjacent strips due to insufficient swing amplitude.
 
 \subsubsection{Coupling Between Base and Arm Speeds}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.78\linewidth]{figure_speed_coupling.png}
+  \caption{During one half-swing the base advances one disc diameter, so adjacent sweeps meet.}
+  \label{fig:speed-coupling}
+\end{figure}
 
 Each strip combines straight base motion with periodic arm swinging. Let the maximum arm angular velocity be $\omega_{a,\max}$ and maximum base linear velocity $v_{\max}$. The time for the arm to move from $-\phi_w$ to $+\phi_w$ is
 \begin{equation}
@@ -402,7 +416,16 @@ If no candidate can be instantiated as a complete trajectory from $q_0$, route p
 \subsection{Work Coverage and Full-Trajectory Coverage}
 \label{sec:coverage-evaluation}
 
-Coverage is evaluated directly from the continuous trajectory rather than from a video frame rate. The trajectory is partitioned into timed segments for local coverage, turns, lane changes, arm adjustment, transit, and inter-rectangle handoff. A segment is marked as effective work only while the disc is in its working state, the base moves along a rectangular work strip, and the arm executes the prescribed swing. Entry connections, lane changes, in-place rotations, arm deployment or retraction, repeated transit visits, and inter-rectangle handoffs are marked as non-working. For any segment $s$, let the disc-center path be
+Coverage is evaluated directly from the continuous trajectory rather than from a video frame rate. The trajectory is partitioned into timed segments for local coverage, turns, lane changes, arm adjustment, transit, and inter-rectangle handoff. A segment is marked as effective work only while the disc is in its working state, the base moves along a rectangular work strip, and the arm executes the prescribed swing. Entry connections, lane changes, in-place rotations, arm deployment or retraction, repeated transit visits, and inter-rectangle handoffs are marked as non-working.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\linewidth]{figure_coverage_segments.png}
+  \caption{Work coverage counts disc sweeps on work strips; full-trajectory coverage also counts sweeps during transfer and adjustment.}
+  \label{fig:coverage-segments}
+\end{figure}
+
+For any segment $s$, let the disc-center path be
 \begin{equation}
 \mathbf p_d^s(\tau),\qquad \tau\in[0,T_s].
 \tag{23}
