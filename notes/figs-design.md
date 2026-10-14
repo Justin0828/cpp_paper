@@ -71,45 +71,44 @@ Advisor B63, first figure. Principle drawing for Section 3.5.2. Only symbols alr
 
 ## figure_speed_coupling
 
-One sentence. While the arm swings from \(-\phi_w\) to \(+\phi_w\) in time \(T_{\mathrm{half}}\), the base at \(v_{\mathrm{work}}\) advances one disc diameter \(2r_d\), so the next sweep meets the previous one along the travel direction.
+One sentence. During the half-swing time \(T_{\mathrm{half}}\) the chassis at \(v_{\mathrm{work}}\) advances one disc diameter \(2r_d\), while the arm swings from \(-\phi_w\) to \(+\phi_w\).
 
-Layout. One panel, no tag. Media box 455.24411 pt by 66 mm. Two poses side by side, travel to the right.
+Layout. One panel, no tag. Media box 455.24411 pt wide, drawing centered with margin on both sides. Two poses, travel to the right. The left pose is the start of the half-swing; the right pose is the end. The only length dimension is the gap between the two chassis centers.
 
 Elements.
 
-- Pose at \(-\phi_w\) and pose at \(+\phi_w\): cyan base, orange arm, orange disc.
-- The two base centers are one disc diameter apart. Solid 0.5 pt double arrow labeled \(2r_d\).
-- Solid 0.5 pt double arrow over the same interval labeled \(T_{\mathrm{half}}\).
-- Navy 0.8 pt arrow labeled \(v_{\mathrm{work}}\) in the travel direction.
-- Labels \(-\phi_w\) and \(+\phi_w\) on the two arms.
-- No second disc-radius arrow and no arm-length arrow; those are in the strip figure.
+- Left pose, arm at \(-\phi_w\): cyan chassis, orange arm, orange disc. Right pose, arm at \(+\phi_w\), same parts. The drawn center-to-center gap equals the drawn disc diameter.
+- One solid 0.5 pt double arrow, and no other length dimension, between the two chassis centers, labeled \(2r_d\).
+- Time is not that arrow. Under the poses, a time axis runs from \(t=0\) at the left chassis to \(t=T_{\mathrm{half}}\) at the right chassis. \(T_{\mathrm{half}}\) appears only as a time mark.
+- \(-\phi_w\) and \(+\phi_w\) are angle arcs between each arm and the travel direction, at the pivot. The labels sit on those arcs, not beside the discs.
+- \(v_{\mathrm{work}}\) is a navy 0.8 pt arrow on the travel line through the chassis centers.
+- No second disc-radius arrow and no arm-length arrow; those stay in the strip figure.
 
-Symbols and the body. Section 3.5.3, the paragraph before this figure and Eqs. (15)–(17). \(\phi_w\) and \(r_d\) are already defined in Section 3.5.2 and Section 3.2. \(v_{\mathrm{work}}=\min(v_{\max},2r_d/T_{\mathrm{half}})\).
+Symbols and the body. Section 3.5.3 and Eqs. (15)–(17). \(\phi_w\) and \(r_d\) are already defined in Section 3.5.2 and Section 3.2. \(v_{\mathrm{work}}=\min(v_{\max},2r_d/T_{\mathrm{half}})\). \(T_{\mathrm{half}}=2\phi_w/\omega_{a,\max}\) is a time; \(2r_d\) is the distance the chassis travels in that time.
 
-Baseline match. Same robot coloring as figure 4. One horizontal motion arrow, as in the travel arrows of figure 6. No experimental curve.
+Baseline match. Disc orange, chassis cyan, path navy, as in figure 4. One travel arrow, as in figure 6. Serif math from `newtx`. Strokes only from `paperstyle.tex`.
 
 Advisor B63, second figure. Principle drawing for Section 3.5.3. No new symbol beyond that subsection.
 
 ## figure_coverage_segments
 
-One sentence. \(\mathcal C_{\mathrm{work}}\) is the disc sweep on the work strips of two rectangles; \(\mathcal C_{\mathrm{traj}}\) is that sweep plus the disc sweep of the one transfer between them.
+One sentence. \(\mathcal C_{\mathrm{work}}\) is only the disc sweep on work strips; \(\mathcal C_{\mathrm{traj}}\) is that sweep plus the disc sweep on the non-work path (lane change and the transfer).
 
-Layout. Two panels. Media box 455.24411 pt by 74 mm. Tags `(a)` and `(b)` centered under the panels. Both panels use the same two rectangles and the same one transfer.
+Layout. Two panels. Media box 455.24411 pt wide. Tags `(a)` and `(b)` centered under the panels. One legend above both panels, not inside either scene: orange swatch “work sweep”, gray swatch “non-work sweep”. The two panels use the same rectangles, the same work-strip centerlines, and the same dashed non-work path. Only the sweep bands differ.
 
 Elements.
 
-- Two free rectangles, navy 0.8 pt, light gray fill.
-- Work strips: orange bands (disc fill) with a navy 0.8 pt centerline and a direction arrow. This is the disc on a work strip.
-- The transfer: gray dashed 0.5 pt curve from the first rectangle to the second. Dashed because it is auxiliary to the work.
-- `(a)`, labeled \(\mathcal C_{\mathrm{work}}\): orange bands only. The transfer has no sweep.
-- `(b)`, labeled \(\mathcal C_{\mathrm{traj}}\): the same orange bands, plus gray discs along the transfer.
-- No map, no third ratio, no sentence.
+- Two free rectangles, navy 0.8 pt, light gray fill. Work strips are orange bands of one disc diameter, with a navy 0.8 pt centerline and a direction arrow.
+- Non-work path, in both panels: dashed 0.5 pt lane changes between strips, and one dashed transfer from the left rectangle to the right. Dashed because the path is auxiliary.
+- `(a)`: orange work bands only. The dashed lane change and the transfer have no sweep band. \(\mathcal C_{\mathrm{work}}\) is a leader callout whose line ends on an orange band.
+- `(b)`: the same orange bands, plus one continuous gray semi-transparent band along the whole non-work path. The band width equals the disc diameter, the same width as the orange bands. It is a filled band, not a row of discs. \(\mathcal C_{\mathrm{traj}}\) is a leader callout whose line ends on that gray band.
+- No map, no third ratio, no sentence. No separate icon for deploy, retract, or an in-place turn; those non-work phases are the same gray sweep as the lane change and the transfer.
 
-Symbols and the body. \(\mathcal C_{\mathrm{work}}\) and \(\mathcal C_{\mathrm{traj}}\) are Eq. (25) in Section 3.7, the subsection that contains this figure. The paragraph immediately above the figure defines which segments are effective work and which (transfer, lane change, adjustment) are non-work. The drawing keeps the advisor’s two rectangles and one transfer; it does not add a separate icon for every non-work phase listed in that paragraph.
+Symbols and the body. \(\mathcal C_{\mathrm{work}}\) and \(\mathcal C_{\mathrm{traj}}\) are Eq. (25) in Section 3.7. The paragraph above the figure says entry, lane change, rotation, deploy or retract, transit, and handoff are non-work, and that \(\mathcal C_{\mathrm{traj}}\) adds those sweeps to the work sweep.
 
-Baseline match. Disc orange and path navy follow figure 4 and figure 6. Gray is the non-work color, the secondary role. Panel tags sit under the panels, as in figure 3.
+Baseline match. Disc orange and path navy follow figure 4 and figure 6. Gray is the secondary role, drawn translucent. Panel tags sit under the panels, as in figure 3. Strokes and colors only from `paperstyle.tex`.
 
-Advisor B67. Two rectangles and one transfer. Not an experimental map.
+Advisor B67. Two rectangles and one transfer, plus the lane change that the work/non-work paragraph already names. Not an experimental map.
 
 ## figure_2_coverage_comparison_en
 
@@ -185,3 +184,10 @@ Previews were rendered with `pdftocairo` at the inclusion width and read back. D
 - Speed coupling: the two poses sat in a small patch of a wide canvas. The geometry is scaled by 1.18 inside the same 9 pt labels, and the media box is 84 mm tall so \(T_{\mathrm{half}}\) is not clipped.
 - Coverage comparison: the panel tags collided with the axis numbers, and the bottom legend collided with panel (c). The legend is above the panels. Each tag sits in the gap under its axis. The labels read `(a) simple, BiRect` / `94.11%`, `(b) simple, Fields2Cover` / `78.40%, 4.51 m² outside`, `(c) complex, BiRect` / `95.73%`, `(d) complex, Fields2Cover` / `92.84%, 20.00 m² outside`.
 - Pipeline export: cairosvg gives a `tspan` with `font-style: italic` a zero advance, ignores `baseline-shift`, and this machine has neither Arial nor Cambria Math. The render copy embeds Liberation Serif Italic, lowers subscripts with `dy`, and flattens math `tspan`s. The SVG source keeps `Arial`, `Cambria Math`, and the title string. Box 4 reads `4. Global Route Planning & Rectangle Coverage` on two lines in `title-small` (`font-weight: 700`), the same class as boxes 1–3. One line does not fit the box at that size.
+
+## Self-check, speed coupling and coverage segments
+
+Opened the inclusion-width renders `figure_speed_coupling.png` and `figure_coverage_segments.png`.
+
+- Speed coupling. An earlier draw put \(T_{\mathrm{half}}\) on a second length dimension above \(2r_d\), and put \(\pm\phi_w\) on the discs. The length dimension is now only \(2r_d\) between the chassis centers. Time is the axis \(t=0\) to \(t=T_{\mathrm{half}}\) under the poses. The angle labels were first outside the wedges and then on the arms; they now sit in the wedge between each arm and the travel direction, on the arcs, clear of the discs, the chassis, and \(v_{\mathrm{work}}\). \(t=0\) and \(t=T_{\mathrm{half}}\) are placed outward from the arrow ends so they do not meet. The ink is centered in the 160 mm width (left and right margins agree within a few millimetres).
+- Coverage segments. The non-work sweep was a row of gray discs, and the two \(\mathcal C\) labels floated. Panel (b) now uses one continuous gray band, the same width as the orange work bands, along the dashed lane changes and the transfer. Panel (a) keeps that dashed path with no band. \(\mathcal C_{\mathrm{work}}\) has a leader onto an orange band; \(\mathcal C_{\mathrm{traj}}\) has a leader onto the gray transfer band. The first layout clipped the right-hand lane-change band; both panels were shifted left, and the opened PNG keeps margin on both sides. The legend sits above both panels and does not cover them. The two scenes match except for the sweep bands.

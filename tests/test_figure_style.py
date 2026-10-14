@@ -102,6 +102,74 @@ def test_pipeline_title_and_shared_weight():
     assert "base64" not in svg
 
 
+def _fold_pdf_text(raw: str) -> str:
+    """Turn mathematical italic from pdftotext into ASCII, then restore subscripts."""
+    pieces = []
+    for ch in raw:
+        code = ord(ch)
+        if 0x1D434 <= code <= 0x1D44D:
+            pieces.append(chr(ord("A") + code - 0x1D434))
+        elif 0x1D44E <= code <= 0x1D467:
+            pieces.append(chr(ord("a") + code - 0x1D44E))
+        elif code in (0x1D719, 0x1D711, 0x03D5, 0x03C6):
+            pieces.append("phi")
+        elif code == 0x2212:
+            pieces.append("-")
+        else:
+            pieces.append(ch)
+    text = re.sub(r"\s+", "", "".join(pieces))
+    text = text.replace("phiw", "phi_w").replace("2rd", "2r_d")
+    text = text.replace("vwork", "v_work").replace("Thalf", "T_half")
+    return text
+
+
+def test_speed_coupling_and_coverage_segments_semantics():
+    subprocess.check_call([sys.executable, "scripts/figures/speed_coupling.py"], cwd=ROOT)
+    subprocess.check_call([sys.executable, "scripts/figures/coverage_segments.py"], cwd=ROOT)
+    speed_src = (ROOT / "scripts" / "figures" / "speed_coupling.py").read_text(encoding="utf-8")
+    cover_src = (ROOT / "scripts" / "figures" / "coverage_segments.py").read_text(encoding="utf-8")
+    for name, src in (("speed_coupling.py", speed_src), ("coverage_segments.py", cover_src)):
+        assert not re.search(r"#[0-9A-Fa-f]{6}", src), name
+        assert "0.8pt" not in src and "0.5pt" not in src, name
+        assert "definecolor" not in src, name
+
+    assert speed_src.count(r"\draw[dim]") == 1
+    dim_at = speed_src.find(r"\draw[dim]")
+    dim_label = speed_src[dim_at : speed_src.find("\n", speed_src.find("$2r_d$", dim_at)) + 1]
+    assert "$2r_d$" in dim_label
+    assert "T_" not in dim_label
+    assert r"arc[start angle=0, end angle=-50" in speed_src
+    assert r"arc[start angle=0, end angle=50" in speed_src
+    assert r"$-\phi_w$" in speed_src and r"$+\phi_w$" in speed_src
+    assert r"$t=0$" in speed_src and r"$t=T_{\mathrm{half}}$" in speed_src
+    speed_txt = _fold_pdf_text(
+        subprocess.check_output(
+            ["pdftotext", "-layout", str(FIGURES / "figure_speed_coupling.pdf"), "-"],
+            text=True,
+        )
+    )
+    for token in ("2r_d", "T_half", "v_work", "phi_w", "t=0", "t=T_half"):
+        assert token in speed_txt, (token, speed_txt)
+
+    assert "circle" not in cover_src
+    assert r"\mathcal{C}_{\mathrm{work}}" in cover_src
+    assert r"\mathcal{C}_{\mathrm{traj}}" in cover_src
+    assert r"\draw[guide] (cw.south)" in cover_src
+    assert r"\draw[guide] (ct.south)" in cover_src
+    assert "work sweep" in cover_src and "non-work sweep" in cover_src
+    assert "fill opacity" in cover_src and "secondary" in cover_src
+    assert cover_src.count(r"\nonworkband") == 2
+    assert cover_src.count(r"\routepaths") == 3
+    cover_raw = subprocess.check_output(
+        ["pdftotext", "-layout", str(FIGURES / "figure_coverage_segments.pdf"), "-"],
+        text=True,
+    )
+    assert "work sweep" in cover_raw and "non-work sweep" in cover_raw
+    assert "(a)" in cover_raw and "(b)" in cover_raw
+    compact = re.sub(r"\s+", "", cover_raw).replace("Cwork", "C_work").replace("Ctraj", "C_traj")
+    assert "C_work" in compact and "C_traj" in compact
+
+
 def test_pdf_media_boxes_match_the_inclusion_width():
     for name, expected in PDFS.items():
         info = subprocess.check_output(["pdfinfo", str(FIGURES / name)], text=True)
