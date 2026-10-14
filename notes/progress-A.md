@@ -42,16 +42,16 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 40. 矩形分解前补上 to improve the efficiency of searching a complex free space。
 - [x] 41. 局部运动用 Then 并回 3.1，不再单独成段。
 - [x] 42. 局部时间改为 are used as the costs of global route planning。
-- [ ] 43. 3.1 改成四段数据交接，不提前定义后文的矩形集、时间和覆盖率符号。
-- [ ] 44. 3.2.1 压成一条从场景到二值图的叙述，第二段只留分辨率、蓝色叠加和刚体变换。
-- [ ] 45. 与 44、46、47 一起压缩重复段落，没有另加句子。
-- [ ] 46. 先按安全边距扩大不可用区域再栅格化，边界单元一律算不可用，合成一条保守规则。
-- [ ] 47. 第三段只留保守栅格化的操作规则，公式仍在 3.3。
-- [ ] 50. 删去 Figure 4 图注中从 The left column shows 起的整段说明。
-- [ ] 51. 公式保留 M 属于 {0,255}，并说明 0 和 255 只区分障碍与自由。
-- [ ] 52. 删去 Figure 5 图注中罗列符号的句子。
-- [ ] 53. 目标函数处的 work quality 改为 effective-work coverage，引言中的抹面观感改为 surface finish。
-- [ ] 54. task-level quality measure 改为 task-level coverage measure。
+- [x] 43. 3.1 改成四段数据交接，不提前定义后文的矩形集、时间和覆盖率符号。
+- [x] 44. 3.2.1 压成一条从场景到二值图的叙述，第二段只留分辨率、蓝色叠加和刚体变换。
+- [x] 45. 与 44、46、47 一起压缩重复段落，没有另加句子。
+- [x] 46. 先按安全边距扩大不可用区域再栅格化，边界单元一律算不可用，合成一条保守规则。
+- [x] 47. 第三段只留保守栅格化的操作规则，公式仍在 3.3。
+- [x] 50. 删去 Figure 4 图注中从 The left column shows 起的整段说明。
+- [x] 51. 公式保留 M 属于 {0,255}，并说明 0 和 255 只区分障碍与自由。
+- [x] 52. 删去 Figure 5 图注中罗列符号的句子。
+- [x] 53. 目标函数处的 work quality 改为 effective-work coverage，引言中的抹面观感改为 surface finish。
+- [x] 54. task-level quality measure 改为 task-level coverage measure。
 - [ ] 55. 搜索改为使用局部覆盖、通行和转移的时间代理，全程执行时间不在搜索里当代价。
 - [ ] 56. 3.3 开头改为一句沿用 3.2.1 的保守规则并接上公式 (5)。
 - [ ] 57. 矩形定义之后单独写 All planning cells inside R are free。
