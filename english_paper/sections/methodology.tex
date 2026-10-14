@@ -247,6 +247,11 @@ The state and its connection from the preceding primitive are then checked again
 
 \subsubsection{Starting Corner, Strip Width, and Swing Amplitude}
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\linewidth]{figure_strip_geometry.png}
+\end{figure}
+
 Let $\ell_R$ and $h_R$ be the rectangle dimensions parallel and perpendicular to the work strips. The local planner uses the longer axis by default to reduce lane changes, but also generates a solution along the other axis. Across the two sweep directions and their feasible starting corners, it compares the total time proxy for entry connection, coverage, lane changes, and exit connection. Thus $h_R$ always denotes the transverse extent crossed collectively by the strips, whereas $\ell_R$ is the travel length of one strip.
 
 For each sweep direction, the planner filters the four corners to retain starting points reachable from the entry and connectable to the exit; the parity of the strip count determines the coverage endpoint. It selects the feasible combination with the minimum sum of non-working motion and local coverage time. Entry, sweep direction, starting corner, strip-count parity, and exit therefore jointly determine the primitive; the start is not chosen merely as the nearest corner in Euclidean distance.
