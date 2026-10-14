@@ -230,7 +230,7 @@ Existing CPP methods can be compared along two dimensions: map-representation ca
   \centering
   % ===FIGNEW figure_cpp_class_quadrant.png===
 {\setlength{\fboxsep}{1.2pt}\setlength{\fboxrule}{1.1pt}%
-\fcolorbox{blue}{white}{\includegraphics[width=0.88\linewidth]{figures/figure_cpp_class_quadrant.png}}}\\[0.25em]
+\fcolorbox{blue}{white}{\includegraphics[width=0.88\linewidth]{figures/figure_cpp_class_quadrant.pdf}}}\\[0.25em]
 {\color{blue}\scriptsize 新增}
 % ===FIGNEW END figure_cpp_class_quadrant.png===
   \caption{\DIFaddFL{Four capability classes arranged by map representation and robot model.}}
@@ -377,7 +377,7 @@ This study addresses the planning problem that maps a known, static, two-dimensi
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
 {\setlength{\fboxsep}{1.2pt}\setlength{\fboxrule}{1.1pt}%
-\fcolorbox{blue}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]{figures/pipeline_overall_improved_en.png}}}\\[0.25em]
+\fcolorbox{blue}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]{figures/pipeline_overall_improved_en.pdf}}}\\[0.25em]
 {\color{blue}\scriptsize 修改后}
 \end{minipage}\par
 % ===FIGPAIR END pipeline_overall_improved_en.png===
@@ -642,7 +642,7 @@ The state and its connection from the preceding primitive are then checked again
   \centering
   % ===FIGNEW figure_strip_geometry.png===
 {\setlength{\fboxsep}{1.2pt}\setlength{\fboxrule}{1.1pt}%
-\fcolorbox{blue}{white}{\includegraphics[width=0.92\linewidth]{figures/figure_strip_geometry.png}}}\\[0.25em]
+\fcolorbox{blue}{white}{\includegraphics[width=0.92\linewidth]{figures/figure_strip_geometry.pdf}}}\\[0.25em]
 {\color{blue}\scriptsize 新增}
 % ===FIGNEW END figure_strip_geometry.png===
   \caption{\DIFaddFL{Entry pose, work strips, and swing amplitude $\phi_w$ for one rectangle.}}
@@ -688,7 +688,7 @@ clipped to $[0,\phi_s]$. This prevents systematic gaps between adjacent strips d
   \centering
   % ===FIGNEW figure_speed_coupling.png===
 {\setlength{\fboxsep}{1.2pt}\setlength{\fboxrule}{1.1pt}%
-\fcolorbox{blue}{white}{\includegraphics[width=0.78\linewidth]{figures/figure_speed_coupling.png}}}\\[0.25em]
+\fcolorbox{blue}{white}{\includegraphics[width=0.78\linewidth]{figures/figure_speed_coupling.pdf}}}\\[0.25em]
 {\color{blue}\scriptsize 新增}
 % ===FIGNEW END figure_speed_coupling.png===
   \caption{\DIFaddFL{During one half-swing the base advances one disc diameter, so adjacent sweeps meet.}}
@@ -825,7 +825,7 @@ Coverage is evaluated directly from the continuous trajectory rather than from a
   \centering
   % ===FIGNEW figure_coverage_segments.png===
 {\setlength{\fboxsep}{1.2pt}\setlength{\fboxrule}{1.1pt}%
-\fcolorbox{blue}{white}{\includegraphics[width=0.92\linewidth]{figures/figure_coverage_segments.png}}}\\[0.25em]
+\fcolorbox{blue}{white}{\includegraphics[width=0.92\linewidth]{figures/figure_coverage_segments.pdf}}}\\[0.25em]
 {\color{blue}\scriptsize 新增}
 % ===FIGNEW END figure_coverage_segments.png===
   \caption{\DIFaddFL{Work coverage counts disc sweeps on work strips; full-trajectory coverage also counts sweeps during transfer and adjustment.}}
@@ -915,7 +915,7 @@ For Fields2Cover, the working width is $1.50$~m, equal to the diameter of the pr
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
 {\setlength{\fboxsep}{1.2pt}\setlength{\fboxrule}{1.1pt}%
-\fcolorbox{blue}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]{figures/figure_2_coverage_comparison_en.png}}}\\[0.25em]
+\fcolorbox{blue}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]{figures/figure_2_coverage_comparison_en.pdf}}}\\[0.25em]
 {\color{blue}\scriptsize 修改后}
 \end{minipage}\par
 % ===FIGPAIR END figure_2_coverage_comparison_en.png===
@@ -1014,7 +1014,7 @@ Five-map mean & row-only & -- & -- & -- & 93.96\% & 2327.22 \\
 \bottomrule
 \end{longtable}\marginpar{\scriptsize [76] 按导师意见按列加粗扫描策略表中的占优格子，并避免策略名拆行，数字未改。}
 
-The two general maps first establish basic behavior in non-directional scenes. On \texttt{\DIFdelbegin \DIFdel{map\_test1}\DIFdelend \DIFaddbegin \DIFadd{simple}\DIFaddend }, row-then-column achieves the highest full-trajectory coverage (94.11\%) and reduces partition overlap to zero, but its 854.73~s execution time exceeds the 696.89~s of either one-direction strategy. In this regular obstacle scene, bidirectional scanning trades longer execution for higher coverage. On \texttt{\DIFdelbegin \DIFdel{parkingGraph}\DIFdelend \DIFaddbegin \DIFadd{complex}\DIFaddend }, row-then-column and row-only select the same rectangles and give identical results. Column-only provides slightly higher coverage (95.90\%), whereas row-only and row-then-column tie for the shortest total time (5844.73~s). Bidirectional scanning therefore does not dominate every metric in every scene. When free space has a pronounced principal direction or row candidates already capture the structure, a one-direction strategy may be faster or marginally improve coverage.
+The two general maps first establish basic behavior in non-directional scenes.\linebreak On \texttt{\DIFdelbegin \DIFdel{map\_test1}\DIFdelend \DIFaddbegin \DIFadd{simple}\DIFaddend }, row-then-column achieves the highest full-trajectory coverage (94.11\%) and reduces partition overlap to zero, but its 854.73~s execution time exceeds the 696.89~s of either one-direction strategy. In this regular obstacle scene, bidirectional scanning trades longer execution for higher coverage. On \texttt{\DIFdelbegin \DIFdel{parkingGraph}\DIFdelend \DIFaddbegin \DIFadd{complex}\DIFaddend }, row-then-column and row-only select the same rectangles and give identical results. Column-only provides slightly higher coverage (95.90\%), whereas row-only and row-then-column tie for the shortest total time (5844.73~s). Bidirectional scanning therefore does not dominate every metric in every scene. When free space has a pronounced principal direction or row candidates already capture the structure, a one-direction strategy may be faster or marginally improve coverage.
 
 The three directional maps then isolate scan-direction bias; they are not intended to prove that bidirectional scanning is optimal on arbitrary maps. Horizontal corridors, orthogonal interweaving, and offset connections amplify residual regions created by a single scan direction. On all three maps, row-then-column gives the highest greedy coverage and lowest partition overlap. Column candidates supplement regions that row candidates represent poorly rather than merely increasing the rectangle count. This improvement propagates to execution: row-then-column gives both the highest full-trajectory coverage and shortest time on all three maps, respectively 94.01\%/1986.42~s, 95.70\%/1522.77~s, and 92.06\%/1374.38~s. Their mean is 93.93\%/1627.86~s. When a map truly contains residual structures in both directions, complementary row and column candidates reduce directional bias and redundant visitation while increasing useful sweep along the complete trajectory.
 
@@ -1084,7 +1084,7 @@ Time per unit covered area further clarifies the trade-off. It decreases continu
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
 {\setlength{\fboxsep}{1.2pt}\setlength{\fboxrule}{1.1pt}%
-\fcolorbox{blue}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]{figures/figure_5a_vehicle_speed_map_simple_en.png}}}\\[0.25em]
+\fcolorbox{blue}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]{figures/figure_5a_vehicle_speed_map_simple_en.pdf}}}\\[0.25em]
 {\color{blue}\scriptsize 修改后}
 \end{minipage}\par
 % ===FIGPAIR END figure_5a_vehicle_speed_map_simple_en.png===
@@ -1098,7 +1098,7 @@ Time per unit covered area further clarifies the trade-off. It decreases continu
 \end{minipage}\hfill
 \begin{minipage}[t]{0.48\linewidth}\centering
 {\setlength{\fboxsep}{1.2pt}\setlength{\fboxrule}{1.1pt}%
-\fcolorbox{blue}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]{figures/figure_5b_vehicle_speed_parkingGraph_en.png}}}\\[0.25em]
+\fcolorbox{blue}{white}{\includegraphics[width=\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax]{figures/figure_5b_vehicle_speed_parkingGraph_en.pdf}}}\\[0.25em]
 {\color{blue}\scriptsize 修改后}
 \end{minipage}\par
 % ===FIGPAIR END figure_5b_vehicle_speed_parkingGraph_en.png===
