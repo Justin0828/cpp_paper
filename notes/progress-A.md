@@ -12,16 +12,16 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 8. 引言里细胞分解、带孔多边形、栅格遍历和农业条带的引用拆到对应半句，并删去 respectively。
 - [x] 9. 贡献段收成一句 BiRect 链路，并紧接论文结构段。
 - [x] 10. 两轴句前移到构型讨论之首，其后按盘与基座的关系和控制方式分段。
-- [ ] 11. 三类命名为 center-mounted、front-mounted、swing-arm，并改了引言首句和 Figure 2 图注。
-- [ ] 12. 删去聚焦第三类，改为摆臂已有的两条优势，运动学段从状态变量写起。
-- [ ] 13. lightweight mobile chassis 改为 lightweight mobile base。
-- [ ] 14. 把 kobayashi1996 移到 steel troweling 句末，下一句仍讲同一系统所以保留同引。
-- [ ] 15. 在 rigid coupling between disc and body. 之后分段。
-- [ ] 16. 删除从 therefore encompasses both a progression 起的演进总结句。
-- [ ] 17. SatAOI 两段收成一段四句，只保留平台、可作业区域和本文从该区域规划 route。
-- [ ] 18. 四个类名保留，并在首次出现时按地图表示能力和机器人行为保真解释。
-- [ ] 19. 第四类需求段挪到三类介绍之后、unified 句之前。
-- [ ] 20. 前三类各补一句基本思路，没有新增算法。
+- [x] 11. 三类命名为 center-mounted、front-mounted、swing-arm，并改了引言首句和 Figure 2 图注。
+- [x] 12. 删去聚焦第三类，改为摆臂已有的两条优势，运动学段从状态变量写起。
+- [x] 13. lightweight mobile chassis 改为 lightweight mobile base。
+- [x] 14. 把 kobayashi1996 移到 steel troweling 句末，下一句仍讲同一系统所以保留同引。
+- [x] 15. 在 rigid coupling between disc and body. 之后分段。
+- [x] 16. 删除从 therefore encompasses both a progression 起的演进总结句。
+- [x] 17. SatAOI 两段收成一段四句，只保留平台、可作业区域和本文从该区域规划 route。
+- [x] 18. 四个类名保留，并在首次出现时按地图表示能力和机器人行为保真解释。
+- [x] 19. 第四类需求段挪到三类介绍之后、unified 句之前。
+- [x] 20. 前三类各补一句基本思路，没有新增算法。
 - [ ] 21. 第一类局限改为不表示 base 与 disc 的相对位置和臂角变化。
 - [ ] 22. 第二类定义删去 open-source，固定足迹留在定义里。
 - [ ] 23. 引用改贴到 polygon coverage、Fields2Cover、Nobleo 的名称上，Dubins 与 Spiral-STC 的引用留在机制词上。
