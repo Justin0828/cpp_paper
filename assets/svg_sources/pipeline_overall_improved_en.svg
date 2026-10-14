@@ -97,7 +97,7 @@
     <g id="stage-4-global-routing-coverage">
       <rect class="frame" x="695" y="420" width="325" height="280" rx="16" fill="#F0F9F1"/>
       <path class="header" d="M711 420 H1004 A16 16 0 0 1 1020 436 V492 H695 V436 A16 16 0 0 1 711 420 Z"/>
-      <text class="title-small" x="857.5" y="452" style="font-size:20px">4. Global Routing &amp;</text>
+      <text class="title-small" x="857.5" y="452" style="font-size:18px">4. global route planning &amp;</text>
       <text class="title-small" x="857.5" y="477" style="font-size:20px">Rectangle Coverage</text>
       <text class="body-small" x="857.5" y="527" style="font-size:17px">Determine Rectangle Visit Order</text>
       <text class="body-small" x="857.5" y="551" style="font-size:17px">from Adjacency and Local Costs</text>

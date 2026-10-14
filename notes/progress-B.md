@@ -8,7 +8,14 @@
 
   Output: `english_paper/figures/figure_cpp_class_quadrant.png`, included after the four class-name definitions in `english_paper/sections/introduction.tex`. No caption.
 
-- [ ] 38. Workflow label.
+- [x] 38. Stage 4 header “Global Routing” is now “global route planning”. The other module boxes are unchanged.
+
+  ```bash
+  python scripts/figures/relabel_workflow.py
+  ```
+
+  Output: `english_paper/figures/pipeline_overall_improved_en.png`. Source text: `assets/svg_sources/pipeline_overall_improved_en.svg`.
+
 - [ ] 48. Figure 4 subplot titles.
 - [ ] 49. Figure 4(d) black cluster.
 - [ ] 63. Principle figures for 3.5.2 and 3.5.3.
