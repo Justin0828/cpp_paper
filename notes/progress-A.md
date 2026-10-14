@@ -1,0 +1,77 @@
+# Progress A
+
+Category A items from plan.md. Each checked line is one completed edit.
+
+- [x] 1. 标题和 pdftitle 改为 BiRect: Bidirectional Rectangular Coverage Path Planning for a Swing-Arm Concrete Troweling Robot。
+- [x] 2. 摘要开头改成摆臂相对 center-mounted 与 front-mounted 的优势、固定足迹缺口，并以 This paper therefore presents BiRect 收束。
+- [x] 3. 删去 The method first 与 It then，改成 propose、introduce、develop 三句贡献。
+- [x] 4. On two test maps 改为 Experiments showed that。
+- [x] 5. 在第三句贡献的 effects 前写入 coupled。
+- [x] 6. explicitly included 改为 further revealed，落在同一贡献句。
+- [x] 7. 删去 on five maps，该句改为 Experiments further show。
+- [x] 8. 引言里细胞分解、带孔多边形、栅格遍历和农业条带的引用拆到对应半句，并删去 respectively。
+- [x] 9. 贡献段收成一句 BiRect 链路，并紧接论文结构段。
+- [x] 10. 两轴句前移到构型讨论之首，其后按盘与基座的关系和控制方式分段。
+- [ ] 11. 三类命名为 center-mounted、front-mounted、swing-arm，并改了引言首句和 Figure 2 图注。
+- [ ] 12. 删去聚焦第三类，改为摆臂已有的两条优势，运动学段从状态变量写起。
+- [ ] 13. lightweight mobile chassis 改为 lightweight mobile base。
+- [ ] 14. 把 kobayashi1996 移到 steel troweling 句末，下一句仍讲同一系统所以保留同引。
+- [ ] 15. 在 rigid coupling between disc and body. 之后分段。
+- [ ] 16. 删除从 therefore encompasses both a progression 起的演进总结句。
+- [ ] 17. SatAOI 两段收成一段四句，只保留平台、可作业区域和本文从该区域规划 route。
+- [ ] 18. 四个类名保留，并在首次出现时按地图表示能力和机器人行为保真解释。
+- [ ] 19. 第四类需求段挪到三类介绍之后、unified 句之前。
+- [ ] 20. 前三类各补一句基本思路，没有新增算法。
+- [ ] 21. 第一类局限改为不表示 base 与 disc 的相对位置和臂角变化。
+- [ ] 22. 第二类定义删去 open-source，固定足迹留在定义里。
+- [ ] 23. 引用改贴到 polygon coverage、Fields2Cover、Nobleo 的名称上，Dubins 与 Spiral-STC 的引用留在机制词上。
+- [ ] 24. 在 unified 与 for 之间插入 , especially。
+- [ ] 26. 表中 Map and tool model 拆成 Map representation 与 Robot model，本文方法名改为 BiRect。
+- [ ] 27. 最后一列改为 Pros and cons，并用现有格子拆出优点和局限。
+- [ ] 28. 2.3 开头的引用按 BCD、STC、带孔分解、栅格、Fields2Cover、机械臂和 SatAOI 拆开。
+- [ ] 29. 三条缺口各留主题句，不再重讲 2.2 的方法清单。
+- [ ] 30. 同一基座位置和航向的不同臂角改写成盘心圆弧与整机碰撞、以及够得到不等于覆盖到两句。
+- [ ] 31. 删去 SatAOI 主要用于可作业位置及其后的方法句。
+- [ ] 32. 第二缺口不再保留带 [16]–[20] 的固定足迹复述。
+- [ ] 33. 第二缺口只留 SatAOI 停在可作业区域、并由分层启发式接成链路的一句。
+- [ ] 34. 引言第一次出现 static reachability envelope 时给出定义，2.3 指回该句。
+- [ ] 35. 基座速度与摆臂角速度决定相邻扫掠间距的两句并成一句。
+- [ ] 36. 删去把速度分析写入覆盖的句子和文末研究缺口总结。
+- [ ] 37. 3.1 的 data flow 改为 workflow。
+- [ ] 39. Figure 3 图注改为 Workflow of BiRect.，Fields2Cover 对比、扫描策略和速度图注删去第二句及以后。
+- [ ] 40. 矩形分解前补上 to improve the efficiency of searching a complex free space。
+- [ ] 41. 局部运动用 Then 并回 3.1，不再单独成段。
+- [ ] 42. 局部时间改为 are used as the costs of global route planning。
+- [ ] 43. 3.1 改成四段数据交接，不提前定义后文的矩形集、时间和覆盖率符号。
+- [ ] 44. 3.2.1 压成一条从场景到二值图的叙述，第二段只留分辨率、蓝色叠加和刚体变换。
+- [ ] 45. 与 44、46、47 一起压缩重复段落，没有另加句子。
+- [ ] 46. 先按安全边距扩大不可用区域再栅格化，边界单元一律算不可用，合成一条保守规则。
+- [ ] 47. 第三段只留保守栅格化的操作规则，公式仍在 3.3。
+- [ ] 50. 删去 Figure 4 图注中从 The left column shows 起的整段说明。
+- [ ] 51. 公式保留 M 属于 {0,255}，并说明 0 和 255 只区分障碍与自由。
+- [ ] 52. 删去 Figure 5 图注中罗列符号的句子。
+- [ ] 53. 目标函数处的 work quality 改为 effective-work coverage，引言中的抹面观感改为 surface finish。
+- [ ] 54. task-level quality measure 改为 task-level coverage measure。
+- [ ] 55. 搜索改为使用局部覆盖、通行和转移的时间代理，全程执行时间不在搜索里当代价。
+- [ ] 56. 3.3 开头改为一句沿用 3.2.1 的保守规则并接上公式 (5)。
+- [ ] 57. 矩形定义之后单独写 All planning cells inside R are free。
+- [ ] 58. 删去 Cardinalities，改为式中绝对值表示规划格个数。
+- [ ] 59. 小节标题改为 Connectivity Completion，并说明最终矩形集是补上桥接矩形之后的集合。
+- [ ] 60. Figure 6 缩到 0.5 倍栏宽，并在图旁说明不按长宽比另画路径。
+- [ ] 61. 删去 Figure 6 图注的后半句，只留 Single-rectangle coverage primitive。
+- [ ] 62. Algorithm 1 改用 [H]，与 Connectivity Completion 放在同一小节。
+- [ ] 64. 在 3.5.2 开头定义 swing amplitude 为覆盖一条条带时臂角相对中位的半幅。
+- [ ] 65. 在长度和宽度符号之前定义 work strip，并保持 ell_R 与 h_R 的原有含义。
+- [ ] 66. 首次访问的文字改为条带行驶、换道、原地转角和摆臂调整四项，交接时间留在边代价里。
+- [ ] 68. 在 experiments 与 evaluate 之间插入 are designed to。
+- [ ] 69. 第一组实验改为验证障碍图上的可执行覆盖和更高的全程覆盖率。
+- [ ] 71. 黑白像素的重复定义改为一句按前面的定义。
+- [ ] 72. 写明除速度实验外三台速度上限同时使用，速度实验的基座线速度为已有的六档。
+- [ ] 73. 4.1 标题改为 Executability and Coverage against Fields2Cover。
+- [ ] 74. 实验节删去 Fields2Cover 的功能介绍，只留固定宽度代表这一句和原有对照设置。
+- [ ] 75. 表中方法名改为加粗的 BiRect，并加粗两图全程覆盖率 94.11%、95.73% 和 Passed。
+- [ ] 76. 扫描策略表按列加粗占优的策略名和数字，row-then-col 用 mbox 避免拆行；地图名未改，因为第 70 条是 B 类。
+- [ ] 77. 94.32% 改写成五张图上 row-then-column 的全程覆盖率算术平均。
+- [ ] 78. 统一称为 base--arm velocity coupling，并在首次出现时定义；rho 只作为该耦合的比值。
+- [ ] 79. 把 Fields2Cover 覆盖对比图移到 4.1 的实验介绍之后，并用 [H] 固定位置。
+- [ ] 80. 讨论结论改成对应三个实验的正面三句，删去 not simply another decomposition。
