@@ -16,8 +16,15 @@
 
   Output: `english_paper/figures/pipeline_overall_improved_en.png`. Source text: `assets/svg_sources/pipeline_overall_improved_en.svg`.
 
-- [ ] 48. Figure 4 subplot titles.
-- [ ] 49. Figure 4(d) black cluster.
+- [x] 48. Figure 4 subplot titles now sit under each panel. The main title stays on top, and the LaTeX caption is untouched.
+
+  ```bash
+  python scripts/figures/move_raster_titles.py
+  ```
+
+  Output: `english_paper/figures/figure_3_geometric_to_binary_raster.png`. Baselines in `assets/svg_sources/transfer.svg` are `y="118"` and `y="232"`.
+
+- [x] 49. The lower-right black cluster in Figure 4(d) agrees with the two rectangles in the horizontal arm of the left-hand geometry. The check is in `notes/codebase-map.md` under “Figure 4(d) black cluster”. Those cells were not redrawn, and no caption was added.
 - [ ] 63. Principle figures for 3.5.2 and 3.5.3.
 - [ ] 67. Section 3.7 schematic.
 - [ ] 70. In-figure map names.
