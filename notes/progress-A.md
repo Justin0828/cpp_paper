@@ -72,6 +72,6 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 75. 表中方法名改为加粗的 BiRect，并加粗两图全程覆盖率 94.11%、95.73% 和 Passed。
 - [x] 76. 扫描策略表按列加粗占优的策略名和数字，row-then-col 用 mbox 避免拆行；地图名未改，因为第 70 条是 B 类。
 - [x] 77. 94.32% 改写成五张图上 row-then-column 的全程覆盖率算术平均。
-- [ ] 78. 统一称为 base--arm velocity coupling，并在首次出现时定义；rho 只作为该耦合的比值。
-- [ ] 79. 把 Fields2Cover 覆盖对比图移到 4.1 的实验介绍之后，并用 [H] 固定位置。
-- [ ] 80. 讨论结论改成对应三个实验的正面三句，删去 not simply another decomposition。
+- [x] 78. 统一称为 base--arm velocity coupling，并在首次出现时定义；rho 只作为该耦合的比值。
+- [x] 79. 把 Fields2Cover 覆盖对比图移到 4.1 的实验介绍之后，并用 [H] 固定位置。
+- [x] 80. 讨论结论改成对应三个实验的正面三句，删去 not simply another decomposition。
