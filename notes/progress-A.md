@@ -52,16 +52,16 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 52. 删去 Figure 5 图注中罗列符号的句子。
 - [x] 53. 目标函数处的 work quality 改为 effective-work coverage，引言中的抹面观感改为 surface finish。
 - [x] 54. task-level quality measure 改为 task-level coverage measure。
-- [ ] 55. 搜索改为使用局部覆盖、通行和转移的时间代理，全程执行时间不在搜索里当代价。
-- [ ] 56. 3.3 开头改为一句沿用 3.2.1 的保守规则并接上公式 (5)。
-- [ ] 57. 矩形定义之后单独写 All planning cells inside R are free。
-- [ ] 58. 删去 Cardinalities，改为式中绝对值表示规划格个数。
-- [ ] 59. 小节标题改为 Connectivity Completion，并说明最终矩形集是补上桥接矩形之后的集合。
-- [ ] 60. Figure 6 缩到 0.5 倍栏宽，并在图旁说明不按长宽比另画路径。
-- [ ] 61. 删去 Figure 6 图注的后半句，只留 Single-rectangle coverage primitive。
-- [ ] 62. Algorithm 1 改用 [H]，与 Connectivity Completion 放在同一小节。
-- [ ] 64. 在 3.5.2 开头定义 swing amplitude 为覆盖一条条带时臂角相对中位的半幅。
-- [ ] 65. 在长度和宽度符号之前定义 work strip，并保持 ell_R 与 h_R 的原有含义。
+- [x] 55. 搜索改为使用局部覆盖、通行和转移的时间代理，全程执行时间不在搜索里当代价。
+- [x] 56. 3.3 开头改为一句沿用 3.2.1 的保守规则并接上公式 (5)。
+- [x] 57. 矩形定义之后单独写 All planning cells inside R are free。
+- [x] 58. 删去 Cardinalities，改为式中绝对值表示规划格个数。
+- [x] 59. 小节标题改为 Connectivity Completion，并说明最终矩形集是补上桥接矩形之后的集合。
+- [x] 60. Figure 6 缩到 0.5 倍栏宽，并在图旁说明不按长宽比另画路径。
+- [x] 61. 删去 Figure 6 图注的后半句，只留 Single-rectangle coverage primitive。
+- [x] 62. Algorithm 1 改用 [H]，与 Connectivity Completion 放在同一小节。
+- [x] 64. 在 3.5.2 开头定义 swing amplitude 为覆盖一条条带时臂角相对中位的半幅。
+- [x] 65. 在长度和宽度符号之前定义 work strip，并保持 ell_R 与 h_R 的原有含义。
 - [ ] 66. 首次访问的文字改为条带行驶、换道、原地转角和摆臂调整四项，交接时间留在边代价里。
 - [ ] 68. 在 experiments 与 evaluate 之间插入 are designed to。
 - [ ] 69. 第一组实验改为验证障碍图上的可执行覆盖和更高的全程覆盖率。
