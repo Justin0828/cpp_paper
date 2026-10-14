@@ -33,6 +33,12 @@
   ```
 
   Output: `english_paper/figures/figure_strip_geometry.png` at the start of 3.5.2, and `english_paper/figures/figure_speed_coupling.png` at the start of 3.5.3. No captions.
-- [ ] 67. Section 3.7 schematic.
+- [x] 67. Section 3.7 schematic. Two adjacent rectangles and one transfer. Work-strip swings are effective work; lane changes, the in-place turn, deploy/retract, and the handoff are non-work. The second panel draws \(\mathcal C_{\mathrm{work}}\) on the work segments and adds the non-work disc sweep for \(\mathcal C_{\mathrm{traj}}\). Not an experimental map, and no third coverage ratio.
+
+  ```bash
+  python scripts/figures/coverage_segments.py
+  ```
+
+  Output: `english_paper/figures/figure_coverage_segments.png`, after the work versus non-work paragraph in Section 3.7 and before the coverage formulas. No caption.
 - [ ] 70. In-figure map names.
 - [ ] 81. Speed curves.

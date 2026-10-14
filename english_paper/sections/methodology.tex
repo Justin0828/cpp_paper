@@ -417,7 +417,14 @@ If no candidate can be instantiated as a complete trajectory from $q_0$, route p
 \subsection{Work Coverage and Full-Trajectory Coverage}
 \label{sec:coverage-evaluation}
 
-Coverage is evaluated directly from the continuous trajectory rather than from a video frame rate. The trajectory is partitioned into timed segments for local coverage, turns, lane changes, arm adjustment, transit, and inter-rectangle handoff. A segment is marked as effective work only while the disc is in its working state, the base moves along a rectangular work strip, and the arm executes the prescribed swing. Entry connections, lane changes, in-place rotations, arm deployment or retraction, repeated transit visits, and inter-rectangle handoffs are marked as non-working. For any segment $s$, let the disc-center path be
+Coverage is evaluated directly from the continuous trajectory rather than from a video frame rate. The trajectory is partitioned into timed segments for local coverage, turns, lane changes, arm adjustment, transit, and inter-rectangle handoff. A segment is marked as effective work only while the disc is in its working state, the base moves along a rectangular work strip, and the arm executes the prescribed swing. Entry connections, lane changes, in-place rotations, arm deployment or retraction, repeated transit visits, and inter-rectangle handoffs are marked as non-working.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\linewidth]{figure_coverage_segments.png}
+\end{figure}
+
+For any segment $s$, let the disc-center path be
 \begin{equation}
 \mathbf p_d^s(\tau),\qquad \tau\in[0,T_s].
 \tag{23}
