@@ -40,5 +40,12 @@
   ```
 
   Output: `english_paper/figures/figure_coverage_segments.png`, after the work versus non-work paragraph in Section 3.7 and before the coverage formulas. No caption.
-- [ ] 70. In-figure map names.
+- [x] 70. In-figure map names on the coverage comparison. First lines are now `(a) simple, proposed`, `(b) simple, Fields2Cover`, `(c) complex, proposed`, and `(d) complex, Fields2Cover`. The coverage percentages and the masks are unchanged. The speed-plot titles are updated with item 81. Subcaptions in `experiments.tex` are unchanged.
+
+  ```bash
+  python scripts/figures/relabel_coverage_titles.py
+  ```
+
+  Output: `english_paper/figures/figure_2_coverage_comparison_en.png`.
+
 - [ ] 81. Speed curves.
