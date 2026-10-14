@@ -11,7 +11,7 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 7. 删去 on five maps，该句改为 Experiments further show。
 - [x] 8. 引言里细胞分解、带孔多边形、栅格遍历和农业条带的引用拆到对应半句，并删去 respectively。
 - [x] 9. 贡献段收成一句 BiRect 链路，并紧接论文结构段。
-- [x] 10. 两轴句前移到构型讨论之首，其后按盘与基座的关系和控制方式分段。
+- [x] 10. 两轴句前移到构型讨论之首，控制方式段按随行或乘坐、无线遥操作、规则区域自主行走三段写。
 - [x] 11. 三类命名为 center-mounted、front-mounted、swing-arm，并改了引言首句和 Figure 2 图注。
 - [x] 12. 删去聚焦第三类，改为摆臂已有的两条优势，运动学段从状态变量写起。
 - [x] 13. lightweight mobile chassis 改为 lightweight mobile base。
@@ -29,7 +29,7 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 26. 表中 Map and tool model 拆成 Map representation 与 Robot model，本文方法名改为 BiRect。
 - [x] 27. 最后一列改为 Pros and cons，并用现有格子拆出优点和局限。
 - [x] 28. 2.3 开头的引用按 BCD、STC、带孔分解、栅格、Fields2Cover、机械臂和 SatAOI 拆开。
-- [x] 29. 三条缺口各留主题句，不再重讲 2.2 的方法清单。
+- [x] 29. 三条缺口各留主题句，第一条把机具固定在 base 上并进主题句，不再重讲 2.2。
 - [x] 30. 同一基座位置和航向的不同臂角改写成盘心圆弧与整机碰撞、以及够得到不等于覆盖到两句。
 - [x] 31. 删去 SatAOI 主要用于可作业位置及其后的方法句。
 - [x] 32. 第二缺口不再保留带 [16]–[20] 的固定足迹复述。
@@ -45,7 +45,7 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 43. 3.1 改成四段数据交接，不提前定义后文的矩形集、时间和覆盖率符号。
 - [x] 44. 3.2.1 压成一条从场景到二值图的叙述，第二段只留分辨率、蓝色叠加和刚体变换。
 - [x] 45. 与 44、46、47 一起压缩重复段落，没有另加句子。
-- [x] 46. 先按安全边距扩大不可用区域再栅格化，边界单元一律算不可用，合成一条保守规则。
+- [x] 46. 先按安全边距扩大不可用区域再栅格化，边界单元和含糊单元一律算不可用，合成一条保守规则。
 - [x] 47. 第三段只留保守栅格化的操作规则，公式仍在 3.3。
 - [x] 50. 删去 Figure 4 图注中从 The left column shows 起的整段说明。
 - [x] 51. 公式保留 M 属于 {0,255}，并说明 0 和 255 只区分障碍与自由。
@@ -53,7 +53,7 @@ Category A items from plan.md. Each checked line is one completed edit.
 - [x] 53. 目标函数处的 work quality 改为 effective-work coverage，引言中的抹面观感改为 surface finish。
 - [x] 54. task-level quality measure 改为 task-level coverage measure。
 - [x] 55. 搜索改为使用局部覆盖、通行和转移的时间代理，全程执行时间不在搜索里当代价。
-- [x] 56. 3.3 开头改为一句沿用 3.2.1 的保守规则并接上公式 (5)。
+- [x] 56. 3.3 开头改为一句用交叉引用沿用 3.2.1 的保守规则并接上公式 (5)，正文不另写小节编号。
 - [x] 57. 矩形定义之后单独写 All planning cells inside R are free。
 - [x] 58. 删去 Cardinalities，改为式中绝对值表示规划格个数。
 - [x] 59. 小节标题改为 Connectivity Completion，并说明最终矩形集是补上桥接矩形之后的集合。

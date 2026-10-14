@@ -18,12 +18,13 @@ BiRect proceeds in four stages, and the output of each stage is the input of the
 \label{sec:formulation}
 
 \subsubsection{From a Construction Scene to Planning Inputs}
+\label{sec:scene-inputs}
 
 The required scene information is first extracted from a CAD/BIM model, site-survey data, or localization and mapping output. For a floor to be troweled, a world-coordinate plane $\mathcal F_W$ coincident with the work surface is selected, and the boundary of the current task is specified in that plane. Walls, columns, equipment foundations, embedded components, reserved openings, and areas outside the work boundary are marked as unavailable. The remaining floor inside the boundary on which the disc may operate becomes the target work region. The classified plane is then rasterized and geometrically calibrated to produce a physically scaled binary work map $M$, which is the direct map input to CPP.
 
 At a resolution of $s_p$~m/pixel, blue pixels in result and evaluation images denote portions of the target region already swept by the disc. Blue is an overlay on $M$, not a third input-map class. A rigid transform $T_{WM}$ calibrates image coordinates to world coordinates, so every pixel corresponds to a physical location in metres.
 
-Unavailable regions are first enlarged by the safety margin $\delta_{\mathrm{map}}$ and then rasterized, and every cell on a boundary is treated as unavailable. Circular columns, curved boundaries, and openings become staircase boundaries at the selected resolution. Straight walls and rectangular foundations map to contiguous occupied cells.
+Unavailable regions are first enlarged by the safety margin $\delta_{\mathrm{map}}$ and then rasterized, and every boundary cell or cell of ambiguous membership is treated as unavailable. Circular columns, curved boundaries, and openings become staircase boundaries at the selected resolution. Straight walls and rectangular foundations map to contiguous occupied cells.
 
 \begin{figure}[htbp]
   \centering
@@ -128,7 +129,7 @@ These measures play distinct roles. The task-level coverage measure $\rho_{\math
 
 \subsection{Conservative Rasterization and Rectangular Decomposition}
 
-Following the conservative rule of Section~3.2.1, the test is written here on planning cells. Let each square planning cell contain $g\times g$ pixels, and let $\Omega_{ij}$ be the pixel block associated with planning cell $(i,j)$:
+Following the conservative rule of Section~\ref{sec:scene-inputs}, the test is written here on planning cells. Let each square planning cell contain $g\times g$ pixels, and let $\Omega_{ij}$ be the pixel block associated with planning cell $(i,j)$:
 \begin{equation}
 B_{ij}=\begin{cases}
 1, & \text{if } M_{uv}=255,\quad \forall (u,v)\in\Omega_{ij},\\
