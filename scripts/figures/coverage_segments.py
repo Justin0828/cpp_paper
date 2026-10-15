@@ -1,4 +1,8 @@
-"""Work sweep versus full-trajectory sweep on one shared path."""
+"""Work sweep versus full-trajectory sweep on two rectangles and one transfer.
+
+Strip count and width follow Section 3.5: N_s strips of width w_s = h_R / N_s
+tile each rectangle. Gray bands are the non-work sweeps and have width 2 r_d.
+"""
 
 from __future__ import annotations
 
@@ -10,94 +14,166 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from tikzfig import FIGURES, compile_tikz
 
 
-BODY = r"""
-\begin{tikzpicture}[x=1mm,y=1mm]
-  \useasboundingbox (0,0) rectangle (\paperfullwidth, 96mm);
-  \node[tag, anchor=north] at (40,11) {(a)};
-  \node[tag, anchor=north] at (116,11) {(b)};
+# One transverse side for both rectangles. Eq. (13): w_s = h_R / N_s.
+N_S = 3
+W_S = 10.0
+H_R = N_S * W_S
+R_D = 2.0
+GRAY_W = 2.0 * R_D
+ELL_LEFT = 26.0
+ELL_RIGHT = 18.0
+GAP = 10.0
+PAD = 1.5
+CANVAS_H_MM = 74.0
 
-  \fill[workband] (46,89) rectangle (52,93.2);
-  \node[anchor=west] at (53.2,91.1) {work sweep};
-  \fill[secondary, fill opacity=0.40] (88,89) rectangle (94,93.2);
-  \node[anchor=west] at (95.2,91.1) {non-work sweep};
+# Panel origins. Local geometry is added to these.
+_ORIGINS = ((4.0, 16.0), (86.0, 16.0))
 
-  \newcommand{\workbands}{%
-    \fill[workband] (10,21.8) rectangle (30,26.2);
-    \fill[workband] (10,31.8) rectangle (30,36.2);
-    \fill[workband] (10,41.8) rectangle (30,46.2);
-    \fill[workband] (52,23.8) rectangle (70,28.2);
-    \fill[workband] (52,35.8) rectangle (70,40.2);
-  }
-  \newcommand{\routepaths}{%
-    \draw[flow] (11,24) -- (29,24);
-    \draw[flow] (29,34) -- (11,34);
-    \draw[flow] (11,44) -- (29,44);
-    \draw[flow] (53,26) -- (69,26);
-    \draw[flow] (69,38) -- (53,38);
-    \draw[aux] (30,24) .. controls (35.2,24) and (35.2,34) .. (30,34);
-    \draw[aux] (10,34) .. controls (4.8,34) and (4.8,44) .. (10,44);
-    \draw[aux] (70,26) .. controls (75.2,26) and (75.2,38) .. (70,38);
-    \draw[aux] (30,44) .. controls (40,58) and (48,52) .. (52,26);
-  }
-  % Disc-diameter band along the lane changes and the transfer. Same width as the orange strips.
-  \newcommand{\nonworkband}{%
-    \fill[secondary, fill opacity=0.40]
-      (30.00,26.20) -- (30.39,26.25) -- (30.66,26.37) -- (30.92,26.58) -- (31.18,26.91)
-      -- (31.42,27.39) -- (31.59,27.99) -- (31.69,28.65) -- (31.69,29.35) -- (31.59,30.01)
-      -- (31.42,30.61) -- (31.18,31.09) -- (30.92,31.42) -- (30.66,31.63) -- (30.39,31.75)
-      -- (30.00,31.80) -- (30.00,36.20) -- (31.56,35.99) -- (32.94,35.40) -- (34.07,34.50)
-      -- (34.92,33.41) -- (35.52,32.21) -- (35.89,30.95) -- (36.08,29.65) -- (36.08,28.35)
-      -- (35.89,27.05) -- (35.52,25.79) -- (34.92,24.59) -- (34.07,23.50) -- (32.94,22.60)
-      -- (31.56,22.01) -- (30.00,21.80) -- cycle;
-    \fill[secondary, fill opacity=0.40]
-      (10.00,31.80) -- (8.44,32.01) -- (7.06,32.60) -- (5.93,33.50) -- (5.08,34.59)
-      -- (4.48,35.79) -- (4.11,37.05) -- (3.92,38.35) -- (3.92,39.65) -- (4.11,40.95)
-      -- (4.48,42.21) -- (5.08,43.41) -- (5.93,44.50) -- (7.06,45.40) -- (8.44,45.99)
-      -- (10.00,46.20) -- (10.00,41.80) -- (9.61,41.75) -- (9.34,41.63) -- (9.08,41.42)
-      -- (8.82,41.09) -- (8.58,40.61) -- (8.41,40.01) -- (8.31,39.35) -- (8.31,38.65)
-      -- (8.41,37.99) -- (8.58,37.39) -- (8.82,36.91) -- (9.08,36.58) -- (9.34,36.37)
-      -- (9.61,36.25) -- (10.00,36.20) -- cycle;
-    \fill[secondary, fill opacity=0.40]
-      (70.00,28.20) -- (70.28,28.24) -- (70.51,28.36) -- (70.79,28.64) -- (71.10,29.12)
-      -- (71.37,29.79) -- (71.58,30.61) -- (71.69,31.53) -- (71.69,32.47) -- (71.58,33.39)
-      -- (71.37,34.21) -- (71.10,34.88) -- (70.79,35.36) -- (70.51,35.64) -- (70.28,35.76)
-      -- (70.00,35.80) -- (70.00,40.20) -- (71.66,39.94) -- (73.10,39.20) -- (74.20,38.14)
-      -- (75.00,36.91) -- (75.56,35.57) -- (75.91,34.17) -- (76.08,32.73) -- (76.08,31.27)
-      -- (75.91,29.83) -- (75.56,28.43) -- (75.00,27.09) -- (74.20,25.86) -- (73.10,24.80)
-      -- (71.66,24.06) -- (70.00,23.80) -- cycle;
-    \fill[secondary, fill opacity=0.40]
-      (28.21,45.28) -- (30.30,47.97) -- (32.40,50.15) -- (34.53,51.84) -- (36.76,52.99)
-      -- (39.09,53.53) -- (41.44,53.34) -- (43.63,52.41) -- (45.55,50.89) -- (47.22,48.85)
-      -- (48.70,46.33) -- (50.03,43.33) -- (51.24,39.85) -- (52.33,35.85) -- (53.31,31.35)
-      -- (54.17,26.33) -- (49.83,25.67) -- (48.99,30.51) -- (48.05,34.81) -- (47.03,38.55)
-      -- (45.94,41.73) -- (44.78,44.34) -- (43.60,46.35) -- (42.43,47.78) -- (41.35,48.65)
-      -- (40.38,49.06) -- (39.43,49.14) -- (38.32,48.88) -- (36.95,48.16) -- (35.38,46.91)
-      -- (33.64,45.10) -- (31.79,42.72) -- cycle;
-  }
 
-  \begin{scope}[shift={(2,16)}]
-    \draw[region] (6,18) rectangle (36,52);
-    \draw[region] (48,20) rectangle (74,48);
-    \workbands
-    \routepaths
-    \node[sym, anchor=south] (cw) at (18,55.5) {$\mathcal{C}_{\mathrm{work}}$};
-    \draw[guide] (cw.south) -- (18,46.2);
-  \end{scope}
-  \begin{scope}[shift={(78,16)}]
-    \draw[region] (6,18) rectangle (36,52);
-    \draw[region] (48,20) rectangle (74,48);
-    \nonworkband
-    \workbands
-    \routepaths
-    \node[sym, anchor=south] (ct) at (40,61) {$\mathcal{C}_{\mathrm{traj}}$};
-    \draw[guide] (ct.south) -- (40,52.2);
-  \end{scope}
-\end{tikzpicture}
-"""
+def _rect(x: float, y: float, w: float, h: float) -> dict:
+    strips = [(x, y + i * W_S, w, W_S) for i in range(N_S)]
+    return {"x": x, "y": y, "w": w, "h": h, "strips": strips}
+
+
+def _turns(rect: dict) -> list[tuple[float, float, float, float]]:
+    """Lane-change bands outside the short ends. Width is 2 r_d."""
+    bands = []
+    for i in range(N_S - 1):
+        y0 = rect["y"] + (i + 0.5) * W_S
+        if i % 2 == 0:
+            bands.append((rect["x"] + rect["w"], y0, GRAY_W, W_S))
+        else:
+            bands.append((rect["x"] - GRAY_W, y0, GRAY_W, W_S))
+    return bands
+
+
+def _transfer(left: dict, right: dict) -> tuple[float, float, float, float]:
+    """One band in the gap, centered on the top strip, width 2 r_d."""
+    y_mid = left["y"] + (N_S - 0.5) * W_S
+    x0 = left["x"] + left["w"]
+    return (x0, y_mid - GRAY_W / 2.0, right["x"] - x0, GRAY_W)
+
+
+def _bbox(boxes: list[tuple[float, float, float, float]]) -> tuple[float, float, float, float]:
+    x0 = min(b[0] for b in boxes)
+    y0 = min(b[1] for b in boxes)
+    x1 = max(b[0] + b[2] for b in boxes)
+    y1 = max(b[1] + b[3] for b in boxes)
+    return (x0, y0, x1, y1)
+
+
+def _expand(box: tuple[float, float, float, float], pad: float) -> tuple[float, float, float, float]:
+    return (box[0] - pad, box[1] - pad, box[2] + pad, box[3] + pad)
+
+
+def _arrow(strip: tuple[float, float, float, float], direction: int) -> tuple[float, float, float, float]:
+    x, y, w, h = strip
+    y_mid = y + h / 2.0
+    inset = 2.4
+    if direction > 0:
+        return (x + inset, y_mid, x + w - inset, y_mid)
+    return (x + w - inset, y_mid, x + inset, y_mid)
+
+
+def _centerline(band: tuple[float, float, float, float]) -> tuple[float, float, float, float]:
+    x, y, w, h = band
+    if w <= h:
+        return (x + w / 2.0, y, x + w / 2.0, y + h)
+    return (x, y + h / 2.0, x + w, y + h / 2.0)
+
+
+def layout() -> dict:
+    """Absolute millimetre geometry for both panels. Panel 0 is (a)."""
+    panels = []
+    for index, (ox, oy) in enumerate(_ORIGINS):
+        left = _rect(ox + 8.0, oy + 6.0, ELL_LEFT, H_R)
+        right = _rect(left["x"] + left["w"] + GAP, oy + 6.0, ELL_RIGHT, H_R)
+        gray = _turns(left) + _turns(right) + [_transfer(left, right)]
+        orange_boxes = [tuple(s) for rect in (left, right) for s in rect["strips"]]
+        orange_bb = _bbox(orange_boxes)
+        union_bb = _bbox(orange_boxes + gray)
+        if index == 0:
+            mark = _expand(orange_bb, PAD)
+            mark_name = "c_work"
+        else:
+            mark = _expand(union_bb, PAD)
+            mark_name = "c_traj"
+        arrows = []
+        for rect in (left, right):
+            for i, strip in enumerate(rect["strips"]):
+                arrows.append(_arrow(strip, 1 if i % 2 == 0 else -1))
+        cx = (left["x"] + right["x"] + right["w"]) / 2.0
+        panels.append(
+            {
+                "tag": "(a)" if index == 0 else "(b)",
+                "tag_at": (cx, oy - 1.5),
+                "rectangles": [left, right],
+                "gray": gray,
+                "arrows": arrows,
+                "centerlines": [_centerline(band) for band in gray],
+                "orange_bbox": orange_bb,
+                "union_bbox": union_bb,
+                "mark": mark,
+                "mark_name": mark_name,
+            }
+        )
+    return {"width_mm": 160.0, "height_mm": CANVAS_H_MM, "panels": panels}
+
+
+def _num(value: float) -> str:
+    return f"{value:.2f}"
+
+
+def _rect_fill(box: tuple[float, float, float, float], style: str) -> str:
+    x, y, w, h = box
+    return (
+        f"  \\fill[{style}] ({_num(x)},{_num(y)}) rectangle "
+        f"({_num(x + w)},{_num(y + h)});"
+    )
+
+
+def _draw_segment(segment: tuple[float, float, float, float], style: str) -> str:
+    x0, y0, x1, y1 = segment
+    return f"  \\draw[{style}] ({_num(x0)},{_num(y0)}) -- ({_num(x1)},{_num(y1)});"
+
+
+def _body(spec: dict) -> str:
+    lines = [
+        r"\begin{tikzpicture}[x=1mm,y=1mm]",
+        f"  \\useasboundingbox (0,0) rectangle (\\paperfullwidth, {_num(spec['height_mm'])}mm);",
+    ]
+    for panel in spec["panels"]:
+        lines.append(f"  \\node[tag, anchor=north] at ({_num(panel['tag_at'][0])},{_num(panel['tag_at'][1])}) {{{panel['tag']}}};")
+        if panel["mark_name"] == "c_traj":
+            for band in panel["gray"]:
+                lines.append(_rect_fill(band, "nonworkfill"))
+        for rect in panel["rectangles"]:
+            for strip in rect["strips"]:
+                lines.append(_rect_fill(strip, "workband"))
+            lines.append(
+                "  \\draw[main] "
+                f"({_num(rect['x'])},{_num(rect['y'])}) rectangle "
+                f"({_num(rect['x'] + rect['w'])},{_num(rect['y'] + rect['h'])});"
+            )
+        for arrow in panel["arrows"]:
+            lines.append(_draw_segment(arrow, "flow"))
+        if panel["mark_name"] == "c_traj":
+            for segment in panel["centerlines"]:
+                lines.append(_draw_segment(segment, "aux"))
+        x0, y0, x1, y1 = panel["mark"]
+        lines.append(
+            f"  \\draw[guide] ({_num(x0)},{_num(y0)}) rectangle ({_num(x1)},{_num(y1)});"
+        )
+        label = r"$\mathcal{C}_{\mathrm{work}}$" if panel["mark_name"] == "c_work" else r"$\mathcal{C}_{\mathrm{traj}}$"
+        lines.append(
+            f"  \\node[sym, anchor=south] at ({_num((x0 + x1) / 2.0)},{_num(y1 + 0.8)}) {{{label}}};"
+        )
+    lines.append(r"\end{tikzpicture}")
+    return "\n".join(lines) + "\n"
 
 
 def main() -> None:
-    compile_tikz(BODY, FIGURES / "figure_coverage_segments.pdf")
+    compile_tikz(_body(layout()), FIGURES / "figure_coverage_segments.pdf")
 
 
 if __name__ == "__main__":
