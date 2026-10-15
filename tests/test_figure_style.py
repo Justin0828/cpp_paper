@@ -81,6 +81,65 @@ def test_speed_series_match_the_csv_files():
             assert row["rho_m_per_deg"] == row["speed_mps"] / float(saved.arm_angular_velocity_deg_s)
             assert row["speed_mps"] > 0
         assert panel in {"simple", "complex"}
+        assert all(row["speed_mps"] > 0 for row in series)
+
+    scripts = {
+        "simple": "figure_5a_vehicle_speed_map_simple_en.py",
+        "complex": "figure_5b_vehicle_speed_parkingGraph_en.py",
+    }
+    pdfs = {
+        "simple": FIGURES / "figure_5a_vehicle_speed_map_simple_en.pdf",
+        "complex": FIGURES / "figure_5b_vehicle_speed_parkingGraph_en.pdf",
+    }
+    for panel, script in scripts.items():
+        subprocess.check_call([sys.executable, f"scripts/figures/{script}"], cwd=ROOT)
+        text = subprocess.check_output(["pdftotext", "-layout", str(pdfs[panel]), "-"], text=True)
+        folded = _fold_pdf_text(text).lower()
+        assert re.search(r"(?<![\d.])0(?:\.0)?(?![\d])", text), text
+        assert ("rho" in folded or "ρ" in text) and "v/" in text
+        # The origin tick is not an observation: every plotted speed stays positive.
+        series = read_series(PANELS[panel])
+        assert min(row["speed_mps"] for row in series) >= 0.5
+
+    caption_src = (ROOT / "english_paper" / "sections" / "experiments.tex").read_text(encoding="utf-8")
+    caption = caption_src[caption_src.find(r"\label{fig:speed-study}") - 500 : caption_src.find(r"\label{fig:speed-study}")]
+    folded_caption = caption.replace(" ", "").replace("~", "")
+    assert r"\rho=v/\omega_a" in folded_caption or r"\rho = v/\omega_a" in caption
+    assert "0.75" in caption and "1.20" in caption and "90" in caption
+    assert "r_d" in caption and "L" in caption and "omega_a" in caption
+
+
+def test_strip_count_label_sits_beside_the_stack():
+    subprocess.check_call([sys.executable, "scripts/figures/strip_geometry.py"], cwd=ROOT)
+    src = (ROOT / "scripts" / "figures" / "strip_geometry.py").read_text(encoding="utf-8")
+    assert not re.search(r"#[0-9A-Fa-f]{6}", src)
+    assert "0.8pt" not in src and "0.5pt" not in src
+    assert r"\definecolor" not in src
+    nodes = re.findall(
+        r"\\node\[([^\]]*)\] at \(([-\d.]+),([-\d.]+)\) \{\$([^$]+)\$([^}]*)\};",
+        src,
+    )
+    count_nodes = [node for node in nodes if node[3] == "N_s"]
+    assert count_nodes == [("sym, anchor=center, rotate=90", "103", "37", "N_s", " strips")]
+    _options, x_text, y_text, _symbol, _rest = count_nodes[0]
+    x_mm, y_mm = float(x_text), float(y_text)
+    # Panel (b) rectangle and the h_R dimension beside it.
+    assert r"\draw[region] (64,24) rectangle (100,50);" in src
+    assert r"\draw[dim] (106,24) -- (106,50);" in src
+    assert r"\node[sym, anchor=west] at (106.4,37) {$h_R$};" in src
+    assert r"\draw[dim] (58.5,24) -- (58.5,32.667);" in src
+    assert r"\node[sym, anchor=east] at (58.1,28.3) {$w_s$};" in src
+    # Beside the stack, in the gap between the rectangle and the h_R dimension,
+    # and off the horizontal top edge y=50.
+    assert 100 < x_mm < 106
+    assert 24 < y_mm < 50
+    assert not any(node[3] == "N_s" and float(node[2]) >= 50 for node in nodes)
+    text = subprocess.check_output(
+        ["pdftotext", "-layout", str(FIGURES / "figure_strip_geometry.pdf"), "-"],
+        text=True,
+    )
+    folded = _fold_pdf_text(text).lower()
+    assert "nsstrips" in folded or "n_sstrips" in folded or "strips" in text
 
 
 def test_coverage_labels_match_the_metrics_files():

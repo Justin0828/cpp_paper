@@ -90,8 +90,8 @@ def plot_series(series: list[dict[str, float]], dest: Path) -> None:
         zorder=3,
     )
     coverage_axis.set_xlim(0, max(speeds) * 1.08)
-    coverage_axis.set_xticks(speeds)
-    coverage_axis.set_xlabel(r"Base speed $v$ (m/s)")
+    coverage_axis.set_xticks([0.0, *speeds])
+    coverage_axis.set_xlabel("Base speed $v$ (m/s)\n$\\rho = v/\\omega_a$")
     coverage_axis.set_ylabel("Coverage (%)")
     duration_axis.set_ylabel("Time (s)")
     low = min(coverage)
@@ -104,8 +104,12 @@ def plot_series(series: list[dict[str, float]], dest: Path) -> None:
         spine.set_color(colors["ink"])
     if coverage_axis.get_xlim()[0] != 0:
         raise SystemExit("speed axis does not start at 0")
-    if 0 in list(coverage_axis.get_xticks()):
-        raise SystemExit("a tick was placed at speed 0")
+    ticks = [float(tick) for tick in coverage_axis.get_xticks()]
+    if not any(abs(tick) < 1e-9 for tick in ticks):
+        raise SystemExit("speed axis has no tick at 0")
+    for line in coverage_axis.get_lines() + duration_axis.get_lines():
+        if any(abs(float(value)) < 1e-9 for value in line.get_xdata()):
+            raise SystemExit("a data point was plotted at speed 0")
     if len(coverage_axis.get_lines()) != 1 or len(duration_axis.get_lines()) != 1:
         raise SystemExit("expected one coverage curve and one time curve")
     lines = coverage_axis.get_lines() + duration_axis.get_lines()
@@ -134,6 +138,7 @@ def plot_series(series: list[dict[str, float]], dest: Path) -> None:
             f" coverage_ratio={row['coverage_ratio']:.12g}"
             f" duration_s={row['duration_seconds']:.12g}"
             f" xlim0={x0:.12g}"
+            f" ticks={','.join(f'{tick:.12g}' for tick in ticks)}"
         )
 
 
