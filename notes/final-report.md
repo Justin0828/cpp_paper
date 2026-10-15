@@ -78,3 +78,20 @@
 - `rev/merged`：合并 `c1606468cf00dad288517f0bc6301f9aed5a757a`，终版 PDF 在 `eb0bf9d891252c12de85560828acae3cd39a3aef`。路径 `english_paper/final/paper_final.pdf`。`latexmk -pdf` 两次退出码都是 0，都是 28 页。Figure 7 仍在第 14 页，圆盘和虚线没有被裁切。Figure 10 在第 19 页，橙色铺满，掉头弧在矩形内，只有转移带是纯灰。
 - `rev/merged-diff`：合并 `889a862de8beb6f2d77f72047ee490947474c457`，批阅版 PDF 在 `7fcdae45822ee273c535b630f420d12d4209c7bd`。`english_paper/diff.tex` 的图路径和边注没有改，包括 `[60]`、`[61]`、`[67]`。旧图仍只来自 `old_figs/`。`latexmk -xelatex` 两次退出码都是 0，都是 32 页。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同。Figure 7 在第 18 页，没有被裁切，删去的长图注仍是红字。Figure 10 在第 22 页蓝框内，标“新增”，掉头弧在橙色之上，转移带是纯灰。
 - hyperref 的 `equation.3.1` 目标名重复，以及 `pdftotext` 的字体类型不匹配，仍是原有警告。这次没有改公式。
+
+## P0：栅格、条带数和速度
+
+按 2026-10-15 审阅的五条 P0 改了英文版。Figure 5(d) 已重画。没有推送。`main` 仍是 `3590a4a933d97dd775314b2dfb62d4a9d5b996db`。
+
+- 意见 49。右下角黑格与左侧 L 形及臂上矩形的保守栅格不符。网格以内角对齐，与圆盘或矩形相交的格子标为不可用。已重画 panel (d)，并用 1–4 标出圆盘、竖干方块、臂上矩形和臂下矩形。自由格从 145 减到 122。panel (c) 没有改。
+- 意见 63。Figure 8(b) 的 \(N_s\) 从水平顶边移到沿 \(h_R\) 排开的条带组旁，写成 \(N_s\) strips。顶边只留矩形边界。\(w_s\) 仍标一条带高度，\(h_R\) 仍标横向总高。
+- 意见 81。Figure 13 横轴补上 0 刻度。0 是原点，曲线仍只有 0.5 到 3.0 m/s 六档。横轴是基座速度 \(v\)，轴上写出 \(\rho=v/\omega_a\)。图注的固定参数与实验记录和正文一致：\(r_d=0.75\) m，\(L=1.20\) m，\(\omega_a=90^\circ\)/s。
+- 意见 72/78/81。六档指令速度是 0.5、1.0、1.5、2.0、2.5、3.0 m/s。式 (17) 为 \(v_{\mathrm{work}}=\min(v_{\max},v_{\mathrm{safe}})\)。保存的 12 次运行用 commanded 策略，`work_speed_limited` 为假，记录的作业速度等于指令速度。simple 和 complex 上六档都没有被截断，实际作业速度都是 0.5 到 3.0 m/s。这句话写在“速度越快漏覆盖越多”之前。没有另编 \(\phi_w\)。
+- 意见 51。地图一句现为：0 和 255 是 8-bit 像素标签，不是物理尺寸或连续的几何量。\(M\in\{0,255\}\) 和像素物理尺寸 \(s_p\) 仍在。
+
+边注：`[49]` 改为重画说明。另外四条只写这一轮的改动，开头没有“按导师意见”。原先的 `[51]`、`[63]`、`[81]` 和其他边注还在。图例那句还在。
+
+- `rev/figs`：`6e2e23f4022d1f690137cf2a1481a5d426f4cb12`。
+- `rev/merged`：合并 `0bcb1fb07da1798eb17e19ab910098dc9eb2404a`，正文 `4f5721536e171e392012f2dab1e4cc9c7fea73fd`，终版 PDF `f0d45c92d70e6258daefe0d31a2c1fa0dbd7ae82`。路径 `english_paper/final/paper_final.pdf`。对 `english_paper/main.tex` 用 `latexmk -pdf` 编译两次，退出码都是 0，都是 28 页。Figure 5(d) 在第 10 页，障碍 1–4 标在几何和黑格上。Figure 8(b) 在第 15 页，\(N_s\) strips 在条带组旁。地图标签句在第 11 页。速度段在第 25 页。Figure 13 在第 26 页，横轴有 0，图注有上述三个固定参数。
+- `rev/merged-diff`：正文与图先合并为 `7e272324c588e45a4029bd0b0e9d64affe1d350e`，终版 PDF 再合并为 `30a3b913c99e6d91aa3836e4fd5070900967b8ad`，批阅版 PDF 在 `b54b4c50be5d8425e2ff39adf175c24083ff60a0`。对 `english_paper/diff.tex` 用 `latexmk -xelatex` 编译两次，退出码都是 0，这一轮是 31 页。参考文献仍收到 [22]。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同。旧图仍只来自 `old_figs/`。Figure 5(d) 在第 13 页，左红右蓝。Figure 8 在第 19 页。地图标签在第 14 页。速度段在第 28 页。Figure 13 在第 29 页。
+- hyperref 的 `equation.3.1` 目标名重复，以及 `pdftotext` 的字体类型不匹配，仍是原有警告。这次没有改公式编号，也没有改表 2–4 的数字。
