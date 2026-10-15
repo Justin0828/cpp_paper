@@ -64,7 +64,7 @@ Let the input map be
 \begin{equation*}
 M\in\{0,255\}^{H_p\times W_p},
 \end{equation*}
-The labels $0$ and $255$ only distinguish obstacle and free; they are not grayscale values and not physical quantities. With physical pixel size $s_p$, the free-pixel set is
+The labels $0$ and $255$ are 8-bit pixel labels, not physical sizes or continuous geometric quantities. With physical pixel size $s_p$, the free-pixel set is
 \begin{equation*}
 \mathcal P_F=\{(u,v)\mid M_{uv}=255\}.
 \end{equation*}

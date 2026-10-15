@@ -48,7 +48,7 @@ BODY = r"""
   \draw[guide] (64,32.667) -- (58.5,32.667);
   \draw[dim] (58.5,24) -- (58.5,32.667);
   \node[sym, anchor=east] at (58.1,28.3) {$w_s$};
-  \node[sym, anchor=south] at (82,50.3) {$N_s$};
+  \node[sym, anchor=center, rotate=90] at (103,37) {$N_s$ strips};
 
   % (c) half-amplitude that brings the disc edge to the strip boundary.
   \begin{scope}[shift={(122,39)}]

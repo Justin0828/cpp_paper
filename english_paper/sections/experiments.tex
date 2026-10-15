@@ -146,6 +146,8 @@ Map & \shortstack{Base speed\\(m/s)} & \shortstack{$\rho$\\(m/degree)} & \shorts
 \end{tabular}
 \end{table}
 
+The six commanded speeds are $0.5$, $1.0$, $1.5$, $2.0$, $2.5$, and $3.0$~m/s. Eq.~\eqref{eq:work-speed} sets $v_{\mathrm{work}}=\min(v_{\max},v_{\mathrm{safe}})$, so a command is truncated when $v_{\mathrm{safe}}$ is the smaller of the two. These runs keep the commanded policy: the saved trajectories give a work speed equal to the command on every tier. On both \texttt{simple} and \texttt{complex}, none of the six speeds is truncated, and the actual work speed ranges from $0.5$ to $3.0$~m/s. With that executed speed established, the faster base speed leaves more coverage missing.
+
 Table~\ref{tab:speed-study} shows a clear coverage--time trade-off, although the full-trajectory results make it more moderate than an analysis of work strips alone might suggest. Total time decreases monotonically with base speed: from 1680.45 to 735.12~s (56.25\%) on \texttt{simple} and from 14525.14 to 4120.11~s (71.63\%) on \texttt{complex}. As $\rho$ increases from 0.00556 to 0.03333~m/degree, coverage decreases from 96.44\% to 85.27\% and from 99.15\% to 90.32\%, reductions of 11.17 and 8.83 percentage points. Larger sweep spacing therefore weakens coverage continuity, but no tested condition makes the full-trajectory coverage unusably low.
 
 Time per unit covered area further clarifies the trade-off. It decreases continuously with base speed on both maps: from 2.852 to 1.411~s/m$^2$ on \texttt{simple} and from 3.412 to 1.062~s/m$^2$ on \texttt{complex}, improvements of 50.53\% and 68.88\%. A speed of 3.0~m/s gives both the shortest total time and lowest time per covered area, at the cost of coverage ratios of 85.27\% and 90.32\%. Conversely, 0.5~m/s gives the highest coverage on both maps. If both maps must retain at least 95\% full-trajectory coverage, 1.0~m/s is the highest tested admissible speed, while already reducing total time by 34.81\% and 42.54\% relative to 0.5~m/s. Base speed should therefore be selected jointly with arm angular velocity according to a minimum-coverage constraint and schedule objective, rather than treated as an incidental parameter after geometric planning. Smaller $\rho$ favors coverage quality; larger $\rho$ favors time efficiency when a coverage loss of roughly 9--11 percentage points is acceptable.
@@ -162,7 +164,7 @@ Time per unit covered area further clarifies the trade-off. It decreases continu
     \includegraphics[width=\linewidth]{figure_5b_vehicle_speed_parkingGraph_en.pdf}\\[-0.4em]
     \small (b) \texttt{complex}
   \end{minipage}
-  \caption{Effect of base--arm velocity coupling on full-trajectory coverage and execution time.}
+  \caption{Effect of base--arm velocity coupling on full-trajectory coverage and execution time, for commanded base speed $v$ with $\rho=v/\omega_a$ and fixed $r_d=0.75$~m, $L=1.20$~m, and $\omega_a=90^\circ$/s.}
   \label{fig:speed-study}
 \end{figure}
 
