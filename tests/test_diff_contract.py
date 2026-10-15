@@ -124,6 +124,10 @@ def test_fignew_blocks_use_the_vector_pdf_and_mark_them_new():
     }
 
 
+def _without_advisor_prefix(note: str) -> str:
+    return re.sub(r"按导师意见(?:[：:，,]|\s)*", "", note, count=1)
+
+
 def test_legend_and_margin_notes_from_the_advisor_diff_remain():
     text = DIFF.read_text(encoding="utf-8")
     assert "修订对照说明" in text
@@ -133,4 +137,5 @@ def test_legend_and_margin_notes_from_the_advisor_diff_remain():
     old_notes = _marginpar_bodies(previous)
     new_notes = _marginpar_bodies(text)
     assert old_notes, "76b418f diff.tex has no margin notes"
-    assert new_notes == old_notes
+    assert all("按导师意见" not in note for note in new_notes)
+    assert new_notes == [_without_advisor_prefix(note) for note in old_notes]
