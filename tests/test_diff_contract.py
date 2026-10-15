@@ -137,7 +137,7 @@ ROUND_NOTES = (
     FIGURE5_NEW,
     r"\scriptsize 将 0 和 255 改写为 8-bit 像素标签，不是物理尺寸或连续的几何量。",
     r"\scriptsize 将条带数从水平顶边移到沿 h\_R 排列的条带组旁，写成 N\_s strips。顶边只保留矩形边界。",
-    r"\scriptsize 六档指令速度在 simple 和 complex 上都未被 v\_work 截断，记录的作业速度等于指令速度，范围都是 0.5 到 3.0 m/s。其后才写速度越快漏覆盖越多。",
+    r"\scriptsize 这六档保存的运行没有施加 v\_safe 上限。记录的作业速度就是指令速度，simple 和 complex 上都是 0.5 到 3.0 m/s。其后才写速度越快漏覆盖越多。",
     r"\scriptsize 速度曲线横轴补上 0 刻度，0 只是原点而不是观测。横轴是基座速度 v，并写出 rho 等于 v 除以 omega\_a。图注写明固定参数 r\_d=0.75 m、L=1.20 m、omega\_a=90 度/秒。",
 )
 
