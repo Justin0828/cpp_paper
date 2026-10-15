@@ -290,24 +290,25 @@ def _band_on_end(band, rect, end_x):
     return False
 
 
+def _arc_xy(arc, angle):
+    theta = math.radians(angle)
+    return (
+        arc["cx"] + arc["radius"] * math.cos(theta),
+        arc["cy"] + arc["radius"] * math.sin(theta),
+    )
+
+
 def _assert_lane_changes_follow_the_path(panel, gray_w):
-    """Each gray band is the path's turn or the one transfer, and they do not overlap."""
+    """Turn arcs sit inside the path ends. The transfer is the only outside gray band."""
     left, right = panel["rectangles"]
-    transfers = [
-        band
-        for band in panel["gray"]
-        if abs(band[0] - (left["x"] + left["w"])) < 1e-6 and abs((band[0] + band[2]) - right["x"]) < 1e-6
-    ]
-    assert len(transfers) == 1, transfers
-    transfer = transfers[0]
+    transfer = panel["transfer"]
+    assert abs(transfer[0] - (left["x"] + left["w"])) < 1e-6
+    assert abs((transfer[0] + transfer[2]) - right["x"]) < 1e-6
     assert abs(transfer[3] - gray_w) < 1e-9
-    turns = [band for band in panel["gray"] if band != transfer]
+    turns = panel["turns"]
     assert len(turns) == 2 * (len(left["strips"]) - 1)
-    for band in turns:
-        assert not _boxes_overlap(band, transfer), (band, transfer)
-    for index, band in enumerate(turns):
-        for other in turns[index + 1 :]:
-            assert not _boxes_overlap(band, other), (band, other)
+    for rect in (left, right):
+        assert not _overlaps_interior(transfer, rect)
 
     def strip_at(rect, y_mid):
         hits = [
@@ -340,19 +341,42 @@ def _assert_lane_changes_follow_the_path(panel, gray_w):
         assert len(hits) <= 1, (panel["tag"], index, hits)
         return hits[0] if hits else None
 
-    def hop_band(rect, leave, enter):
+    def hop_arc(rect, leave, enter):
         shared = _end_x(rect, _arrow_on_strip(panel["arrows"], rect["strips"][leave]))
         assert abs(shared - _start_x(rect, _arrow_on_strip(panel["arrows"], rect["strips"][enter]))) < 1e-6
-        matched = [
-            band
-            for band in turns
-            if _band_on_end(band, rect, shared)
-            and _y_hits(band, rect["strips"][leave])
-            and _y_hits(band, rect["strips"][enter])
-        ]
+        inset = gray_w / 2.0
+        expect_cx = rect["x"] + inset if abs(shared - rect["x"]) < 1e-6 else shared - inset
+        wanted = []
+        for index in (leave, enter):
+            strip = rect["strips"][index]
+            wanted.append(strip[1] + strip[3] / 2.0)
+        matched = []
+        for arc in turns:
+            if abs(arc["cx"] - expect_cx) > 1e-6 or abs(arc["width"] - gray_w) > 1e-9:
+                continue
+            pts = (_arc_xy(arc, arc["start"]), _arc_xy(arc, arc["end"]))
+            if any(abs(px - expect_cx) > 1e-6 for px, _py in pts):
+                continue
+            got = sorted(py for _px, py in pts)
+            if abs(got[0] - min(wanted)) < 1e-6 and abs(got[1] - max(wanted)) < 1e-6:
+                matched.append(arc)
         assert len(matched) == 1, (panel["tag"], leave, enter, shared, matched)
-        assert abs(min(matched[0][2], matched[0][3]) - gray_w) < 1e-9
-        return matched[0]
+        arc = matched[0]
+        mid = _arc_xy(arc, (arc["start"] + arc["end"]) / 2.0)
+        assert rect["x"] + gray_w < mid[0] < rect["x"] + rect["w"] - gray_w
+        assert rect["y"] < mid[1] < rect["y"] + rect["h"]
+        ux = (mid[0] - arc["cx"]) / arc["radius"]
+        uy = (mid[1] - arc["cy"]) / arc["radius"]
+        for delta in (-0.45 * gray_w, 0.0, 0.45 * gray_w):
+            x = arc["cx"] + (arc["radius"] + delta) * ux
+            y = arc["cy"] + (arc["radius"] + delta) * uy
+            assert rect["x"] + 0.2 < x < rect["x"] + rect["w"] - 0.2
+            assert rect["y"] + 0.2 < y < rect["y"] + rect["h"] - 0.2
+            assert not (
+                transfer[0] - 1e-6 <= x <= transfer[0] + transfer[2] + 1e-6
+                and transfer[1] - 1e-6 <= y <= transfer[1] + transfer[3] + 1e-6
+            )
+        return arc
 
     used = []
     cursor = src
@@ -361,7 +385,7 @@ def _assert_lane_changes_follow_the_path(panel, gray_w):
         prev = unseen_neighbor(left, cursor, seen, at_start=True)
         if prev is None:
             break
-        used.append(hop_band(left, prev, cursor))
+        used.append(hop_arc(left, prev, cursor))
         seen.add(prev)
         cursor = prev
     assert seen == set(range(len(left["strips"])))
@@ -372,12 +396,12 @@ def _assert_lane_changes_follow_the_path(panel, gray_w):
         nxt = unseen_neighbor(right, cursor, seen, at_start=False)
         if nxt is None:
             break
-        used.append(hop_band(right, cursor, nxt))
+        used.append(hop_arc(right, cursor, nxt))
         seen.add(nxt)
         cursor = nxt
     assert seen == set(range(len(right["strips"])))
     assert len(used) == len(turns)
-    assert {tuple(band) for band in used} == {tuple(band) for band in turns}
+    assert {id(arc) for arc in used} == {id(arc) for arc in turns}
 
 
 def test_coverage_segments_tiles_and_marks():
@@ -386,6 +410,7 @@ def test_coverage_segments_tiles_and_marks():
         H_R,
         N_S,
         R_D,
+        TURN_ALPHA,
         W_S,
         _body,
         layout,
@@ -416,11 +441,6 @@ def test_coverage_segments_tiles_and_marks():
                 assert abs(left_strip[3] - W_S) < 1e-9
                 assert abs((left_strip[1] + left_strip[3]) - right_strip[1]) < 1e-9
             assert abs((strips[-1][1] + strips[-1][3]) - (rect["y"] + rect["h"])) < 1e-9
-        for band in panel["gray"]:
-            assert abs(min(band[2], band[3]) - GRAY_W) < 1e-9
-            assert _at_turn_or_transfer(band, panel["rectangles"])
-            for rect in panel["rectangles"]:
-                assert not _overlaps_interior(band, rect)
         _assert_lane_changes_follow_the_path(panel, GRAY_W)
         assert _contains_box(panel["mark"], panel["orange_bbox"])
         assert panel["mark"][3] + 5.0 < spec["height_mm"]
@@ -431,11 +451,13 @@ def test_coverage_segments_tiles_and_marks():
     one_box = (one[0], one[1], one[0] + one[2], one[1] + one[3])
     assert _box_area(work["mark"]) > _box_area(one_box) * (N_S + 1)
     full = panels[1]
-    gray_box = _gray_bbox(full["gray"])
+    transfer = full["transfer"]
+    transfer_box = (transfer[0], transfer[1], transfer[0] + transfer[2], transfer[1] + transfer[3])
     assert _contains_box(full["mark"], full["union_bbox"])
-    assert _contains_box(full["union_bbox"], gray_box)
-    assert (full["union_bbox"][3] - full["union_bbox"][1]) > (gray_box[3] - gray_box[1]) + 1.0
-    assert _box_area(full["mark"]) > _box_area(gray_box)
+    assert _contains_box(full["union_bbox"], transfer_box)
+    assert _contains_box(full["union_bbox"], full["orange_bbox"])
+    assert (full["union_bbox"][3] - full["union_bbox"][1]) > (transfer_box[3] - transfer_box[1]) + 1.0
+    assert _box_area(full["mark"]) > _box_area(transfer_box)
 
     cover_src = (ROOT / "scripts" / "figures" / "coverage_segments.py").read_text(encoding="utf-8")
     assert not re.search(r"#[0-9A-Fa-f]{6}", cover_src)
@@ -443,7 +465,9 @@ def test_coverage_segments_tiles_and_marks():
     assert "definecolor" not in cover_src
     assert "circle" not in cover_src
     body = _body(spec)
-    assert body.count("nonworkfill") == len(full["gray"])
+    assert body.count("nonworkfill") == 1
+    assert body.count("opacity") == len(full["turns"])
+    assert "line cap=butt" in body
     assert body.count("workband") == 2 * len(work["rectangles"]) * N_S
     assert r"\mathcal{C}_{\mathrm{work}}" in body and r"\mathcal{C}_{\mathrm{traj}}" in body
 
@@ -474,15 +498,22 @@ def test_coverage_segments_tiles_and_marks():
         for rect in panel["rectangles"]:
             for strip in rect["strips"]:
                 x, y, w, h = strip
-                for frac in (0.25, 0.5, 0.75):
-                    rgb, _, _ = _sample(image, x + frac * w, y + 0.35 * h, spec["height_mm"], dpi)
-                    assert _near(rgb, orange, 8), (panel["tag"], rgb, strip)
+                rgb, _, _ = _sample(image, x + 0.5 * w, y + 0.35 * h, spec["height_mm"], dpi)
+                assert _near(rgb, orange, 8), (panel["tag"], rgb, strip)
+                if panel["mark_name"] == "c_work":
+                    for end_x in (x + 1.2, x + w - 1.2):
+                        rgb, _, _ = _sample(image, end_x, y + 0.25 * h, spec["height_mm"], dpi)
+                        assert _near(rgb, orange, 8), (panel["tag"], "end", rgb)
             for index in range(len(rect["strips"]) - 1):
                 boundary = rect["strips"][index][1] + rect["strips"][index][3]
-                x_mid = rect["x"] + 0.5 * rect["w"]
-                for sign in (-1, 1):
-                    rgb, _, _ = _sample(image, x_mid, boundary + sign * 0.35, spec["height_mm"], dpi)
-                    assert _near(rgb, orange, 8), (panel["tag"], "seam", rgb)
+                # The short rectangle's turn strokes meet at mid-width, so sample
+                # the shared edge beside the border, clear of that stroke.
+                for seam_x in (rect["x"] + 3.2, rect["x"] + rect["w"] - 3.2):
+                    for sign in (-1, 1):
+                        rgb, _, _ = _sample(
+                            image, seam_x, boundary + sign * 0.35, spec["height_mm"], dpi
+                        )
+                        assert _near(rgb, orange, 8), (panel["tag"], "seam", rgb)
         for which in ("s", "n", "w", "e"):
             px, py = mid_edge(panel["mark"], which)
             assert _window_has(image, px, py, spec["height_mm"], dpi, navy, 40, radius=3), (
@@ -490,21 +521,38 @@ def test_coverage_segments_tiles_and_marks():
                 which,
             )
 
-    def fill_point(band):
-        x, y, w, h = band
-        if w <= h:
-            return (x + 0.28 * w, y + 0.55 * h)
-        return (x + 0.55 * w, y + 0.28 * h)
+    secondary = (127, 127, 127)
+    blend = tuple(round(TURN_ALPHA * channel + (1.0 - TURN_ALPHA) * base) for channel, base in zip(secondary, orange))
 
-    for band in work["gray"]:
-        px, py = fill_point(band)
+    def apex(arc):
+        x, y = _arc_xy(arc, (arc["start"] + arc["end"]) / 2.0)
+        return (x, y + 0.8)
+
+    for arc in work["turns"]:
+        px, py = apex(arc)
         rgb, _, _ = _sample(image, px, py, spec["height_mm"], dpi)
-        assert not _near(rgb, gray, 12), rgb
-        assert not _near(rgb, orange, 12), rgb
-    for band in full["gray"]:
-        px, py = fill_point(band)
+        assert _near(rgb, orange, 10), rgb
+    for arc in full["turns"]:
+        px, py = apex(arc)
         rgb, _, _ = _sample(image, px, py, spec["height_mm"], dpi)
-        assert _near(rgb, gray, 8), (rgb, band)
+        assert _near(rgb, blend, 18), (rgb, blend, arc["cx"], arc["cy"])
+        assert not _near(rgb, orange, 18), rgb
+        assert not _near(rgb, gray, 18), rgb
+        assert rgb[0] > rgb[2]
+        outside_x = (
+            arc["cx"] - (arc["width"] / 2.0 + 1.0)
+            if px > arc["cx"]
+            else arc["cx"] + (arc["width"] / 2.0 + 1.0)
+        )
+        outside, _, _ = _sample(image, outside_x, py, spec["height_mm"], dpi)
+        assert not _near(outside, blend, 18), outside
+        assert not _near(outside, gray, 12), outside
+    tx, ty, tw, th = full["transfer"]
+    rgb, _, _ = _sample(image, tx + 0.55 * tw, ty + 0.28 * th, spec["height_mm"], dpi)
+    assert _near(rgb, gray, 8), rgb
+    shift = work["rectangles"][0]["x"] - full["rectangles"][0]["x"]
+    rgb, _, _ = _sample(image, tx + shift + 0.55 * tw, ty + 0.28 * th, spec["height_mm"], dpi)
+    assert not _near(rgb, gray, 12), rgb
 
 
 def _chassis_sample(pose, half):
