@@ -22,21 +22,32 @@ def test_truncation_statement_uses_the_saved_runs() -> None:
     panels = both_panels()
     prose = EXPERIMENTS.read_text(encoding="utf-8")
     speed = prose[prose.find("Effect of Base--Arm Velocity Coupling") :]
-    statement = speed[speed.find("The six commanded speeds") : speed.find("Table~\\ref{tab:speed-study} shows")]
-    assert statement, "truncation paragraph is missing before the coverage conclusion"
+    statement = speed[
+        speed.find("The six commanded speeds") : speed.find("Table~\\ref{tab:speed-study} shows")
+    ]
+    assert statement, "speed paragraph is missing before the coverage conclusion"
+    # The saved runs bypass Eq. (17). The paragraph must say so, and must not
+    # report that the equation left every tier untruncated.
+    assert "truncated" not in statement
+    assert "none of the six" not in statement
+    bypass_at = statement.find("do not apply")
+    recorded_at = statement.find("recorded work speed is the command")
+    conclusion_at = statement.find("leaves more coverage missing")
+    assert 0 <= bypass_at < recorded_at < conclusion_at
+    assert r"v_{\mathrm{safe}}" in statement
     for name, info in panels.items():
         assert info["policy"] == "commanded"
-        assert info["truncated_mps"] == []
+        assert info["applies_v_safe"] == (info["policy"] == "coverage_safe")
+        assert info["recorded_equals_command"] is True
         assert "\\texttt{" + name + "}" in statement
         assert _fmt(info["v_work_min_mps"]) in statement
         assert _fmt(info["v_work_max_mps"]) in statement
-    assert "none of the six" in statement
-    assert "is truncated" in statement
-    conclusion_at = statement.find("leaves more coverage missing")
-    truncated_at = statement.find("is truncated")
-    assert 0 <= truncated_at < conclusion_at
-    # The fixed parameters in the Figure 13 caption are the ones these runs used.
-    caption = prose[prose.find("\\caption{Effect of base--arm") : prose.find("\\label{fig:speed-study}")]
+        for command, recorded in zip(info["commands_mps"], info["recorded_mps"]):
+            assert _fmt(command) in statement
+            assert abs(recorded - command) <= 1e-6
+    caption = prose[
+        prose.find("\\caption{Effect of base--arm") : prose.find("\\label{fig:speed-study}")
+    ]
     sample = next(iter(panels.values()))
     assert f"{sample['r_d_m']:.2f}" in caption
     assert f"{sample['arm_length_m']:.2f}" in caption
