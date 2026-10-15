@@ -415,7 +415,7 @@ The required scene information is first extracted from a CAD/BIM model, site-sur
 % ===FIGPAIR END figure_3_geometric_to_binary_raster.png===
   \caption{Conversion from exact geometric descriptions to the binary raster input.\DIFdelbeginFL \DIFdelFL{The left column shows exact two-dimensional work regions and rectangular subregions abstracted from CAD/BIM, survey, or mapping data; the right column shows the binary map \mbox{$M$} used by the planner. White denotes free target area, black denotes obstacles, openings, or out-of-bound regions, and dashed rectangles indicate approximate cells that may support later rectangular candidates. Examples include rectangular rooms, circular or curved boundaries, L-shaped areas, T-junction or corridor connections, regions with columns or openings, and irregular areas with dense obstacles.}\DIFdelendFL }
   \label{fig:rasterization-examples}
-\end{figure}\marginpar{\scriptsize [48] 把 Figure 4 各子图标题移到子图下方，总图注仍在整图下。}\marginpar{\scriptsize [49] 核对 Figure 4 右下角黑格与左侧几何相符，因此未改像素。}\marginpar{\scriptsize [50] 删去 Figure 4 图注中从左栏说明起的整段。}
+\end{figure}\marginpar{\scriptsize [48] 把 Figure 4 各子图标题移到子图下方，总图注仍在整图下。}\marginpar{\scriptsize [49] 右下角黑格与左侧 L 形及臂上两个矩形的保守栅格不符，已按内角对齐的网格重画，并用 1-4 标出圆盘、竖干方块、臂上矩形和臂下矩形。}\marginpar{\scriptsize [50] 删去 Figure 4 图注中从左栏说明起的整段。}
 
 After the map has been abstracted, equipment drawings, calibration tests, and controller limits provide the robot model and initial state. The scene input for one planning task is divided into map and robot components:
 \begin{equation*}
@@ -448,7 +448,7 @@ Let the input map be
 \begin{equation*}
 M\in\{0,255\}^{H_p\times W_p},
 \end{equation*}
-\DIFdelbegin \DIFdel{where \mbox{$M_{uv}=0$} is an obstacle pixel and \mbox{$M_{uv}=255$} a free pixel}\DIFdelend \DIFaddbegin \DIFadd{The labels $0$ and $255$ only distinguish obstacle and free; they are not grayscale values and not physical quantities}\marginpar{\scriptsize [51] 说明 0 和 255 只是障碍与自由的标签，未改图像编码。}\DIFaddend . With physical pixel size $s_p$, the free-pixel set is
+\DIFdelbegin \DIFdel{where \mbox{$M_{uv}=0$} is an obstacle pixel and \mbox{$M_{uv}=255$} a free pixel}\DIFdelend \DIFaddbegin \DIFadd{The labels $0$ and $255$ are 8-bit pixel labels, not physical sizes or continuous geometric quantities}\marginpar{\scriptsize [51] 说明 0 和 255 只是障碍与自由的标签，未改图像编码。}\marginpar{\scriptsize 将 0 和 255 改写为 8-bit 像素标签，不是物理尺寸或连续的几何量。}\DIFaddend . With physical pixel size $s_p$, the free-pixel set is
 \begin{equation*}
 \mathcal P_F=\{(u,v)\mid M_{uv}=255\}.
 \end{equation*}
@@ -647,7 +647,7 @@ The state and its connection from the preceding primitive are then checked again
 % ===FIGNEW END figure_strip_geometry.png===
   \caption{\DIFaddFL{Entry pose, work strips, and swing amplitude $\phi_w$ for one rectangle.}}
   \label{fig:strip-geometry}
-\end{figure}\marginpar{\scriptsize [63] 用已有几何符号为条带和半周期运动新画两张原理图。}
+\end{figure}\marginpar{\scriptsize [63] 用已有几何符号为条带和半周期运动新画两张原理图。}\marginpar{\scriptsize 将条带数从水平顶边移到沿 h\_R 排列的条带组旁，写成 N\_s strips。顶边只保留矩形边界。}
 
 \DIFaddend For each sweep direction, the planner filters the four corners to retain starting points reachable from the entry and connectable to the exit; the parity of the strip count determines the coverage endpoint. It selects the feasible combination with the minimum sum of non-working motion and local coverage time. Entry, sweep direction, starting corner, strip-count parity, and exit therefore jointly determine the primitive; the start is not chosen merely as the nearest corner in Euclidean distance.
 
@@ -1070,6 +1070,8 @@ Map & \shortstack{Base speed\\(m/s)} & \shortstack{$\rho$\\(m/degree)} & \shorts
 \end{tabular}
 \end{table}
 
+\DIFaddbegin \DIFadd{The six commanded speeds are $0.5$, $1.0$, $1.5$, $2.0$, $2.5$, and $3.0$~m/s. Eq.~\eqref{eq:work-speed} sets $v_{\mathrm{work}}=\min(v_{\max},v_{\mathrm{safe}})$, so a command is truncated when $v_{\mathrm{safe}}$ is the smaller of the two. These runs keep the commanded policy: the saved trajectories give a work speed equal to the command on every tier. On both \texttt{simple} and \texttt{complex}, none of the six speeds is truncated, and the actual work speed ranges from $0.5$ to $3.0$~m/s. With that executed speed established, the faster base speed leaves more coverage missing.}\marginpar{\scriptsize 六档指令速度在 simple 和 complex 上都未被 v\_work 截断，记录的作业速度等于指令速度，范围都是 0.5 到 3.0 m/s。其后才写速度越快漏覆盖越多。}\DIFaddend
+
 Table~\ref{tab:speed-study} shows a clear coverage--time trade-off, although the full-trajectory results make it more moderate than an analysis of work strips alone might suggest. Total time decreases monotonically with base speed: from 1680.45 to 735.12~s (56.25\%) on \texttt{\DIFdelbegin \DIFdel{map\_test1}\DIFdelend \DIFaddbegin \DIFadd{simple}\DIFaddend } and from 14525.14 to 4120.11~s (71.63\%) on \texttt{\DIFdelbegin \DIFdel{parkingGraph}\DIFdelend \DIFaddbegin \DIFadd{complex}\DIFaddend }. As $\rho$ increases from 0.00556 to 0.03333~m/degree, coverage decreases from 96.44\% to 85.27\% and from 99.15\% to 90.32\%, reductions of 11.17 and 8.83 percentage points. Larger sweep spacing therefore weakens coverage continuity, but no tested condition makes the full-trajectory coverage unusably low.
 
 Time per unit covered area further clarifies the trade-off. It decreases continuously with base speed on both maps: from 2.852 to 1.411~s/m$^2$ on \texttt{\DIFdelbegin \DIFdel{map\_test1}\DIFdelend \DIFaddbegin \DIFadd{simple}\DIFaddend } and from 3.412 to 1.062~s/m$^2$ on \texttt{\DIFdelbegin \DIFdel{parkingGraph}\DIFdelend \DIFaddbegin \DIFadd{complex}\DIFaddend }, improvements of 50.53\% and 68.88\%. A speed of 3.0~m/s gives both the shortest total time and lowest time per covered area, at the cost of coverage ratios of 85.27\% and 90.32\%. Conversely, 0.5~m/s gives the highest coverage on both maps. If both maps must retain at least 95\% full-trajectory coverage, 1.0~m/s is the highest tested admissible speed, while already reducing total time by 34.81\% and 42.54\% relative to 0.5~m/s. Base speed should therefore be selected jointly with arm angular velocity according to a minimum-coverage constraint and schedule objective, rather than treated as an incidental parameter after geometric planning. Smaller $\rho$ favors coverage quality; larger $\rho$ favors time efficiency when a coverage loss of roughly 9--11 percentage points is acceptable.
@@ -1104,9 +1106,9 @@ Time per unit covered area further clarifies the trade-off. It decreases continu
 % ===FIGPAIR END figure_5b_vehicle_speed_parkingGraph_en.png===
 \small (b) \texttt{\DIFdelbeginFL \DIFdelFL{parkingGraph}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{complex}\DIFaddendFL }
 
-  \caption{Effect of \DIFdelbeginFL \DIFdelFL{the base-to-arm }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{base--arm }\DIFaddendFL velocity \DIFdelbeginFL \DIFdelFL{ratio }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{coupling }\DIFaddendFL on full-trajectory coverage and execution time.\DIFdelbeginFL \DIFdelFL{The horizontal axis is \mbox{$\rho=v/\omega_a$}; the secondary top axis gives the corresponding base speed. Blue denotes full-trajectory coverage and red total execution time. Both curves use the data in Table~\mbox{\ref{tab:speed-study}}.}\DIFdelendFL }
+  \caption{Effect of \DIFdelbeginFL \DIFdelFL{the base-to-arm }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{base--arm }\DIFaddendFL velocity \DIFdelbeginFL \DIFdelFL{ratio }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{coupling }\DIFaddendFL on full-trajectory coverage and execution time\DIFaddbeginFL \DIFaddFL{, for commanded base speed $v$ with $\rho=v/\omega_a$ and fixed $r_d=0.75$~m, $L=1.20$~m, and $\omega_a=90^\circ$/s}\DIFaddendFL .\DIFdelbeginFL \DIFdelFL{The horizontal axis is \mbox{$\rho=v/\omega_a$}; the secondary top axis gives the corresponding base speed. Blue denotes full-trajectory coverage and red total execution time. Both curves use the data in Table~\mbox{\ref{tab:speed-study}}.}\DIFdelendFL }
   \label{fig:speed-study}
-\end{figure}\marginpar{\scriptsize [81] 用现有速度表重画曲线并使横轴从零起，未新跑实验，也未加入没有数据的单条带曲线。}
+\end{figure}\marginpar{\scriptsize [81] 用现有速度表重画曲线并使横轴从零起，未新跑实验，也未加入没有数据的单条带曲线。}\marginpar{\scriptsize 速度曲线横轴补上 0 刻度，0 只是原点而不是观测。横轴是基座速度 v，并写出 rho 等于 v 除以 omega\_a。图注写明固定参数 r\_d=0.75 m、L=1.20 m、omega\_a=90 度/秒。}
 
 \subsection{Discussion}
 
