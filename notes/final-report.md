@@ -68,3 +68,13 @@
 改 `diff.tex` 在重编批阅版之前。`english_paper/diff.tex` 的 81 条边注都删去了开头的“按导师意见”，以及紧跟其后的冒号、逗号或空格。这次没有一条边注在这四个字后面带冒号、逗号或空格，所以只去掉这四个字。编号和后面的说明没有改。`[61]` 现在是“删去 Figure 6 图注的后半句。”，`[67]` 现在是“用两个矩形和一次转移新画覆盖率原理图，未用实验地图。”图例里的“对应导师意见”不是边注，没有改。
 
 重编用 `latexmk -xelatex` 对 `english_paper/diff.tex` 跑了两次，退出码都是 0，都是 32 页。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同，提交是 `361abf2adaf2921175d7a7ff7c6ae9660306a510`。抽出的文字里没有“按导师意见”。`main` 仍是 `3590a4a933d97dd775314b2dfb62d4a9d5b996db`。没有推送。
+
+## 掉头弧落在橙色作业区上
+
+上一节的灰带画在矩形外面。这一节把掉头扫过的区域收到矩形内部，叠在橙色上。Figure 6 没有再改。没有推送。`main` 仍是 `3590a4a933d97dd775314b2dfb62d4a9d5b996db`。
+
+- 图：`english_paper/figures/figure_coverage_segments.pdf`。每个矩形内部整块是作业区，橙色铺满，条带首尾相接，没有空隙。掉头在路径离开的一端，沿掉头弧叠一层宽 \(2r_d\) 的半透明灰，中心线内收 \(r_d\)，描边不越出矩形边界。橙色仍从灰下透出。两个矩形之间的转移带仍是纯灰，宽 \(2r_d\)。(a) 只有橙色，\(\mathcal C_{\mathrm{work}}\) 包住全部橙色；(b) 的 \(\mathcal C_{\mathrm{traj}}\) 包住橙色与转移灰带的并集。图注仍是一句。
+- `rev/figs`：`b35863b52e6b9e7888a50e9b76ab70c589b13f2b`。
+- `rev/merged`：合并 `c1606468cf00dad288517f0bc6301f9aed5a757a`，终版 PDF 在 `eb0bf9d891252c12de85560828acae3cd39a3aef`。路径 `english_paper/final/paper_final.pdf`。`latexmk -pdf` 两次退出码都是 0，都是 28 页。Figure 7 仍在第 14 页，圆盘和虚线没有被裁切。Figure 10 在第 19 页，橙色铺满，掉头弧在矩形内，只有转移带是纯灰。
+- `rev/merged-diff`：合并 `889a862de8beb6f2d77f72047ee490947474c457`，批阅版 PDF 在 `7fcdae45822ee273c535b630f420d12d4209c7bd`。`english_paper/diff.tex` 的图路径和边注没有改，包括 `[60]`、`[61]`、`[67]`。旧图仍只来自 `old_figs/`。`latexmk -xelatex` 两次退出码都是 0，都是 32 页。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同。Figure 7 在第 18 页，没有被裁切，删去的长图注仍是红字。Figure 10 在第 22 页蓝框内，标“新增”，掉头弧在橙色之上，转移带是纯灰。
+- hyperref 的 `equation.3.1` 目标名重复，以及 `pdftotext` 的字体类型不匹配，仍是原有警告。这次没有改公式。
