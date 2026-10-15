@@ -1,11 +1,13 @@
 """Work sweep versus full-trajectory sweep on two rectangles and one transfer.
 
 Strip count and width follow Section 3.5: N_s strips of width w_s = h_R / N_s
-tile each rectangle. Gray bands are the non-work sweeps and have width 2 r_d.
+tile each rectangle. A turn is a translucent arc of width 2 r_d inside the
+rectangle. The transfer between the rectangles is the only opaque gray band.
 """
 
 from __future__ import annotations
 
+import math
 import sys
 from pathlib import Path
 
@@ -20,6 +22,7 @@ W_S = 10.0
 H_R = N_S * W_S
 R_D = 2.0
 GRAY_W = 2.0 * R_D
+TURN_ALPHA = 0.45
 ELL_LEFT = 26.0
 ELL_RIGHT = 18.0
 GAP = 10.0
@@ -46,16 +49,33 @@ def _path_pairs(descending: bool) -> list[tuple[int, int]]:
     return [(index, index + 1) for index in range(N_S - 1)]
 
 
-def _turns(rect: dict, *, descending: bool) -> list[tuple[float, float, float, float]]:
-    """Lane-change bands on the end where the path leaves one strip. Width is 2 r_d."""
-    bands = []
+def _turns(rect: dict, *, descending: bool) -> list[dict]:
+    """Inward turn arcs on the end where the path leaves one strip.
+
+    The arc joins the two strip centerlines. Its stroke width is 2 r_d and
+    the stroke stays inside the rectangle.
+    """
+    arcs = []
     for src, dst in _path_pairs(descending):
-        y0 = rect["y"] + (min(src, dst) + 0.5) * W_S
+        cy = rect["y"] + (min(src, dst) + 1) * W_S
+        # Inset by r_d so a stroke of width 2 r_d stays inside the boundary.
         if _going_right(src):
-            bands.append((rect["x"] + rect["w"], y0, GRAY_W, W_S))
+            cx = rect["x"] + rect["w"] - R_D
+            start, end = 90.0, 270.0
         else:
-            bands.append((rect["x"] - GRAY_W, y0, GRAY_W, W_S))
-    return bands
+            cx = rect["x"] + R_D
+            start, end = -90.0, 90.0
+        arcs.append(
+            {
+                "cx": cx,
+                "cy": cy,
+                "radius": W_S / 2.0,
+                "width": GRAY_W,
+                "start": start,
+                "end": end,
+            }
+        )
+    return arcs
 
 
 def _transfer(left: dict, right: dict) -> tuple[float, float, float, float]:
@@ -86,13 +106,6 @@ def _arrow(strip: tuple[float, float, float, float], direction: int) -> tuple[fl
     return (x + w - inset, y_mid, x + inset, y_mid)
 
 
-def _centerline(band: tuple[float, float, float, float]) -> tuple[float, float, float, float]:
-    x, y, w, h = band
-    if w <= h:
-        return (x + w / 2.0, y, x + w / 2.0, y + h)
-    return (x, y + h / 2.0, x + w, y + h / 2.0)
-
-
 def layout() -> dict:
     """Absolute millimetre geometry for both panels. Panel 0 is (a)."""
     panels = []
@@ -100,10 +113,11 @@ def layout() -> dict:
         left = _rect(ox + 8.0, oy + 6.0, ELL_LEFT, H_R)
         right = _rect(left["x"] + left["w"] + GAP, oy + 6.0, ELL_RIGHT, H_R)
         # The transfer leaves the left rectangle on the top strip and enters the right one.
-        gray = _turns(left, descending=False) + _turns(right, descending=True) + [_transfer(left, right)]
+        turns = _turns(left, descending=False) + _turns(right, descending=True)
+        transfer = _transfer(left, right)
         orange_boxes = [tuple(s) for rect in (left, right) for s in rect["strips"]]
         orange_bb = _bbox(orange_boxes)
-        union_bb = _bbox(orange_boxes + gray)
+        union_bb = _bbox(orange_boxes + [transfer])
         if index == 0:
             mark = _expand(orange_bb, PAD)
             mark_name = "c_work"
@@ -120,9 +134,9 @@ def layout() -> dict:
                 "tag": "(a)" if index == 0 else "(b)",
                 "tag_at": (cx, oy - 1.5),
                 "rectangles": [left, right],
-                "gray": gray,
+                "turns": turns,
+                "transfer": transfer,
                 "arrows": arrows,
-                "centerlines": [_centerline(band) for band in gray],
                 "orange_bbox": orange_bb,
                 "union_bbox": union_bb,
                 "mark": mark,
@@ -149,6 +163,24 @@ def _draw_segment(segment: tuple[float, float, float, float], style: str) -> str
     return f"  \\draw[{style}] ({_num(x0)},{_num(y0)}) -- ({_num(x1)},{_num(y1)});"
 
 
+def _arc_point(arc: dict, angle: float) -> tuple[float, float]:
+    theta = math.radians(angle)
+    return (
+        arc["cx"] + arc["radius"] * math.cos(theta),
+        arc["cy"] + arc["radius"] * math.sin(theta),
+    )
+
+
+def _draw_arc(arc: dict) -> str:
+    x0, y0 = _arc_point(arc, arc["start"])
+    return (
+        "  \\draw[secondary, opacity="
+        f"{TURN_ALPHA:.2f}, line width={_num(arc['width'])}mm, line cap=butt] "
+        f"({_num(x0)},{_num(y0)}) arc[start angle={_num(arc['start'])}, "
+        f"end angle={_num(arc['end'])}, radius={_num(arc['radius'])}];"
+    )
+
+
 def _body(spec: dict) -> str:
     lines = [
         r"\begin{tikzpicture}[x=1mm,y=1mm]",
@@ -157,11 +189,14 @@ def _body(spec: dict) -> str:
     for panel in spec["panels"]:
         lines.append(f"  \\node[tag, anchor=north] at ({_num(panel['tag_at'][0])},{_num(panel['tag_at'][1])}) {{{panel['tag']}}};")
         if panel["mark_name"] == "c_traj":
-            for band in panel["gray"]:
-                lines.append(_rect_fill(band, "nonworkfill"))
+            lines.append(_rect_fill(panel["transfer"], "nonworkfill"))
         for rect in panel["rectangles"]:
             for strip in rect["strips"]:
                 lines.append(_rect_fill(strip, "workband"))
+        if panel["mark_name"] == "c_traj":
+            for arc in panel["turns"]:
+                lines.append(_draw_arc(arc))
+        for rect in panel["rectangles"]:
             lines.append(
                 "  \\draw[main] "
                 f"({_num(rect['x'])},{_num(rect['y'])}) rectangle "
@@ -169,9 +204,6 @@ def _body(spec: dict) -> str:
             )
         for arrow in panel["arrows"]:
             lines.append(_draw_segment(arrow, "flow"))
-        if panel["mark_name"] == "c_traj":
-            for segment in panel["centerlines"]:
-                lines.append(_draw_segment(segment, "aux"))
         x0, y0, x1, y1 = panel["mark"]
         lines.append(
             f"  \\draw[guide] ({_num(x0)},{_num(y0)}) rectangle ({_num(x1)},{_num(y1)});"
