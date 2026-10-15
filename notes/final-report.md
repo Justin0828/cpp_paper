@@ -86,7 +86,7 @@
 - 意见 49。右下角黑格与左侧 L 形及臂上矩形的保守栅格不符。网格以内角对齐，与圆盘或矩形相交的格子标为不可用。已重画 panel (d)，并用 1–4 标出圆盘、竖干方块、臂上矩形和臂下矩形。自由格从 145 减到 122。panel (c) 没有改。
 - 意见 63。Figure 8(b) 的 \(N_s\) 从水平顶边移到沿 \(h_R\) 排开的条带组旁，写成 \(N_s\) strips。顶边只留矩形边界。\(w_s\) 仍标一条带高度，\(h_R\) 仍标横向总高。
 - 意见 81。Figure 13 横轴补上 0 刻度。0 是原点，曲线仍只有 0.5 到 3.0 m/s 六档。横轴是基座速度 \(v\)，轴上写出 \(\rho=v/\omega_a\)。图注的固定参数与实验记录和正文一致：\(r_d=0.75\) m，\(L=1.20\) m，\(\omega_a=90^\circ\)/s。
-- 意见 72/78/81。六档指令速度是 0.5、1.0、1.5、2.0、2.5、3.0 m/s。式 (17) 为 \(v_{\mathrm{work}}=\min(v_{\max},v_{\mathrm{safe}})\)。保存的 12 次运行用 commanded 策略，`work_speed_limited` 为假，记录的作业速度等于指令速度。simple 和 complex 上六档都没有被截断，实际作业速度都是 0.5 到 3.0 m/s。这句话写在“速度越快漏覆盖越多”之前。没有另编 \(\phi_w\)。
+- 意见 72/78/81。六档指令速度是 0.5、1.0、1.5、2.0、2.5、3.0 m/s。式 (17) 为 \(v_{\mathrm{work}}=\min(v_{\max},v_{\mathrm{safe}})\)。保存的结果没有逐条带臂角行程，不能从式 (16) 回算 \(v_{\mathrm{safe}}\)。这 12 次运行的策略是 commanded，作业段不施加 \(v_{\mathrm{safe}}\) 上限。记录的作业速度等于指令速度，simple 和 complex 都是 0.5 到 3.0 m/s。这句话写在“速度越快漏覆盖越多”之前。
 - 意见 51。地图一句现为：0 和 255 是 8-bit 像素标签，不是物理尺寸或连续的几何量。\(M\in\{0,255\}\) 和像素物理尺寸 \(s_p\) 仍在。
 
 边注：`[49]` 改为重画说明。另外四条只写这一轮的改动，开头没有“按导师意见”。原先的 `[51]`、`[63]`、`[81]` 和其他边注还在。图例那句还在。
@@ -95,3 +95,13 @@
 - `rev/merged`：合并 `0bcb1fb07da1798eb17e19ab910098dc9eb2404a`，正文 `4f5721536e171e392012f2dab1e4cc9c7fea73fd`，终版 PDF `f0d45c92d70e6258daefe0d31a2c1fa0dbd7ae82`。路径 `english_paper/final/paper_final.pdf`。对 `english_paper/main.tex` 用 `latexmk -pdf` 编译两次，退出码都是 0，都是 28 页。Figure 5(d) 在第 10 页，障碍 1–4 标在几何和黑格上。Figure 8(b) 在第 15 页，\(N_s\) strips 在条带组旁。地图标签句在第 11 页。速度段在第 25 页。Figure 13 在第 26 页，横轴有 0，图注有上述三个固定参数。
 - `rev/merged-diff`：正文与图先合并为 `7e272324c588e45a4029bd0b0e9d64affe1d350e`，终版 PDF 再合并为 `30a3b913c99e6d91aa3836e4fd5070900967b8ad`，批阅版 PDF 在 `b54b4c50be5d8425e2ff39adf175c24083ff60a0`。对 `english_paper/diff.tex` 用 `latexmk -xelatex` 编译两次，退出码都是 0，这一轮是 31 页。参考文献仍收到 [22]。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同。旧图仍只来自 `old_figs/`。Figure 5(d) 在第 13 页，左红右蓝。Figure 8 在第 19 页。地图标签在第 14 页。速度段在第 28 页。Figure 13 在第 29 页。
 - hyperref 的 `equation.3.1` 目标名重复，以及 `pdftotext` 的字体类型不匹配，仍是原有警告。这次没有改公式编号，也没有改表 2–4 的数字。
+
+## 速度段改为不施加 \(v_{\mathrm{safe}}\)
+
+上一节曾把“记录速度等于指令”写成式 (17) 没有截断六档。保存的运行用 commanded 策略，该策略把作业速度设为指令，不取 \(v_{\mathrm{safe}}\)。结果目录没有逐条带臂角，没有回算式 (16)，也没有另编 \(\phi_w\)。没有推送。`main` 仍是 `3590a4a933d97dd775314b2dfb62d4a9d5b996db`。
+
+- 正文现为：这些保存的运行不施加 \(v_{\mathrm{safe}}\) 上限，记录的作业速度就是指令。simple 和 complex 都是 0.5 到 3.0 m/s。其后才写速度越快漏覆盖越多。
+- `rev/figs`：`7ed4f16ed555521a7e23cb9f54e8943019094e85` 读取记录，`36efe02acc0a63fae71a820328751a28255c0107` 改测试。
+- `rev/merged`：合并 `caec1dce5a70f4b2f42b8bd30615112cba49a49e` 与 `03e508b1f1b09ac4cebd018f1162950c6dc897d5`，正文 `d776be3a447df52f9281e4a229bd241d00494fd8`，终版 PDF `88dfb8bf49c75d569815ff5f484a5ec25efbdc29`。对 `english_paper/main.tex` 用 `latexmk -pdf` 编译两次，退出码都是 0，都是 28 页。速度段仍在第 25 页。
+- `rev/merged-diff`：合并 `448ebd98675c9deff43b3a377e31201895c3d682`，批阅版 PDF 在 `d2cf8af44adf5a1284393c6191386e6a1e7befbf`。对 `english_paper/diff.tex` 用 `latexmk -xelatex` 编译两次，退出码都是 0，都是 31 页。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同。速度段在第 28 页。边注改为没有施加 \(v_{\mathrm{safe}}\) 上限。
+- hyperref 的 `equation.3.1` 目标名重复，以及 `pdftotext` 的字体类型不匹配，仍是原有警告。这次没有改公式编号。
