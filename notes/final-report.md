@@ -62,3 +62,9 @@
 - `rev/merged`：合并 `803b4af9fd1299afa906d9ceb97736d4a171be93`，终版 PDF 在 `958ea8adafd25aa61bd5bb62f97bcff3e7c9ae0b`。路径 `english_paper/final/paper_final.pdf`。`latexmk -pdf` 两次退出码都是 0，都是 28 页。Figure 7 仍在第 14 页，圆盘和虚线没有被裁切。Figure 10 在第 19 页，进入矩形的灰带在路径离开的一端，不盖住转移。
 - `rev/merged-diff`：合并 `50538d32bb4a38801eb3b84c37e3c4caa243f420`，批阅版 PDF 在 `feeb0881cdb7857ee58860ddc0cfa44f7ce3934f`。`english_paper/diff.tex` 的图路径和边注没有改，包括 `[60]`、`[61]`、`[67]`。旧图仍只来自 `old_figs/`。`latexmk -xelatex` 两次退出码都是 0，都是 32 页。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同。Figure 7 在第 18 页，没有被裁切。Figure 10 在第 22 页蓝框内，标“新增”，灰带与转移不相重叠。
 - hyperref 的 `equation.3.1` 目标名重复，以及 `pdftotext` 的字体类型不匹配，仍是原有警告。这次没有改公式。
+
+## 边注去掉“按导师意见”
+
+改 `diff.tex` 在重编批阅版之前。`english_paper/diff.tex` 的 81 条边注都删去了开头的“按导师意见”，以及紧跟其后的冒号、逗号或空格。这次没有一条边注在这四个字后面带冒号、逗号或空格，所以只去掉这四个字。编号和后面的说明没有改。`[61]` 现在是“删去 Figure 6 图注的后半句。”，`[67]` 现在是“用两个矩形和一次转移新画覆盖率原理图，未用实验地图。”图例里的“对应导师意见”不是边注，没有改。
+
+重编用 `latexmk -xelatex` 对 `english_paper/diff.tex` 跑了两次，退出码都是 0，都是 32 页。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同，提交是 `361abf2adaf2921175d7a7ff7c6ae9660306a510`。抽出的文字里没有“按导师意见”。`main` 仍是 `3590a4a933d97dd775314b2dfb62d4a9d5b996db`。没有推送。
