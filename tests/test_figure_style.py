@@ -237,6 +237,149 @@ def _at_turn_or_transfer(band, rects):
     return x >= gap0 - 1e-6 and x + w <= gap1 + 1e-6
 
 
+def _boxes_overlap(a, b, eps=1e-6):
+    ax, ay, aw, ah = a
+    bx, by, bw, bh = b
+    return (
+        ax < bx + bw - eps
+        and ax + aw > bx + eps
+        and ay < by + bh - eps
+        and ay + ah > by + eps
+    )
+
+
+def _arrow_on_strip(arrows, strip):
+    x, y, w, h = strip
+    mid = y + h / 2.0
+    found = [
+        arrow
+        for arrow in arrows
+        if abs(arrow[1] - mid) < 1e-6
+        and abs(arrow[3] - mid) < 1e-6
+        and min(arrow[0], arrow[2]) >= x - 1e-6
+        and max(arrow[0], arrow[2]) <= x + w + 1e-6
+    ]
+    assert len(found) == 1, (strip, found)
+    return found[0]
+
+
+def _goes_right(arrow):
+    return arrow[2] > arrow[0]
+
+
+def _start_x(rect, arrow):
+    return rect["x"] if _goes_right(arrow) else rect["x"] + rect["w"]
+
+
+def _end_x(rect, arrow):
+    return rect["x"] + rect["w"] if _goes_right(arrow) else rect["x"]
+
+
+def _y_hits(band, strip):
+    _x, y, _w, h = band
+    _sx, sy, _sw, sh = strip
+    return y < sy + sh - 1e-6 and y + h > sy + 1e-6
+
+
+def _band_on_end(band, rect, end_x):
+    x, _y, w, _h = band
+    if abs(end_x - (rect["x"] + rect["w"])) < 1e-6:
+        return abs(x - end_x) < 1e-6
+    if abs(end_x - rect["x"]) < 1e-6:
+        return abs((x + w) - end_x) < 1e-6
+    return False
+
+
+def _assert_lane_changes_follow_the_path(panel, gray_w):
+    """Each gray band is the path's turn or the one transfer, and they do not overlap."""
+    left, right = panel["rectangles"]
+    transfers = [
+        band
+        for band in panel["gray"]
+        if abs(band[0] - (left["x"] + left["w"])) < 1e-6 and abs((band[0] + band[2]) - right["x"]) < 1e-6
+    ]
+    assert len(transfers) == 1, transfers
+    transfer = transfers[0]
+    assert abs(transfer[3] - gray_w) < 1e-9
+    turns = [band for band in panel["gray"] if band != transfer]
+    assert len(turns) == 2 * (len(left["strips"]) - 1)
+    for band in turns:
+        assert not _boxes_overlap(band, transfer), (band, transfer)
+    for index, band in enumerate(turns):
+        for other in turns[index + 1 :]:
+            assert not _boxes_overlap(band, other), (band, other)
+
+    def strip_at(rect, y_mid):
+        hits = [
+            index
+            for index, strip in enumerate(rect["strips"])
+            if abs((strip[1] + strip[3] / 2.0) - y_mid) < 1e-6
+        ]
+        assert len(hits) == 1
+        return hits[0]
+
+    y_mid = transfer[1] + transfer[3] / 2.0
+    src = strip_at(left, y_mid)
+    dst = strip_at(right, y_mid)
+    src_arrow = _arrow_on_strip(panel["arrows"], left["strips"][src])
+    dst_arrow = _arrow_on_strip(panel["arrows"], right["strips"][dst])
+    assert abs(transfer[0] - _end_x(left, src_arrow)) < 1e-6
+    assert abs((transfer[0] + transfer[2]) - _start_x(right, dst_arrow)) < 1e-6
+
+    def unseen_neighbor(rect, index, seen, *, at_start):
+        anchor = _arrow_on_strip(panel["arrows"], rect["strips"][index])
+        x_value = _start_x(rect, anchor) if at_start else _end_x(rect, anchor)
+        hits = []
+        for other in (index - 1, index + 1):
+            if other < 0 or other >= len(rect["strips"]) or other in seen:
+                continue
+            arrow = _arrow_on_strip(panel["arrows"], rect["strips"][other])
+            other_x = _end_x(rect, arrow) if at_start else _start_x(rect, arrow)
+            if abs(other_x - x_value) < 1e-6:
+                hits.append(other)
+        assert len(hits) <= 1, (panel["tag"], index, hits)
+        return hits[0] if hits else None
+
+    def hop_band(rect, leave, enter):
+        shared = _end_x(rect, _arrow_on_strip(panel["arrows"], rect["strips"][leave]))
+        assert abs(shared - _start_x(rect, _arrow_on_strip(panel["arrows"], rect["strips"][enter]))) < 1e-6
+        matched = [
+            band
+            for band in turns
+            if _band_on_end(band, rect, shared)
+            and _y_hits(band, rect["strips"][leave])
+            and _y_hits(band, rect["strips"][enter])
+        ]
+        assert len(matched) == 1, (panel["tag"], leave, enter, shared, matched)
+        assert abs(min(matched[0][2], matched[0][3]) - gray_w) < 1e-9
+        return matched[0]
+
+    used = []
+    cursor = src
+    seen = {cursor}
+    while True:
+        prev = unseen_neighbor(left, cursor, seen, at_start=True)
+        if prev is None:
+            break
+        used.append(hop_band(left, prev, cursor))
+        seen.add(prev)
+        cursor = prev
+    assert seen == set(range(len(left["strips"])))
+
+    cursor = dst
+    seen = {cursor}
+    while True:
+        nxt = unseen_neighbor(right, cursor, seen, at_start=False)
+        if nxt is None:
+            break
+        used.append(hop_band(right, cursor, nxt))
+        seen.add(nxt)
+        cursor = nxt
+    assert seen == set(range(len(right["strips"])))
+    assert len(used) == len(turns)
+    assert {tuple(band) for band in used} == {tuple(band) for band in turns}
+
+
 def test_coverage_segments_tiles_and_marks():
     from coverage_segments import (  # noqa: E402
         GRAY_W,
@@ -278,6 +421,7 @@ def test_coverage_segments_tiles_and_marks():
             assert _at_turn_or_transfer(band, panel["rectangles"])
             for rect in panel["rectangles"]:
                 assert not _overlaps_interior(band, rect)
+        _assert_lane_changes_follow_the_path(panel, GRAY_W)
         assert _contains_box(panel["mark"], panel["orange_bbox"])
         assert panel["mark"][3] + 5.0 < spec["height_mm"]
         assert panel["tag_at"][1] > 3.0
