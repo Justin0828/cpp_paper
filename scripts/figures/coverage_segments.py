@@ -35,12 +35,23 @@ def _rect(x: float, y: float, w: float, h: float) -> dict:
     return {"x": x, "y": y, "w": w, "h": h, "strips": strips}
 
 
-def _turns(rect: dict) -> list[tuple[float, float, float, float]]:
-    """Lane-change bands outside the short ends. Width is 2 r_d."""
+def _going_right(index: int) -> bool:
+    return index % 2 == 0
+
+
+def _path_pairs(descending: bool) -> list[tuple[int, int]]:
+    """Strip pairs in path order. The entered rectangle is traversed downward."""
+    if descending:
+        return [(index, index - 1) for index in range(N_S - 1, 0, -1)]
+    return [(index, index + 1) for index in range(N_S - 1)]
+
+
+def _turns(rect: dict, *, descending: bool) -> list[tuple[float, float, float, float]]:
+    """Lane-change bands on the end where the path leaves one strip. Width is 2 r_d."""
     bands = []
-    for i in range(N_S - 1):
-        y0 = rect["y"] + (i + 0.5) * W_S
-        if i % 2 == 0:
+    for src, dst in _path_pairs(descending):
+        y0 = rect["y"] + (min(src, dst) + 0.5) * W_S
+        if _going_right(src):
             bands.append((rect["x"] + rect["w"], y0, GRAY_W, W_S))
         else:
             bands.append((rect["x"] - GRAY_W, y0, GRAY_W, W_S))
@@ -88,7 +99,8 @@ def layout() -> dict:
     for index, (ox, oy) in enumerate(_ORIGINS):
         left = _rect(ox + 8.0, oy + 6.0, ELL_LEFT, H_R)
         right = _rect(left["x"] + left["w"] + GAP, oy + 6.0, ELL_RIGHT, H_R)
-        gray = _turns(left) + _turns(right) + [_transfer(left, right)]
+        # The transfer leaves the left rectangle on the top strip and enters the right one.
+        gray = _turns(left, descending=False) + _turns(right, descending=True) + [_transfer(left, right)]
         orange_boxes = [tuple(s) for rect in (left, right) for s in rect["strips"]]
         orange_bb = _bbox(orange_boxes)
         union_bb = _bbox(orange_boxes + gray)
