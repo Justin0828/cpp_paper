@@ -41,3 +41,14 @@
 - `diff.tex` 里仍有若干 latexdiff 造成的 overfull 行。已查看的边注不与正文或其他边注重叠。第 25 页表 2 的 Map 列里，删除的 `map_test1` / `parkingGraph` 和新增的 `simple` / `complex` 挤在同一格，没有伸进边注。
 - `pdftotext` / `pdftoppm` 对部分图内字体报 “Mismatch between font type and embedded font file”。抽出的正文没有替换字符，也没有 `??`。
 - 照片和 `rev/figs` 仍引用为 PNG/JPG 的图没有另做矢量版。
+
+## 覆盖条带与单矩形原语
+
+`rev/figs` 重画了两张图，随后重编了两份 PDF。没有推送。`main` 仍是 `3590a4a933d97dd775314b2dfb62d4a9d5b996db`。上文里 “第 14 页单矩形 PNG” 指的是上一版；这一版 Figure 6 已改为下面的矢量 PDF。
+
+- 图：`english_paper/figures/figure_coverage_segments.pdf`。作业带按 \(N_s\) 与 \(w_s=h_R/N_s\) 首尾相接，铺满两个矩形。非工作段是宽 \(2r_d\)、比作业带窄的灰带，只画在矩形两端掉头处和两矩形之间。(a) 只有橙色，\(\mathcal C_{\mathrm{work}}\) 的外轮廓包住全部橙色；(b) 是橙色与灰色的并集，\(\mathcal C_{\mathrm{traj}}\) 的外轮廓包住这个并集。图注仍是一句。
+- 图：`english_paper/figures/figure_6_single_rectangle_coverage.pdf`。内容仍是单个矩形内的往复路径。右上圆盘、摆臂和虚线都在版心内，四周留有空白。嵌入宽度仍是 `0.5\linewidth`。删掉的长图注没有加回。
+- `rev/figs`：`ba806fb88fbbc96a9c0b74d15db7ece100d2913f`。
+- `rev/merged`：`c0f4c5fac1bda42b86dcf1eb72537c6b1f118e11`（合并提交 `62f2e46`）。路径 `english_paper/final/paper_final.pdf`。在 `rev/merged` 上对 `english_paper/main.tex` 用 `latexmk -pdf` 编译两次，退出码都是 0，两次都是 28 页。Figure 7 在第 14 页，圆盘和虚线没有被裁切，图注仍是 “Single-rectangle coverage primitive.”。Figure 10 在第 19 页，作业带铺满矩形，灰带更窄且只在掉头和转移处，图注仍是一句。
+- `rev/merged-diff`：先合并为 `b7221a0d233fe606f3b62be01ab1b808c4b18040`，批阅版 PDF 在 `cc0e3eb4fb9ea832eacd97c33fda41b0e94cc9c6`。`english_paper/diff.tex` 里可见的 Figure 6 改为上述 PDF，宽度 `0.5\linewidth`；被注释掉的旧 PNG 行没有改。覆盖图仍在 FIGNEW 里，标“新增”，路径是 `figures/figure_coverage_segments.pdf`。边注正文与 `76b418f` 相同，包括 `[60]`、`[61]`、`[67]`。可见的旧图仍只来自 `old_figs/`。在 `rev/merged-diff` 上对 `english_paper/diff.tex` 用 `latexmk -xelatex` 编译两次，退出码都是 0，两次都是 32 页。`english_paper/final/paper_diff_for_advisor.pdf` 与 `english_paper/diff.pdf` 字节相同。Figure 7 在第 18 页，圆盘和虚线没有被裁切，删去的长图注仍是红字。Figure 10 在第 22 页蓝框内，标“新增”，作业带、灰带和两条外轮廓都完整。
+- hyperref 的 `equation.3.1` 目标名重复，以及 `pdftotext` 的字体类型不匹配，仍是合并前就有的警告。这次没有改公式。
